@@ -1,0 +1,4534 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 5
+
+FORM #VendTable
+  PROPERTIES
+    Name                #VendTable
+  ENDPROPERTIES
+  
+  METHODS
+    Version: 3
+    SOURCE #ClassDeclaration
+      #public class FormRun extends ObjectRun
+      #{
+      #    #define.Address("Address")
+      #
+      #    NumberSeqFormHandler    numberSeqFormHandler;
+      #    DirPartyType            lastPartyType;
+      #
+      #    boolean                 advancedCommunication;
+      #
+      #    DirPrivacyGroupId       publicPrivacyGroupId;
+      #    DirPrivacyGroupId       privatePrivacyGroupId;
+      #
+      #    container               skipCreateDataSources;
+      #
+      #    // The field contactpersonId is hiddeen on the form design, but must be avalible
+      #    // in order to make it possible to have lookup on contact-NAMe
+      #}
+    ENDSOURCE
+    SOURCE #task
+      #public int task(int _taskId)
+      #{
+      #    int ret;
+      #    #task
+      #    ;
+      #
+      #    // If Control+N and datasource is not vendTable then call create on vendTable
+      #    if  (_taskId == #taskNew &&
+      #         (confind(skipCreateDataSources,this.dataSource().id()) || !vendTable)
+      #        )
+      #    {
+      #        vendTable_ds.create();
+      #        ret = 1;
+      #    }
+      #    else
+      #    {
+      #        ret = super(_taskId);
+      #    }
+      #
+      #
+      #    return ret;
+      #}
+    ENDSOURCE
+    SOURCE #toggelSimpleAdvancedCommunication
+      # void  toggelSimpleAdvancedCommunication(boolean _advancedCommunication = advancedCommunication, boolean _setFocus = true)
+      #{
+      #    element.lock();
+      #
+      #    advancedCommunication = _advancedCommunication;
+      #
+      #    contactInfoGrid.visible(advancedCommunication);
+      #    contactInfo.visible(!advancedCommunication);
+      #    buttonToggelSimple.text(!advancedCommunication?"@SYS122657" : "@SYS122660");
+      #    buttonToggelSimple.helpText(!advancedCommunication?"@SYS122656" : "@SYS122661");
+      #
+      #    element.unLock();
+      #    if (_setFocus || tabCommunication.isActivePage())
+      #    {
+      #        if (advancedCommunication)
+      #        {
+      #            contactInfoGrid_CommunicationTypeId.setFocus();
+      #            dirPartyECommunicationRelationship_ds.executeQuery();
+      #        }
+      #        else
+      #        {
+      #            phone.setFocus();
+      #        }
+      #    }
+      #}
+      #
+    ENDSOURCE
+    SOURCE #run
+      #public void run()
+      #{
+      #    int tabNumber = 2;
+      #    ;
+      #
+      #    if (element.args().parm() == #Address)
+      #    {
+      #        tabNumber = 6;
+      #    }
+      #
+      #    SysListPageHelper::handleRunPreSuper(element, tab, tabNumber, 1);
+      #    super();
+      #    SysListPageHelper::handleRunPostSuper(element, tab);
+      #}
+      #
+    ENDSOURCE
+    SOURCE #refreshHeaderTabPages
+      #void refreshHeaderTabPages()
+      #{
+      #    ;
+      #    if (tabAddress.isActivePage())
+      #    {
+      #        dirPartyAddressRelationship_ds.executeQuery();
+      #    }
+      #}
+    ENDSOURCE
+    SOURCE #hideQualityManagement
+      #void hideQualityManagement()
+      #{
+      #    ;
+      #    inventNonConformanceTable.visible(false);
+      #}
+    ENDSOURCE
+    SOURCE #enablePartyDetails
+      #void enablePartyDetails()
+      #{
+      #    ;
+      #    personGroup.visible(vendTable.PartyType == DirPartyType::Person);
+      #    organizationGroup.visible(vendTable.PartyType == DirPartyType::Organization);
+      #    contactInfoGrid_M_editIsSIPAddress.visible(vendTable.PartyType == DirPartyType::Person);
+      #}
+    ENDSOURCE
+    SOURCE #Init
+      #void init()
+      #{
+      #    VendParameters  vp;
+      #    boolean         enable;
+      #    boolean         isVendTableDataSet = false;
+      #    boolean         historyButtonsVisible;
+      #    ;
+      #
+      #    if (element.args().dataset() == tablenum(VendTable))
+      #    {
+      #        SysListPageHelper::handleInitPreSuper(element);
+      #        isVendTableDataSet = true;
+      #    }
+      #
+      #    super();
+      #
+      #
+      #    [advancedCommunication] = xSysLastValue::getValue(curext(),curuserid(),UtilElementType::Form,formstr(VendTable));
+      #    element.toggelSimpleAdvancedCommunication(advancedCommunication,false);
+      #
+      #    TaxVATNumTable::enableLookupVATNum(salesTax_VatNum);
+      #
+      #    if (CompanyNAFCode::NAFCodeTableEmpty())
+      #    {
+      #        contactinfo_CompanyIdSiret.visible(false);
+      #        contactinfo_CompanyIdNAF.visible(false);
+      #    }
+      #
+      #    vp = VendParameters::find();
+      #    if(vp.PurchCycle)
+      #    {
+      #        salesPurchCycle_Purch.visible(true);
+      #    }
+      #
+      #    if (vp.VendInvoiceRefNumValidation_FI)
+      #    {
+      #        vendTable_ds.object(fieldnum(VendTable, PaymId)).allowEdit(false);
+      #    }
+      #
+      #    enable = (vp.useInvoiceMatching() == NoYes::Yes);
+      #    vendTable_ds.object(fieldnum(VendTable, VendPriceToleranceGroupId)).allowEdit(enable);
+      #    vendTable_ds.object(fieldnum(VendTable, VendPriceToleranceGroupId)).skip(!enable);
+      #
+      #    if (!InventParameters::find().UseQualityManagement)
+      #    {
+      #        element.hideQualityManagement();
+      #    }
+      #
+      #    if (isVendTableDataSet)
+      #    {
+      #        SysListPageHelper::handleInitPostSuper(element);
+      #    }
+      #
+      #    historyButtonsVisible = VendParameters::find(false).useInvoiceMatching(false) == NoYes::Yes;
+      #
+      #    invoiceHistory.visible(historyButtonsVisible);
+      #    invoiceHistoryApproval.visible(historyButtonsVisible);
+      #
+      #    publicPrivacyGroupId = DirPrivacyGroupTable::findBySystemType(DirSystemPrivacyGroupType::Public).PrivacyGroupId;
+      #    privatePrivacyGroupId = DirPrivacyGroupTable::findBySystemType(DirSystemPrivacyGroupType::Vendor).PrivacyGroupId;
+      #    skipCreateDataSources = [dirPartyTable_ds.id(),dirPersonPartyDetail_ds.id(),dirOrganizationDetail_ds.id()];
+      #
+      #
+      #}
+    ENDSOURCE
+    SOURCE #setNameLookup
+      #void setNameLookup()
+      #{
+      #    #define.LOOKUP_AUTO(0)
+      #    #define.LOOKUP_NEVER(1)
+      #    ;
+      #    vendTable_Name.lookupButton(!vendTable.RecId ? #LOOKUP_AUTO : #LOOKUP_NEVER);
+      #    description_Name.lookupButton(!vendTable.RecId ? #LOOKUP_AUTO : #LOOKUP_NEVER);
+      #}
+    ENDSOURCE
+    SOURCE #close
+      #void close()
+      #{
+      #    if (numberSeqFormHandler)
+      #    {
+      #        numberSeqFormHandler.formMethodClose();
+      #    }
+      #
+      #     xSysLastValue::putValue([advancedCommunication],curext(),curuserid(),UtilElementType::Form,formstr(VendTable));
+      #
+      #
+      #    super();
+      #}
+    ENDSOURCE
+    SOURCE #numberSeqFormHandler
+      #NumberSeqFormHandler numberSeqFormHandler()
+      #{
+      #    if (!numberSeqFormHandler)
+      #    {
+      #        numberSeqFormHandler = NumberSeqFormHandler::newForm(VendParameters::numRefVendAccount().NumberSequence,
+      #                                                             element,
+      #                                                             vendTable_DS,
+      #                                                             fieldnum(VendTable, AccountNum)
+      #                                                            );
+      #    }
+      #    return numberSeqFormHandler;
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #VendTable
+          Table               #VendTable
+          Index               #AccountIdx
+          InsertIfEmpty       #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD PaymTermId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #Modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    vendTable_ds.refresh();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD Name
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #jumpRef
+                #public void jumpRef()
+                #{
+                #    ;
+                #    DirParty::jumpRefFromCommon(vendTable);
+                #}
+              ENDSOURCE
+              SOURCE #lookup
+                #public void lookup(FormStringControl _formControl, str _filterStr)
+                #{
+                #    ;
+                #    // Allow name lookup if Vendomer is not yet created
+                #    if (!vendTable.RecId )
+                #    {
+                #        DirUtility::namelookup(_formControl, vendTable, vendTable.PartyType);
+                #    }
+                #}
+              ENDSOURCE
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    FormStringControl   control;
+                #    DirPartyId          oldPartyId;
+                #    ;
+                #    oldPartyId = vendTable.PartyId;
+                #    super();
+                #    // If party is not yet identified and on basis of name there could be one or matches for parties
+                #    if (!vendTable.PartyId && DirPartyTable::nameLikeCount(vendTable.Name, vendTable.PartyType) >= 1)
+                #    {
+                #        control = element.selectedControl();
+                #
+                #        if (!control && (tabOverview.isActivePage() && element.selectControl(vendTable_Name)) ||
+                #                        (tabGeneral.isActivePage()  && element.selectControl(description_Name))
+                #           )
+                #        {
+                #            control = element.selectedControl();
+                #        }
+                #
+                #        DirUtility::namelookup(control, vendTable, vendTable.PartyType);
+                #    }
+                #    if (!vendTable.RecId && (vendTable.PartyId || oldPartyId))
+                #    {
+                #        DirParty::showHideMessageBar(element,vendTable);
+                #    }
+                #
+                #    element.setNameLookup();
+                #
+                #    vendTable.setNameAlias();
+                #}
+                #
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD VATNum
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #jumpRef
+                #public void jumpRef()
+                #{
+                #    if (TaxVATNumTable::taxVATNumTableEnabled())
+                #    {
+                #        TaxVATNumTable::jumpRefVATNum(vendTable, element);
+                #    }
+                #    else
+                #    {
+                #        super();
+                #    }
+                #}
+              ENDSOURCE
+              SOURCE #lookup
+                #public void lookup(FormControl _formControl, str _filterStr)
+                #{
+                #    ;
+                #
+                #    if (TaxVATNumTable::taxVATNumTableEnabled())
+                #    {
+                #        TaxVATNumTable::lookupVATNum(_formControl, vendTable);
+                #    }
+                #    else
+                #    {
+                #        super(_formControl, _filterStr);
+                #    }
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD OffsetAccount
+            PROPERTIES
+              AllowEdit           #No
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #lookup
+                #public void lookup(FormControl _formControl, str _filterStr)
+                #{
+                #    ;
+                #    if (vendTable.OffsetAccountType == LedgerJournalACType::Ledger)
+                #    {
+                #        VendTable::changeDefaultAccounts(vendTable, _formControl);
+                #    }
+                #    else
+                #    {
+                #        VendTable::lookupOffsetAccount(vendTable, vendTable.OffsetAccountType, _formControl);
+                #    }
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD OffsetAccountType
+            PROPERTIES
+              AllowEdit           #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD VendGroup
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    DialogButton        dialogButton;
+                #    VendDefaultAccounts vendDefaultAccounts;
+                #    ;
+                #
+                #    if (VendDefaultAccounts::existVendAccount(vendTable.AccountNum))
+                #    {
+                #        dialogButton = Box::yesNo(strfmt("@SYS99305", vendTable.AccountNum),
+                #                                  DialogButton::Yes);
+                #
+                #        if (dialogButton == DialogButton::Yes)
+                #        {
+                #            delete_from vendDefaultAccounts
+                #                where vendDefaultAccounts.VendAccount == vendTable.AccountNum;
+                #        }
+                #    }
+                #
+                #    super();
+                #}
+                #
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD SegmentId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    #define.blank('')
+                #
+                #    super();
+                #
+                #    // When segment changes, subsegment should be cleared
+                #    vendTable.SubsegmentId = #blank;
+                #
+                #    // Refersh Vendor data source
+                #    vendTable_ds.refresh();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD PartyId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    if (!vendTable.RecId)
+                #    {
+                #        DirParty::showHideMessageBar(element,vendTable);
+                #    }
+                #
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD BankAccount
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #lookup
+                #public void lookup(FormControl _formControl, str _filterStr)
+                #{
+                #    ;
+                #
+                #    // Note: vendTable.dataAreaId might be a virtual company.
+                #    // We cannot look up vendor bank account in a virtual company.
+                #    // Therefore, use company() method on the table buffer
+                #    // to get vendor bank account from current concrete company.
+                #    VendBankAccount::lookupBankAccount(_formControl,
+                #                                        vendTable.AccountNum,
+                #                                        vendTable.company(),
+                #                                        DateTimeUtil::utcNow(),
+                #                                        vendTable.PaymMode);
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD PaymMode
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #modified
+                #/// <summary>
+                #/// Refreshes the data source <c>VendTable</c> table of the underlying form.
+                #/// </summary>
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    vendTable_ds.refresh();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #initValue
+          #public void initValue()
+          #{
+          #    Common  callerRecord;
+          #    boolean clearPartyId = true;
+          #    ;
+          #    super();
+          #    if (element.args())
+          #    {
+          #        callerRecord = element.args().record();
+          #        if (callerRecord.TableId == tablenum(DirPartyTable))
+          #        {
+          #            vendTable.modifiedField(fieldnum(VendTable,PartyId));
+          #            clearPartyId = false;
+          #            DirParty::showHideMessageBar(element,vendTable);
+          #        }
+          #    }
+          #    vendTable.PartyId = clearPartyId ? '' : vendTable.PartyId;
+          #}
+        ENDSOURCE
+        SOURCE #active
+          #public int active()
+          #{
+          #    int ret;
+          #
+          #    ret = super();
+          #
+          #    if (ret)
+          #    {
+          #        element.refreshHeaderTabPages();
+          #        element.setNameLookup();
+          #        if (lastPartyType != vendTable.PartyType)
+          #        {
+          #            lastPartyType = vendTable.PartyType;
+          #            element.enablePartyDetails();
+          #        }
+          #    }
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #validateWrite
+          #public boolean validateWrite()
+          #{
+          #    boolean         ret;
+          #    DirParty        party;
+          #
+          #    ;
+          #
+          #    // add by Setiaji, 20 June 2012
+          #    //info('Ok');
+          #    //new MenuFunction(menuitemDisplayStr(VendBankAccounts), MenuItemType::Display).run();
+          #
+          #    ret = super();
+          #
+          #    ret = element.numberSeqFormHandler().formMethodDataSourceValidateWrite(ret) && ret;
+          #
+          #    if (ret && DirParameters::find().UseDuplicateCheck)
+          #    {
+          #        party = DirParty::constructFromCommon(vendTable);
+          #        ret = party.checkDuplicate(!vendTable.RecId);
+          #    }
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #linkActive
+          #public void linkActive()
+          #{
+          #    smmResponsibilityGroup  responsibilityGroup;
+          #    VendTable               vendTableLocal;
+          #    VendInvoiceInfoTable    vendInvoiceInfoTable;
+          #    LedgerJournalTrans      ledgerJournalTrans;
+          #    FormRun                 callingForm;
+          #    ;
+          #
+          #    element.numberSeqFormHandler().formMethodDataSourceLinkActive();
+          #
+          #    // Is form called with a record
+          #    if (element.args() && element.args().record())
+          #    {
+          #        callingForm = element.args().caller();
+          #
+          #        switch (element.args().dataset())
+          #        {
+          #            // Is the form called from the contact person form
+          #            case tablenum(ContactPerson) :
+          #            this.query().dataSourceTable(tablenum(VendTable)).clearDynalinks();
+          #            this.query().dataSourceTable(tablenum(VendTable)).addDynalink(fieldnum(VendTable,PartyId), element.args().record(), fieldnum(ContactPerson,OrgPartyId));
+          #            break;
+          #
+          #            // Is the form called from the activities form
+          #            case tablenum(smmActivities) :
+          #            smmActivityParentLink::updateQuery(this.query().dataSourceTable(tablenum(VendTable)), element.args().record());
+          #            break;
+          #
+          #            // Is the form called from the responsibilities form
+          #            case tablenum(smmResponsibilityGroup) :
+          #            // Get the current selected responsibilities record
+          #            responsibilityGroup  = element.args().record();
+          #
+          #            // Update query
+          #            smmResponsibility::updateQuery(this.query(),this.table(),responsibilityGroup.ResponsibilityId);
+          #            break;
+          #        }
+          #    }
+          #
+          #    //VendInvoiceInfoListPage requires that all vendors show in the list
+          #    if (callingForm && (callingForm.name() == formstr(VendInvoiceInfoListPage)))
+          #    {
+          #        this.query().dataSourceTable(tablenum(VendTable)).clearRanges();
+          #    }
+          #
+          #    super();
+          #
+          #    //VendInvoiceInfoListPage requires that whichever vendor is selected on the list page must
+          #    // be selected
+          #    if (callingForm)
+          #    {
+          #        switch (callingForm.name())
+          #        {
+          #            case formstr(VendInvoiceInfoListPage) :
+          #                vendInvoiceInfoTable = element.args().record();
+          #                vendTableLocal = VendTable::find(vendInvoiceInfoTable.InvoiceAccount);
+          #                this.findRecord(vendTableLocal);
+          #                this.mark(1);
+          #                break;
+          #            case formstr(VendTransInvoicePoolNotPostedListPage) :
+          #                ledgerJournalTrans = element.args().record();
+          #                vendTableLocal = VendTable::find(ledgerJournalTrans.AccountNum);
+          #                this.findRecord(vendTableLocal);
+          #                this.mark(1);
+          #                break;
+          #
+          #        }
+          #    }
+          #}
+        ENDSOURCE
+        SOURCE #Write
+          #void write()
+          #{
+          #    boolean newRecord;
+          #    ;
+          #    element.numberSeqFormHandler().formMethodDataSourceWrite();
+          #
+          #    if (vendTable.orig().Currency && vendTable.Currency != vendTable.orig().Currency)
+          #    {
+          #        if (vendTable.existOpenOrders())
+          #        {
+          #            if (VendTable::promptConvertCurrencyCode())
+          #            {
+          #                vendTable.convertCurrencyCode();
+          #            }
+          #        }
+          #    }
+          #
+          #    newRecord = (vendTable.orig().RecId == 0) ? true : false;
+          #
+          #    super();
+          #
+          #    if (newRecord)
+          #    {
+          #        DirParty::showHideMessageBar(element,vendTable);
+          #    }
+          #
+          #}
+        ENDSOURCE
+        SOURCE #Delete
+          #void delete()
+          #{
+          #    FormDataSource callerDataSource;
+          #    ;
+          #    element.numberSeqFormHandler().formMethodDataSourceDelete();
+          #
+          #    if (!vendTable.RecId)
+          #    {
+          #        DirParty::showHideMessageBar(element,vendTable,true);
+          #    }
+          #
+          #    super();
+          #
+          #    if (element.args() && element.args().dataset() == tablenum(smmBusRelTable))
+          #    {
+          #        callerDataSource = element.args().record().dataSource();
+          #        if (callerDataSource)
+          #        {
+          #            callerDataSource.executeQuery();
+          #        }
+          #    }
+          #
+          #}
+        ENDSOURCE
+        SOURCE #create
+          #void create(boolean append = false,
+          #            boolean extern = false)  // If created externally
+          #{;
+          #    vendTable_AccountNum.setFocus();
+          #
+          #    element.numberSeqFormHandler().formMethodDataSourceCreatePre();
+          #
+          #    super(append);
+          #
+          #    if (!extern)
+          #    {
+          #        element.numberSeqFormHandler().formMethodDataSourceCreate();
+          #    }
+          #}
+          #
+        ENDSOURCE
+        SOURCE #listExist
+          #//BP Deviation Documented
+          #display boolean listExist(VendTable _vendTable)
+          #{
+          #    return VendDefaultAccounts::existMoreOnVendAccount(_vendTable.AccountNum);
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #DirPartyTable
+          Table               #DirPartyTable
+          AllowCheck          #No
+          AllowDelete         #No
+          JoinSource          #VendTable
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD Prefix
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Salutation
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD FirstName
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD MiddleName
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD LastName
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD GenerationalSuffix
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ProfessionalSuffix
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD PersonNameOrder
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Name
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD LanguageId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Type
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD PartyId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD NameAlias
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Memo
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD modifiedDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD modifiedBy
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD createdDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD createdBy
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #write
+          #public void write()
+          #{
+          #    super();
+          #    vendTable_ds.reread();
+          #}
+        ENDSOURCE
+        SOURCE #last
+          #public int last()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.last();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #first
+          #public int first()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.first();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #prevPage
+          #public int prevPage(int _pageSize)
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.prevPage(_pageSize);
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #nextPage
+          #public int nextPage(int _pageSize)
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.nextPage(_pageSize);
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #prev
+          #public int prev()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.prev();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #next
+          #public int next()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.next();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #DirPersonPartyDetail
+          Table               #DirPersonPartyDetail
+          AllowCheck          #No
+          AllowDelete         #No
+          JoinSource          #DirPartyTable
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD PartyId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD NickName
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Initials
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ChildrenNames
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD BirthDate
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD MaritalStatus
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD AnniversaryDate
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Hobbies
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Gender
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD SIPECommunicationTypeId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD modifiedDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD modifiedBy
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD createdDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD createdBy
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #write
+          #public void write()
+          #{
+          #    super();
+          #    vendTable_ds.reread();
+          #}
+        ENDSOURCE
+        SOURCE #last
+          #public int last()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.last();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #first
+          #public int first()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.first();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #prevPage
+          #public int prevPage(int _pageSize)
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.prevPage(_pageSize);
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #nextPage
+          #public int nextPage(int _pageSize)
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.nextPage(_pageSize);
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #prev
+          #public int prev()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.prev();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #next
+          #public int next()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.next();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #DirOrganizationDetail
+          Table               #DirOrganizationDetail
+          AllowCheck          #No
+          AllowDelete         #No
+          JoinSource          #DirPartyTable
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD NumberOfEmployees
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD OrgNumber
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ABC
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD PartyId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD modifiedDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD createdDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #write
+          #public void write()
+          #{
+          #    super();
+          #    vendTable_ds.reread();
+          #}
+        ENDSOURCE
+        SOURCE #last
+          #public int last()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.last();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #first
+          #public int first()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.first();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #prevPage
+          #public int prevPage(int _pageSize)
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.prevPage(_pageSize);
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #nextPage
+          #public int nextPage(int _pageSize)
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.nextPage(_pageSize);
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #prev
+          #public int prev()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.prev();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #next
+          #public int next()
+          #{
+          #    int ret;
+          #
+          #    ret = vendTable_ds.next();
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #AddressDS
+          Table               #Address
+          AllowCheck          #No
+          JoinSource          #DirPartyAddressRelationshipMapping
+          LinkType            #InnerJoin
+          InsertIfEmpty       #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD AddrTableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD AddrRecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD LineNum
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD type
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Name
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Address
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Phone
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TeleFax
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD CountryRegionId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ZipCode
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD State
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD County
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Telex
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD URL
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD PhoneLocal
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD CellularPhone
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Email
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TaxGroup
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD City
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Street
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Pager
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD SMS
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD DEL_RefZipCode
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Latitude
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Longitude
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD SalesCalendarId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD FRCARAddressing
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TimeZone
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD IsPrimary
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD DlvTerm
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD DlvMode
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ShipCarrierId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ShipCarrierBlindShipment
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ShipCarrierAccount
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ShipCarrierAccountCode
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ShipCarrierResidential
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #write
+          #public void write(boolean _flag = false)
+          #{
+          #    if (_flag)
+          #    {
+          #        super();
+          #    }
+          #}
+        ENDSOURCE
+        SOURCE #init
+          #public void init()
+          #{
+          #    QueryBuildRange qbRange;
+          #    super();
+          #    qbRange = this.query().dataSourceTable(tablenum(Address)).addRange(fieldnum(Address,AddrTableId));
+          #    if (qbRange)
+          #    {
+          #        qbRange.value(strfmt('%1,%2',tablenum(DirPartyTable),tablenum(VendTable)));
+          #        qbRange.status(RangeStatus::Locked);
+          #    }
+          #}
+        ENDSOURCE
+        SOURCE #initValue
+          #public void initValue()
+          #{
+          #    super();
+          #    if (DirParameters::defaultSharedAddress(vendTable.TableId))
+          #    {
+          #        addressds.AddrTableId = dirPartyTable.TableId;
+          #        addressds.AddrRecId   = dirPartyTable.RecId;
+          #    }
+          #    else
+          #    {
+          #        addressds.AddrTableId = vendTable.TableId;
+          #        addressds.AddrRecId   = vendTable.RecId;
+          #        dirPartyAddressRelationship.Shared = false;
+          #    }
+          #
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #DirPartyAddressRelationshipMapping
+          Table               #DirPartyAddressRelationshipMapping
+          AllowCheck          #No
+          JoinSource          #DirPartyAddressRelationship
+          LinkType            #InnerJoin
+          InsertIfEmpty       #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD AddressRecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RefCompanyId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD PartyAddressRelationshipRecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #write
+          #public void write()
+          #{
+          #    boolean newRecord;
+          #    ;
+          #    ttsbegin;
+          #
+          #    addressds_ds.write(true);
+          #
+          #    if (!dirPartyAddressRelationship.RecId)
+          #    {
+          #        dirPartyAddressRelationship_ds.write();
+          #    }
+          #
+          #    newRecord = (dirPartyAddressRelationshipMapping.RecId == 0) ? true : false;
+          #    dirPartyAddressRelationshipMapping.RefCompanyId = addressds.DataAreaId;
+          #    dirPartyAddressRelationshipMapping.AddressRecId = addressds.RecId;
+          #    dirPartyAddressRelationshipMapping.PartyAddressRelationshipRecId = dirPartyAddressRelationship.RecId;
+          #
+          #    super();
+          #
+          #    if (newRecord && dirPartyAddressRelationship.Shared)
+          #    {
+          #        addressds.IsPrimary = dirPartyAddressRelationship.IsPrimary;
+          #        addressds.updatePartyFromAddress();
+          #    }
+          #    ttscommit;
+          #}
+          #
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #DirPartyAddressRelationship
+          Table               #DirPartyAddressRelationship
+          AllowCheck          #No
+          JoinSource          #DirPartyTable
+          LinkType            #Passive
+          InsertIfEmpty       #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD Shared
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #    addressds.AddrTableId = (dirPartyAddressRelationship.Shared == true) ? tablenum(DirPartyTable) : tablenum(VendTable);
+                #    addressds.AddrRecId = (dirPartyAddressRelationship.Shared == true) ? dirPartyTable.RecId : vendTable.RecId;
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD PartyId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD IsPrimary
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Status
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ValidToDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ValidFromDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #delete
+          #public void delete()
+          #{
+          #    super();
+          #    vendTable_ds.reread();
+          #}
+        ENDSOURCE
+        SOURCE #write
+          #public void write()
+          #{
+          #    super();
+          #    vendTable_ds.reread();
+          #}
+        ENDSOURCE
+        SOURCE #initValue
+          #public void initValue()
+          #{
+          #    super();
+          #    dirPartyAddressRelationship.PartyId = dirPartyTable.PartyId;
+          #    dirPartyAddressRelationship.Shared = DirParameters::defaultSharedAddress(vendTable.TableId);
+          #
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #DirPartyECommunicationRelationship
+          Table               #DirPartyECommunicationRelationship
+          AllowCheck          #No
+          JoinSource          #DirPartyTable
+          InsertAtEnd         #No
+          InsertIfEmpty       #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD PartyId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Status
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ValidFromDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ValidToDateTime
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Priority
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD ValuesRecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD PrivacyGroupId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #delete
+          #public void delete()
+          #{
+          #    boolean reRead = (dirPartyECommunicationRelationship.PrivacyGroupId == publicPrivacyGroupId || dirPartyECommunicationRelationship.orig().PrivacyGroupId) ;
+          #    ;
+          #    super();
+          #    if (reRead)
+          #    {
+          #        vendTable_ds.reread();
+          #    }
+          #}
+        ENDSOURCE
+        SOURCE #initValue
+          #public void initValue()
+          #{
+          #    super();
+          #    dirPartyECommunicationRelationship.PrivacyGroupId = DirParameters::find().VendDefaultSharedECommunication ? publicPrivacyGroupId : privatePrivacyGroupId;
+          #}
+        ENDSOURCE
+        SOURCE #init
+          #public void init()
+          #{
+          #    QueryBuildDataSource qbd;
+          #    QueryBuildRange      qbRange;
+          #    ;
+          #
+          #    super();
+          #
+          #    qbd = this.query().dataSourceTable(tablenum(DirPartyECommunicationRelationship));
+          #
+          #    qbd = qbd.addDataSource(tablenum(DirPrivacyGroupTable));
+          #    qbd.relations(true);
+          #    qbd.joinMode(JoinMode::ExistsJoin);
+          #    qbRange= qbd.addRange(fieldnum(DirPrivacyGroupTable,IsVendor));
+          #    qbRange.status(RangeStatus::Locked);
+          #    qbRange.value(queryValue(1));
+          #}
+        ENDSOURCE
+        SOURCE #isShared
+          #// BP Deviation Documented
+          #edit DirIsSharedECommunication isShared(boolean _set,DirPartyECommunicationRelationship _partyECommunicationRelationship, DirIsSharedECommunication  _isShared)
+          #{
+          #    ;
+          #    return _partyECommunicationRelationship.isShared(_set,_isShared,publicPrivacyGroupId,privatePrivacyGroupId);
+          #}
+        ENDSOURCE
+        SOURCE #create
+          #public void create(boolean _append = false)
+          #{
+          #    super(_append);
+          #    contactInfoGrid_CommunicationTypeId.setFocus();
+          #}
+        ENDSOURCE
+        SOURCE #validateWrite
+          #public boolean validateWrite()
+          #{
+          #    boolean ret;
+          #
+          #    ret = super();
+          #
+          #    if (ret)
+          #    {
+          #        ret = dirPartyECommunicationRelationship.checkDateOverlap(dirECommunicationAddress);
+          #    }
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #write
+          #public void write()
+          #{
+          #    DirPartyECommunicationRelationship  partyECommunicationRelationship;
+          #    DirECommunicationAddress            eCommunicationAddress;
+          #    ;
+          #    ttsbegin;
+          #    dirPartyECommunicationRelationship.ValuesRecId = DirECommunicationAddress::findOrCreate(dirECommunicationAddress).RecId;
+          #    if (dirPersonPartyDetail.sipeCommunicationTypeId && dirPersonPartyDetail.sipeCommunicationTypeId == dirECommunicationAddress.eCommunicationTypeId && !dirPersonPartyDetail.RecId)
+          #    {
+          #        dirPersonPartyDetail.PartyId = dirPartyTable.PartyId;
+          #        dirPersonPartyDetail_ds.write();
+          #    }
+          #    super();
+          #    if (dirPartyECommunicationRelationship.ValuesRecId != dirECommunicationAddress.RecId)
+          #    {
+          #        select forupdate eCommunicationAddress where eCommunicationAddress.RecId == dirECommunicationAddress.RecId
+          #            notexists join partyECommunicationRelationship
+          #            where partyECommunicationRelationship.ValuesRecId == dirECommunicationAddress.RecId &&
+          #                  partyECommunicationRelationship.PartyId != dirPartyECommunicationRelationship.PartyId;
+          #        if (eCommunicationAddress)
+          #        {
+          #            eCommunicationAddress.delete();
+          #        }
+          #
+          #        dirECommunicationAddress.data(DirECommunicationAddress::findRecId(dirPartyECommunicationRelationship.ValuesRecId));
+          #        dirECommunicationAddress_ds.setCurrent();
+          #    }
+          #    ttscommit;
+          #    dirPartyECommunicationRelationship_ds.reread();
+          #    vendTable_ds.reread();
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #DirECommunicationAddress
+          Table               #DirECommunicationAddress
+          AllowCheck          #No
+          JoinSource          #DirPartyECommunicationRelationship
+          LinkType            #InnerJoin
+          InsertAtEnd         #No
+          InsertIfEmpty       #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD ECommunicationTypeId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #    dirECommunicationAddress_ds.object(fieldnum(DirECommunicationAddress,PhoneLocal)).allowEdit(DirECommunicationTypeTable::find(dirECommunicationAddress.eCommunicationTypeId).MethodType == DirECommunicationMethodType::Phone);
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD URL
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Email
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Telex
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD PhoneLocal
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD Phone
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD dataAreaId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD RecId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+          DATAFIELD TableId
+            PROPERTIES
+              AllowAdd            #No
+            ENDPROPERTIES
+            
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        Version: 3
+        SOURCE #isSIPAddress
+          #// BP Deviation Documented
+          #edit DirIsSIPAddress isSIPAddress(boolean _set, DirECommunicationAddress _eCommunicationAddress, DirIsSIPAddress _isSIPAddress)
+          #{
+          #    DirECommunicationTypeId  oldSIPAddress;
+          #    ;
+          #    if (_set)
+          #    {
+          #        dirPersonPartyDetail.PartyId = dirPartyTable.PartyId;
+          #        oldSIPAddress = dirPersonPartyDetail.sipeCommunicationTypeId;
+          #        dirPersonPartyDetail.sipeCommunicationTypeId = (_isSIPAddress == NoYes::Yes)? _eCommunicationAddress.eCommunicationTypeId : '';
+          #        if (dirPersonPartyDetail.validateField(fieldnum(DirPersonPartyDetail,sipeCommunicationTypeId)) && dirPersonPartyDetail_ds.validateWrite())
+          #        {
+          #            dirPersonPartyDetail_ds.write();
+          #        }
+          #        else
+          #        {
+          #            dirPersonPartyDetail.sipeCommunicationTypeId = oldSIPAddress;
+          #        }
+          #        contactInfoGrid.update();
+          #    }
+          #    return ((_eCommunicationAddress.eCommunicationTypeId && dirPersonPartyDetail.sipeCommunicationTypeId == _eCommunicationAddress.eCommunicationTypeId) ? true : false);
+          #}
+        ENDSOURCE
+        SOURCE #active
+          #public int active()
+          #{
+          #    int ret;
+          #
+          #    ret = super();
+          #
+          #    if (ret)
+          #    {
+          #        dirECommunicationAddress_ds.object(fieldnum(DirECommunicationAddress,PhoneLocal)).allowEdit(DirECommunicationTypeTable::find(dirECommunicationAddress.eCommunicationTypeId).MethodType == DirECommunicationMethodType::Phone);
+          #        dirECommunicationAddress_ds.object(fieldnum(DirECommunicationAddress,eCommunicationTypeId)).allowEdit(dirPartyECommunicationRelationship.RecId ? false : true);
+          #    }
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #write
+          #public void write()
+          #{
+          #    ;
+          #//    super();
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  JOINS
+    DirPartyTable VendTable
+    DirPersonPartyDetail DirPartyTable
+    DirOrganizationDetail DirPartyTable
+    AddressDS DirPartyAddressRelationshipMapping
+    DirPartyAddressRelationshipMapping DirPartyAddressRelationship
+    DirPartyAddressRelationship DirPartyTable
+    DirPartyECommunicationRelationship DirPartyTable
+    DirECommunicationAddress DirPartyECommunicationRelationship
+  ENDJOINS
+  
+  DESIGN
+    PROPERTIES
+      Caption             #@SYS12091
+      TitleDatasource     #VendTable
+      HTMLHelpFile        #HTMLHelpFileIWorker
+      HTMLHelpTopic       #AxShared.chm::/html/E8984F23-340A-4759-9715-2B8FCE5244A9.htm
+      HideIfEmpty         #No
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL TAB
+        PROPERTIES
+          Name                #Tab
+          AutoDeclaration     #Yes
+          Width               #Column width
+          Height              #Column height
+          Tabs                #8
+          DataSource          #VendTable
+        ENDPROPERTIES
+        
+        CONTAINER
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabOverview
+              AutoDeclaration     #Yes
+              Caption             #@SYS9039
+              DataSource          #VendTable
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GRID
+                PROPERTIES
+                  Name                #Grid
+                  Width               #Column width
+                  Height              #Column height
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL WINDOW
+                      PROPERTIES
+                        Name                #PartyIndicator
+                        Width               #15
+                        Height              #15
+                        AlignControl        #No
+                        BackStyle           #Transparent
+                        DataSource          #VendTable
+                        DataMethod          #showPartyMatchIcon
+                      ENDPROPERTIES
+                      
+                      METHODS
+                        Version: 3
+                        SOURCE #toolTip
+                          #public str toolTip()
+                          #{
+                          #    str ret;
+                          #    ;
+                          #    ret = DirParty::toolTip(vendTable);
+                          #
+                          #    return ret;
+                          #}
+                        ENDSOURCE
+                        SOURCE #mouseUp
+                          #int mouseUp(int _x, int _y, int _button, boolean _ctrl, boolean _shift)
+                          #{
+                          #    #define.leftClick(1)
+                          #
+                          #    int ret;
+                          #    ;
+                          #
+                          #    ret = super(_x, _y, _button, _ctrl, _shift);
+                          #
+                          #    if (_button == #leftClick && vendTable.PartyId)
+                          #    {
+                          #        smmUtility::openMenuItemForm(menuitemdisplaystr(DirPartyTable),vendTable,null,false);
+                          #    }
+                          #
+                          #    return ret;
+                          #}
+                        ENDSOURCE
+                      ENDMETHODS
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_AccountNum
+                        AutoDeclaration     #Yes
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/3b5889c0-f79f-4718-92e3-b7bc67e69f10.htm
+                        DataSource          #VendTable
+                        DataField           #AccountNum
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL COMBOBOX
+                      PROPERTIES
+                        Name                #VendTable_PartyType
+                        DataSource          #VendTable
+                        DataField           #PartyType
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_Name
+                        AutoDeclaration     #Yes
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/20a82710-44ed-4d59-b678-a567a4321815.htm
+                        DataSource          #VendTable
+                        DataField           #Name
+                      ENDPROPERTIES
+                      
+                      METHODS
+                        Version: 3
+                        SOURCE #jumpRef
+                          #public void jumpRef()
+                          #{
+                          #    super();
+                          #}
+                        ENDSOURCE
+                      ENDMETHODS
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_NameAlias
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/2fcda0d7-4f96-4909-8241-05fe8fff162b.htm
+                        DataSource          #VendTable
+                        DataField           #NameAlias
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_InvoiceAccount
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/8ac449be-9134-49a3-94fe-de3aeeba96aa.htm
+                        DataSource          #VendTable
+                        DataField           #InvoiceAccount
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_VendGroup
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/d5faf8fe-818f-4642-9dd1-83fa41474f41.htm
+                        DataSource          #VendTable
+                        DataField           #VendGroup
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_Currency
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/919bb70c-a636-490b-ad9c-679c1711cc4b.htm
+                        DataSource          #VendTable
+                        DataField           #Currency
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #mcsBankAccountNum
+                        DataSource          #VendTable
+                        DataMethod          #bankAccountNum
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #mcsBankAccountName
+                        DataSource          #VendTable
+                        DataMethod          #bankAccountName
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #mcsBankRegNum
+                        DataSource          #VendTable
+                        DataMethod          #bankRegistrationNum
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabGeneral
+              AutoDeclaration     #Yes
+              Caption             #@SYS2952
+              DataSource          #VendTable
+              Columns             #2
+              ArrangeGuide        
+                ARRAY INDEX Columns 
+                  #0
+                  #0
+                ENDARRAY
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Identification
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/CB5671B8-9EDC-49DD-9743-E5C174B73424.htm
+                  DataSource          #VendTable
+                  DataGroup           #Identification
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Identification_AccountNum
+                        DataSource          #VendTable
+                        DataField           #AccountNum
+                        PresenceIndicatorAllowed    #No
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Identification_PartyId
+                        DataSource          #VendTable
+                        DataField           #PartyId
+                        PresenceIndicatorAllowed    #No
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL COMBOBOX
+                      PROPERTIES
+                        Name                #Identification_PartyType
+                        DataSource          #VendTable
+                        DataField           #PartyType
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Identification_OrgId
+                        DataSource          #VendTable
+                        DataField           #OrgId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Vendor
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/F296FCD8-A0D2-484F-A290-927E39F91540.htm
+                  Caption             #@SYS9455
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL GROUP
+                      PROPERTIES
+                        Name                #Description
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/EDF3C00E-EC18-48E0-8BD4-0D8BA6131496.htm
+                        FrameType           #None
+                        DataSource          #VendTable
+                        DataGroup           #Description
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #Description_Name
+                              AutoDeclaration     #Yes
+                              DataSource          #VendTable
+                              DataField           #Name
+                              PresenceDataSource  #VendTable
+                              PresenceDataField   #PartyId
+                            ENDPROPERTIES
+                            
+                            METHODS
+                              Version: 3
+                              SOURCE #jumpRef
+                                #public void jumpRef()
+                                #{
+                                #    super();
+                                #}
+                              ENDSOURCE
+                            ENDMETHODS
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #Description_NameAlias
+                              DataSource          #VendTable
+                              DataField           #NameAlias
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                    CONTROL GROUP
+                      PROPERTIES
+                        Name                #Posting
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/BF6B14BB-CB11-43AD-B601-1838E26DCB7A.htm
+                        FrameType           #None
+                        DataSource          #VendTable
+                        DataGroup           #Posting
+                        AutoDataGroup       #Yes
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                    CONTROL GROUP
+                      PROPERTIES
+                        Name                #Currency
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/F5378D0F-4ABC-4320-A297-2BA8914B6BF1.htm
+                        FrameType           #None
+                        DataSource          #VendTable
+                        DataGroup           #Currency
+                        AutoDataGroup       #Yes
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #LanguageId
+                        DataSource          #VendTable
+                        DataField           #LanguageId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_SegmentId
+                        DataSource          #VendTable
+                        DataField           #SegmentId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_SubsegmentId
+                        DataSource          #VendTable
+                        DataField           #SubsegmentId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_CompanyChainId
+                        DataSource          #VendTable
+                        DataField           #CompanyChainId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_MainContactId
+                        DataSource          #VendTable
+                        DataField           #MainContactId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendTable_Memo
+                        DataSource          #VendTable
+                        DataField           #Memo
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Credit
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/FFB1B055-E7B1-4FF7-96CE-A2F0A21177AC.htm
+                  Caption             #@SYS127064
+                  DataSource          #VendTable
+                  DataGroup           #Credit
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Administration
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/92C0BC1C-EEE3-4F82-9406-D3B0A5469042.htm
+                  DataSource          #VendTable
+                  DataGroup           #Administration
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Customer
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/543DCD83-683C-4117-BF77-6DF26C5D85AA.htm
+                  DataSource          #VendTable
+                  DataGroup           #Customer
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabDirPartyDetails
+              AutoDeclaration     #Yes
+              Caption             #@SYS80118
+              Columns             #2
+              ArrangeGuide        
+                ARRAY INDEX Columns 
+                  #0
+                  #0
+                ENDARRAY
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #PersonGroup
+                  AutoDeclaration     #Yes
+                  Visible             #No
+                  FrameType           #None
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL GROUP
+                      PROPERTIES
+                        Name                #PersonName
+                        AutoDeclaration     #Yes
+                        DataSource          #DirPartyTable
+                        DataGroup           #PersonName
+                        AutoDataGroup       #Yes
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                    CONTROL GROUP
+                      PROPERTIES
+                        Name                #Personal
+                        DataSource          #DirPersonPartyDetail
+                        DataGroup           #Personal
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #Personal_Initials
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #Initials
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL COMBOBOX
+                            PROPERTIES
+                              Name                #Personal_Gender
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #Gender
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #Personal_NickName
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #NickName
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL COMBOBOX
+                            PROPERTIES
+                              Name                #Personal_MaritalStatus
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #MaritalStatus
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL DATEEDIT
+                            PROPERTIES
+                              Name                #Personal_BirthDate
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #BirthDate
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL DATEEDIT
+                            PROPERTIES
+                              Name                #Personal_AnniversaryDate
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #AnniversaryDate
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #Personal_ChildrenNames
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #ChildrenNames
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #Personal_Hobbies
+                              DataSource          #DirPersonPartyDetail
+                              DataField           #Hobbies
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                    CONTROL GROUP
+                      PROPERTIES
+                        Name                #PersonOthers
+                        AutoDeclaration     #Yes
+                        DataSource          #DirPartyTable
+                        DataGroup           #Other
+                        AutoDataGroup       #Yes
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #OrganizationGroup
+                  AutoDeclaration     #Yes
+                  DataSource          #DirOrganizationDetail
+                  DataGroup           #Organization
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #VendorProfile
+                  DataSource          #VendTable
+                  DataGroup           #VendorProfile
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabSetup
+              Caption             #@SYS2186
+              DataSource          #VendTable
+              Columns             #3
+              ArrangeGuide        
+                ARRAY INDEX Columns 
+                  #0
+                  #0
+                  #0
+                ENDARRAY
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #GrpInvoice
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/C2B1F272-0787-419A-AF8F-FEF76BAABA7D.htm
+                  DataSource          #VendTable
+                  DataGroup           #Invoice
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #OffsetAccount
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/DAEB9C55-0232-4C5E-B077-A3FF6F0F95DA.htm
+                  FrameType           #None
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL GROUP
+                      PROPERTIES
+                        Name                #OffsetAccountAccounts
+                        AutoDeclaration     #Yes
+                        HTMLHelpFile        #HTMLHelpFileAxShared
+                        HTMLHelpTopic       #html/D06019FA-0C0A-4B25-BC0D-2E2CAB316048.htm
+                        DataSource          #VendTable
+                        DataGroup           #OffsetAccount
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                          CONTROL COMBOBOX
+                            PROPERTIES
+                              Name                #OffsetAccount_OffsetAccountType
+                              AutoDeclaration     #Yes
+                              DataSource          #VendTable
+                              DataField           #OffsetAccountType
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #OffsetAccount_OffsetAccount
+                              AutoDeclaration     #Yes
+                              DataSource          #VendTable
+                              DataField           #OffsetAccount
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Delivery
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/5CB7D01C-7143-401D-88F2-35C90FAD6BDD.htm
+                  DataSource          #VendTable
+                  DataGroup           #Delivery
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #SalesTax
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/F52C6281-B846-4360-A191-E648317C10C1.htm
+                  DataSource          #VendTable
+                  DataGroup           #SalesTax
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #SalesTax_TaxGroup
+                        DataSource          #VendTable
+                        DataField           #TaxGroup
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL CHECKBOX
+                      PROPERTIES
+                        Name                #SalesTax_InclTax
+                        DataSource          #VendTable
+                        DataField           #InclTax
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #SalesTax_VATNum
+                        AutoDeclaration     #Yes
+                        Width               #100
+                        DataSource          #VendTable
+                        DataField           #VATNum
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #SalesTax_FiscalCode
+                        DataSource          #VendTable
+                        DataField           #FiscalCode
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #SalesTax_EnterpriseNumber
+                        DataSource          #VendTable
+                        DataField           #EnterpriseNumber
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #SalesTax_OrganizationNumber
+                        DataSource          #VendTable
+                        DataField           #OrganizationNumber
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #WithholdingTax
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/5CD35075-8B94-4AF2-A351-846CF98DCFB8.htm
+                  ConfigurationKey    #LedgerBasicWithholdingTax
+                  DataSource          #VendTable
+                  DataGroup           #WithholdingTax
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabPagePurch
+              Caption             #@SYS15812
+              Columns             #2
+              ArrangeGuide        
+                ARRAY INDEX Columns 
+                  #0
+                  #0
+                ENDARRAY
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Purch
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/8213CE81-CD32-4063-8D69-F42B9ACC5C43.htm
+                  DataSource          #VendTable
+                  DataGroup           #PurchaseOrder
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Purch_InventSiteId
+                        DataSource          #VendTable
+                        DataField           #InventSiteId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #InventLocation
+                        DataSource          #VendTable
+                        DataField           #InventLocation
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #MarkupGroup
+                        DataSource          #VendTable
+                        DataField           #MarkupGroup
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #VendItemGroupId
+                        DataSource          #VendTable
+                        DataField           #VendItemGroupId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #PurchPoolId
+                        DataSource          #VendTable
+                        DataField           #PurchPoolId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #YourAccountNum
+                        DataSource          #VendTable
+                        DataField           #YourAccountNum
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL CHECKBOX
+                      PROPERTIES
+                        Name                #Purch_PurchAmountPurchaseOrder
+                        DataSource          #VendTable
+                        DataField           #PurchAmountPurchaseOrder
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Purch_PurchCalendarId
+                        DataSource          #VendTable
+                        DataField           #PurchCalendarId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL REALEDIT
+                      PROPERTIES
+                        Name                #Purch_M_balanceAllCurrency
+                        AllowEdit           #No
+                        DataSource          #VendTable
+                        DataMethod          #balanceAllCurrency
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Discount
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/8651F507-8DF1-4A35-A168-F110CE3B222C.htm
+                  Caption             #@SYS11829
+                  DataSource          #VendTable
+                  DataGroup           #PurchaseDiscount
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #SupplementaryItem
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/B5FA9A53-B7BC-422D-82E3-0B43892EA3E7.htm
+                  DataSource          #VendTable
+                  DataGroup           #SupplementaryItem
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabAddress
+              AutoDeclaration     #Yes
+              SecurityKey         #BasicSetup
+              Caption             #@SYS7566
+              DataSource          #DirPartyAddressRelationship
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #pageActivated
+                #public void pageActivated()
+                #{
+                #    ;
+                #    // Refresh header tab page
+                #    element.refreshHeaderTabPages();
+                #
+                #    super();
+                #    addressGrid.setFocus();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #AddressGridGroup
+                  Width               #Column width
+                  Height              #Column height
+                  FrameType           #None
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL GRID
+                      PROPERTIES
+                        Name                #AddressGrid
+                        AutoDeclaration     #Yes
+                        Width               #Column width
+                        Height              #Column height
+                        VisibleCols         #4
+                        VisibleRows         #7
+                        DataSource          #DirPartyAddressRelationship
+                      ENDPROPERTIES
+                      
+                        CONTAINER
+                          CONTROL CHECKBOX
+                            PROPERTIES
+                              Name                #DirPartyAddressRelationship_Shared
+                              BackgroundColor     #Window background
+                              DataSource          #DirPartyAddressRelationship
+                              DataField           #Shared
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL CHECKBOX
+                            PROPERTIES
+                              Name                #DirPartyAddressRelationship_IsPrimary
+                              BackgroundColor     #Window background
+                              DataSource          #DirPartyAddressRelationship
+                              DataField           #IsPrimary
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #AddressNameGroup_Name
+                              DataSource          #AddressDS
+                              DataField           #Name
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL COMBOBOX
+                            PROPERTIES
+                              Name                #AddressGrid_Type
+                              DataSource          #AddressDS
+                              DataField           #type
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #AddressGrid_Street
+                              Height              #Column height
+                              DataSource          #AddressDS
+                              DataField           #Street
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #AddressGrid_ZipCode
+                              DataSource          #AddressDS
+                              DataField           #ZipCode
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #AddressGrid_City
+                              DataSource          #AddressDS
+                              DataField           #City
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #AddressGrid_County
+                              DataSource          #AddressDS
+                              DataField           #County
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #AddressGrid_State
+                              DataSource          #AddressDS
+                              DataField           #State
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                          CONTROL STRINGEDIT
+                            PROPERTIES
+                              Name                #AddressGrid_CountryRegionId
+                              DataSource          #AddressDS
+                              DataField           #CountryRegionId
+                            ENDPROPERTIES
+                            
+                          ENDCONTROL 
+                          
+                        ENDCONTAINER
+                        
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #AddressesDisplayGroup
+                  Caption             #@SYS36203
+                  FrameOptionButton   #Hide
+                  OptionValue         #0
+                  DataSource          #AddressDS
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #AddressesDisplayGroup_Address
+                        DataSource          #AddressDS
+                        DataField           #Address
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #AddressesDisplayGroup_FRCARAddressing
+                        DataSource          #AddressDS
+                        DataField           #FRCARAddressing
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL BUTTONGROUP
+                      PROPERTIES
+                        Name                #AddressButtonGroup
+                        AutoDeclaration     #Yes
+                      ENDPROPERTIES
+                      
+                      METHODS
+                        Version: 3
+                        SOURCE #setButtons
+                          #void setButtons()
+                          #{
+                          #    addressesMapButton.enabled(addressds.Address ? true : false);
+                          #}
+                        ENDSOURCE
+                      ENDMETHODS
+                      CONTAINER
+                        CONTROL BUTTON
+                          PROPERTIES
+                            Name                #AddressesMapButton
+                            AutoDeclaration     #Yes
+                            HelpText            #@SYS103191
+                            Text                #@SYS26064
+                          ENDPROPERTIES
+                          
+                          METHODS
+                            Version: 3
+                            SOURCE #clicked
+                              #void clicked()
+                              #{
+                              #    super();
+                              #
+                              #    smmUtility::mapIt(addressDS);
+                              #}
+                            ENDSOURCE
+                          ENDMETHODS
+                        ENDCONTROL 
+                        
+                      ENDCONTAINER
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabCommunication
+              AutoDeclaration     #Yes
+              Caption             #@SYS21663
+              DataSource          #VendTable
+              Columns             #2
+              ArrangeGuide        
+                ARRAY INDEX Columns 
+                  #0
+                  #0
+                ENDARRAY
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Contactinfo
+                  AutoDeclaration     #Yes
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/AD353059-CBF5-4290-A591-C5DF0EE1624F.htm
+                  DataSource          #VendTable
+                  DataGroup           #ContactInfo
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Phone
+                        AutoDeclaration     #Yes
+                        DataSource          #VendTable
+                        DataField           #Phone
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #PhoneLocal
+                        DataSource          #VendTable
+                        DataField           #PhoneLocal
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #CellularPhone
+                        DataSource          #VendTable
+                        DataField           #CellularPhone
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_Pager
+                        DataSource          #VendTable
+                        DataField           #Pager
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Fax
+                        DataSource          #VendTable
+                        DataField           #TeleFax
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Email
+                        DataSource          #VendTable
+                        DataField           #Email
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_SMS
+                        DataSource          #VendTable
+                        DataField           #SMS
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #URL
+                        DataSource          #VendTable
+                        DataField           #URL
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Telex
+                        DataSource          #VendTable
+                        DataField           #Telex
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #ContactPersonId
+                        AutoDeclaration     #Yes
+                        Visible             #No
+                        DataSource          #VendTable
+                        DataField           #ContactPersonId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_LineOfBusinessId
+                        DataSource          #VendTable
+                        DataField           #LineOfBusinessId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_M_editContactPersonName
+                        DataSource          #VendTable
+                        DataMethod          #editContactPersonName
+                        PresenceDataSource  #VendTable
+                        PresenceDataField   #ContactPersonId
+                      ENDPROPERTIES
+                      
+                      METHODS
+                        Version: 3
+                        SOURCE #jumpRef
+                          #public void jumpRef()
+                          #{
+                          #    Args        args;
+                          #    FormRun     formRun;
+                          #    ;
+                          #
+                          #    args = new Args(formstr(smmContactPerson));
+                          #
+                          #    args.record(vendTable);
+                          #    args.parmEnum(NoYes::Yes); // It's a Go To Main Table call
+                          #
+                          #    formRun = classfactory.formRunClass(args);
+                          #    formRun.init();
+                          #    formRun.run();
+                          #    formRun.detach();
+                          #}
+                        ENDSOURCE
+                        SOURCE #lookup
+                          #public void lookup()
+                          #{;
+                          #    ContactPerson::lookupVendContactPerson(contactPersonId,
+                          #                                           vendTable.AccountNum,
+                          #                                           this,
+                          #                                           vendTable.ContactPersonId);
+                          #}
+                          #
+                        ENDSOURCE
+                      ENDMETHODS
+                    ENDCONTROL 
+                    
+                    CONTROL DATEEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_BirthDate
+                        DataSource          #VendTable
+                        DataField           #BirthDate
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_BirthPlace
+                        DataSource          #VendTable
+                        DataField           #BirthPlace
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_ResidenceForeignCountry
+                        DataSource          #VendTable
+                        DataField           #ResidenceForeignCountryRegionId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_CompanyIdSiret
+                        AutoDeclaration     #Yes
+                        DataSource          #VendTable
+                        DataField           #CompanyIdSiret
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #Contactinfo_CompanyIdNAF
+                        AutoDeclaration     #Yes
+                        DataSource          #VendTable
+                        DataField           #CompanyIdNAF
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GRID
+                PROPERTIES
+                  Name                #ContactInfoGrid
+                  AutoDeclaration     #Yes
+                  Width               #Column width
+                  Height              #Column height
+                  DataSource          #DirPartyECommunicationRelationship
+                ENDPROPERTIES
+                
+                  CONTAINER
+                    CONTROL CHECKBOX
+                      PROPERTIES
+                        Name                #ContactInfoGrid_isShared
+                        BackgroundColor     #Window background
+                        DataSource          #DirPartyECommunicationRelationship
+                        DataMethod          #isShared
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #ContactInfoGrid_CommunicationTypeId
+                        AutoDeclaration     #Yes
+                        DataSource          #DirECommunicationAddress
+                        DataField           #ECommunicationTypeId
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL COMBOBOX
+                      PROPERTIES
+                        Name                #ContactInfoGrid_Status
+                        DataSource          #DirPartyECommunicationRelationship
+                        DataField           #Status
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #ContactInfoGrid_M_editCommunicationValue
+                        AutoDeclaration     #Yes
+                        DataSource          #DirECommunicationAddress
+                        DataMethod          #editCommunicationValue
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL STRINGEDIT
+                      PROPERTIES
+                        Name                #ContactInfoGrid_PhoneLocal
+                        AutoDeclaration     #Yes
+                        DataSource          #DirECommunicationAddress
+                        DataField           #PhoneLocal
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                    CONTROL WINDOW
+                      PROPERTIES
+                        Name                #CommTypeIcon
+                        Width               #15
+                        Height              #15
+                        AlignControl        #No
+                        BackStyle           #Transparent
+                        ShowLabel           #No
+                        DataSource          #DirECommunicationAddress
+                        DataMethod          #showTypeIcon
+                      ENDPROPERTIES
+                      
+                      METHODS
+                        Version: 3
+                        SOURCE #mouseUp
+                          #public int mouseUp(int _x, int _y, int _button, boolean _ctrl, boolean _shift)
+                          #{
+                          #    int     ret;
+                          #    fieldId fieldId;
+                          #
+                          #    ret = super(_x, _y, _button, _ctrl, _shift);
+                          #
+                          #    fieldId = DirECommunicationAddress::type2FieldId(DirECommunicationTypeTable::find(dirECommunicationAddress.eCommunicationTypeId).MethodType);
+                          #
+                          #    if (fieldId && fieldId != fieldnum(DirECommunicationAddress, Phone))
+                          #    {
+                          #        contactInfoGrid_M_editCommunicationValue.setFocus();
+                          #        contactInfoGrid_M_editCommunicationValue.performTypeLookup(new SysDictField(dirECommunicationAddress.TableId, fieldId).typeId());
+                          #    }
+                          #    else if (fieldId && fieldId == fieldnum(DirECommunicationAddress, Phone))
+                          #    {
+                          #        smmInit::createCall(contactInfoGrid_M_editCommunicationValue.text(), dirPartyECommunicationRelationship, element);
+                          #    }
+                          #
+                          #    return ret;
+                          #}
+                        ENDSOURCE
+                      ENDMETHODS
+                    ENDCONTROL 
+                    
+                    CONTROL CHECKBOX
+                      PROPERTIES
+                        Name                #ContactInfoGrid_M_editIsSIPAddress
+                        AutoDeclaration     #Yes
+                        BackgroundColor     #Window background
+                        DataSource          #DirECommunicationAddress
+                        DataMethod          #isSIPAddress
+                      ENDPROPERTIES
+                      
+                    ENDCONTROL 
+                    
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabPayment
+              Caption             #@SYS828
+              DataSource          #VendTable
+              Columns             #2
+              ArrangeGuide        
+                ARRAY INDEX Columns 
+                  #0
+                  #0
+                ENDARRAY
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Payment
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/B7657427-669F-4ECA-B85B-6EB8F9695A95.htm
+                  DataSource          #VendTable
+                  DataGroup           #Payment
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #NotificationToTheCentralBank
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/3625CA54-AF25-4677-BF14-DC3310E36EC5.htm
+                  DataSource          #VendTable
+                  DataGroup           #NotificationToTheCentralBank
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabTax1099
+              ConfigurationKey    #CRSEUnitedStates
+              Caption             #@SYS26050
+              DataSource          #VendTable
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Tax10991
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/4A28A97D-D544-4776-8687-323FA6E4086B.htm
+                  DataSource          #VendTable
+                  DataGroup           #Tax1099
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL TABPAGE
+            PROPERTIES
+              Name                #TabDimension
+              Caption             #@SYS14926
+              DataSource          #VendTable
+              Columns             #2
+              ArrangeGuide        
+                ARRAY INDEX Columns 
+                  #0
+                  #0
+                ENDARRAY
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL GROUP
+                PROPERTIES
+                  Name                #Dimension
+                  HTMLHelpFile        #HTMLHelpFileAxShared
+                  HTMLHelpTopic       #html/29568FE0-A2C1-4EEC-98DE-36306282F3CC.htm
+                  DataSource          #VendTable
+                  DataGroup           #Dimension
+                  AutoDataGroup       #Yes
+                ENDPROPERTIES
+                
+                  CONTAINER
+                  ENDCONTAINER
+                  
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+        ENDCONTAINER
+        
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup
+          DataSource          #VendTable
+        ENDPROPERTIES
+        
+        CONTAINER
+          CONTROL MENUITEMBUTTON
+            PROPERTIES
+              Name                #smmActivities
+              MenuItemName        #smmActivities
+            ENDPROPERTIES
+            
+          ENDCONTROL 
+          
+          CONTROL MENUITEMBUTTON
+            PROPERTIES
+              Name                #Transactions
+              MenuItemName        #VendTrans
+              DataSource          #VendTable
+            ENDPROPERTIES
+            
+          ENDCONTROL 
+          
+          CONTROL MENUITEMBUTTON
+            PROPERTIES
+              Name                #VendOpenBalanceCurrency
+              MenuItemName        #VendOpenBalanceCurrency
+            ENDPROPERTIES
+            
+          ENDCONTROL 
+          
+          CONTROL MENUBUTTON
+            PROPERTIES
+              Name                #MenuButtonSetup
+              HelpText            #@SYS84046
+              Text                #@SYS2186
+            ENDPROPERTIES
+            
+            METHODS
+              Version: 3
+              SOURCE #clicked
+                #void clicked()
+                #{
+                #    ;
+                #    contactPerson.enabled(vendTable.PartyType != DirPartyType::Person);
+                #    super();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+            CONTAINER
+              CONTROL BUTTON
+                PROPERTIES
+                  Name                #ButtonToggelSimple
+                  AutoDeclaration     #Yes
+                  HelpText            #@SYS122656
+                  Text                #@SYS122657
+                  SaveRecord          #No
+                ENDPROPERTIES
+                
+                METHODS
+                  Version: 3
+                  SOURCE #Clicked
+                    #void clicked()
+                    #{
+                    #    super();
+                    #
+                    #    element.toggelSimpleAdvancedCommunication(!advancedCommunication);
+                    #}
+                  ENDSOURCE
+                ENDMETHODS
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #Addresses
+                  Text                #@SYS36203
+                  SaveRecord          #No
+                  MenuItemName        #Address
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #ContactPerson
+                  AutoDeclaration     #Yes
+                  MenuItemName        #ContactPerson
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #Accounts
+                  SaveRecord          #No
+                  MenuItemName        #VendBankAccounts
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #VendStateTaxID
+                  MenuItemName        #VendStateTaxID
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator1
+                  Height              #100
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #InventPosting
+                  Text                #@SYS22445
+                  MenuItemName        #InventPosting
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #VendDefaultLedgerListPanel
+                  MenuItemName        #VendDefaultLedgerListPanel
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+                METHODS
+                  Version: 3
+                  SOURCE #clicked
+                    #void clicked()
+                    #{
+                    #    ;
+                    #    super();
+                    #}
+                  ENDSOURCE
+                ENDMETHODS
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator3
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL BUTTON
+                PROPERTIES
+                  Name                #PrintMgmt
+                  HelpText            #@SYS68918
+                  ConfigurationKey    #LogisticsBasic
+                  SecurityKey         #VendMisc
+                  Text                #@SYS54502
+                ENDPROPERTIES
+                
+                METHODS
+                  Version: 3
+                  SOURCE #clicked
+                    #void clicked()
+                    #{
+                    #    PrintMgmtSetupContext setupContext = new PrintMgmtSetupContext();
+                    #    ;
+                    #
+                    #    if (vendTable_ds.cursor() == null)
+                    #        return;
+                    #
+                    #    super();
+                    #
+                    #    setupContext.addHierarchyContext(PrintMgmtHierarchyType::Purch, PrintMgmtNodeType::VendTable);
+                    #    setupContext.parmCaller(element);
+                    #    setupContext.parmReferencedTableBuffer(vendTable_ds.cursor());
+                    #    PrintMgmt::launchSetup(setupContext);
+                    #}
+                  ENDSOURCE
+                ENDMETHODS
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PurchJournalAutoSummary_Vend
+                  MenuItemName        #PurchJournalAutoSummary_Vend
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #VendExternalItem
+                  Text                #@SYS54845
+                  MenuItemName        #VendExternalItem
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #ExtCodeValueTable
+                  MenuItemName        #ExtCodeValueTable
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator5
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #SalesPurchCycle_Purch
+                  AutoDeclaration     #Yes
+                  Visible             #No
+                  MenuItemName        #SalesPurchCycle_Purch
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmBusinessSectors
+                  MenuItemName        #smmBusinessSectors
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmResponsibilities
+                  MenuItemName        #smmResponsibilities
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator11
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #HRPLimit
+                  MenuItemName        #HRPLimitVend
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL MENUBUTTON
+            PROPERTIES
+              Name                #TradeAgreements
+              HelpText            #@SYS83639
+              Text                #@SYS13768
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PurchPrice
+                  MenuItemName        #PriceDiscTable_PricePurch
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PurchLineDisc
+                  MenuItemName        #PriceDiscTable_LineDiscPurch
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PurchMultiLineDisc
+                  MenuItemName        #PriceDiscTable_MultiLineDiscPurch
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PurchEndDisc
+                  MenuItemName        #PriceDiscTable_EndDiscPurch
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator2
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #SuppItemTable_Purch
+                  MenuItemName        #SuppItemTable_Purch
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL MENUBUTTON
+            PROPERTIES
+              Name                #Functions
+              HelpText            #@SYS83637
+              Text                #@SYS10340
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #OpenTrans
+                  MenuItemName        #VendOpenTrans
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #VendOpenTransReverse
+                  MenuItemName        #VendOpenTransReverse
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #Tax1099VendUpdate
+                  MenuItemType        #Action
+                  MenuItemName        #Tax1099VendUpdate
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Seperator1
+                  Height              #100
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL BUTTON
+                PROPERTIES
+                  Name                #AddContacts
+                  HelpText            #@SYS88877
+                  ConfigurationKey    #smmOutlook
+                  Text                #@SYS88837
+                  MultiSelect         #Yes
+                ENDPROPERTIES
+                
+                METHODS
+                  Version: 3
+                  SOURCE #clicked
+                    #void clicked()
+                    #{;
+                    #    smmContactPersonSynchronize::selectPartyFromDataSource(vendTable_ds);
+                    #}
+                  ENDSOURCE
+                ENDMETHODS
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #DirUpdateContactPerson
+                  MenuItemType        #Action
+                  MenuItemName        #DirUpdateContactPerson
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL MENUBUTTON
+            PROPERTIES
+              Name                #Query
+              HelpText            #@SYS83635
+              Text                #@SYS1657
+            ENDPROPERTIES
+            
+            CONTAINER
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PurchTable
+                  Text                #@SYS9283
+                  MenuItemName        #PurchTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator
+                  Height              #100
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmBusRelTable
+                  MenuItemName        #smmBusRelTable
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PurchaseOrder
+                  MenuItemName        #VendPurchOrderJournal
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PackingSlip
+                  MenuItemName        #VendPackingSlipJournal
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PendingPOInvoice
+                  HelpText            #@SYS112154
+                  Text                #@SYS109733
+                  MenuItemName        #VendUnpostedInvoiceJournal
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #Invoice
+                  MenuItemName        #VendInvoiceJournal
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #InvoiceHistory
+                  AutoDeclaration     #Yes
+                  Text                #@SYS118892
+                  MenuItemName        #PurchPostingHistoryInvoice
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #InvoiceHistoryApproval
+                  AutoDeclaration     #Yes
+                  Text                #@SYS122580
+                  MenuItemName        #PurchPostingHistoryInvoiceApproval
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #RFQJournals
+                  MenuItemName        #VendRFQJour
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator7
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #Statistics
+                  MenuItemName        #VendStatistics
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #BackPurch
+                  MenuItemName        #PurchLineBackOrder
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator9
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #PaymentHistory
+                  Text                #@SYS115698
+                  MenuItemName        #PaymentHistory
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator4
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #Tax1099Summary
+                  MenuItemName        #Tax1099Summary
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #Tax1099Reports
+                  Visible             #No
+                  MenuItemName        #Tax1099Reports
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator6
+                  ConfigurationKey    #VendPromissoryNote
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #VendPromissoryNoteJour
+                  MenuItemName        #VendPromissoryNoteJour
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #VendPromissoryNoteStat
+                  MenuItemName        #VendPromissoryNoteStat
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator8
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmCampaignTable
+                  MenuItemName        #smmCampaignTable
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmMailings
+                  MenuItemName        #smmMailings
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmTMCallListGroup
+                  MenuItemName        #smmTMCallListGroup
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmPhoneLog
+                  AutoDeclaration     #Yes
+                  MenuItemName        #smmPhoneLog
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmTransLog
+                  MenuItemName        #smmTransLog
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #smmEncyclopedia
+                  MenuItemName        #smmEncyclopedia
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL SEPARATOR
+                PROPERTIES
+                  Name                #Separator10
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+              CONTROL MENUITEMBUTTON
+                PROPERTIES
+                  Name                #InventNonConformanceTable
+                  AutoDeclaration     #Yes
+                  MenuItemName        #InventNonConformanceTable
+                  DataSource          #VendTable
+                ENDPROPERTIES
+                
+              ENDCONTROL 
+              
+            ENDCONTAINER
+            
+          ENDCONTROL 
+          
+          CONTROL MENUITEMBUTTON
+            PROPERTIES
+              Name                #ForecastPurch
+              Text                #@SYS13699
+              SaveRecord          #No
+              MenuItemName        #ForecastPurchTable
+            ENDPROPERTIES
+            
+          ENDCONTROL 
+          
+        ENDCONTAINER
+        
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+ENDFORM
+
+
+***Element: END

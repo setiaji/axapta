@@ -1,0 +1,4728 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : VendTable unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #VendTable
+    PROPERTIES
+      Name                #VendTable
+      Label               #@SYS9449
+      SearchLinkRefName   #EPVendTableInfo
+      TitleField1         #AccountNum
+      TitleField2         #Name
+      ConfigurationKey    #LedgerBasic
+      SecurityKey         #VendTables
+      CacheLookup         #Found
+      CreateRecIdIndex    #Yes
+      TableGroup          #Main
+      PrimaryIndex        #AccountIdx
+      ClusterIndex        #AccountIdx
+      AnalysisVisibility  #High
+      ModifiedDateTime    #Yes
+      DEL_modifiedTime    #Yes
+      ModifiedBy          #Yes
+      CreatedDateTime     #Yes
+      DEL_createdTime     #Yes
+      CreatedBy           #Yes
+      DeveloperDocumentation  #@SYS126056
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #AccountNum
+        STRING
+        PROPERTIES
+          Name                #AccountNum
+          Mandatory           #Yes
+          AllowEdit           #No
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendAccount
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #Name
+        STRING
+        PROPERTIES
+          Name                #Name
+          HelpText            #@SYS28170
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendName
+              #
+            ENDARRAY
+          StringSize          #60
+        ENDPROPERTIES
+        
+      FIELD #Address
+        STRING
+        PROPERTIES
+          Name                #Address
+          HelpText            #@SYS11555
+          AllowEditOnCreate   #No
+          AllowEdit           #No
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Addressing
+              #
+            ENDARRAY
+          StringSize          #250
+        ENDPROPERTIES
+        
+      FIELD #Phone
+        STRING
+        PROPERTIES
+          Name                #Phone
+          HelpText            #@SYS297
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Phone
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #TeleFax
+        STRING
+        PROPERTIES
+          Name                #TeleFax
+          HelpText            #@SYS6816
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #TeleFax
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #InvoiceAccount
+        STRING
+        PROPERTIES
+          Name                #InvoiceAccount
+          HelpText            #@SYS28168
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendInvoiceAccount
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #VendGroup
+        STRING
+        PROPERTIES
+          Name                #VendGroup
+          Label               #@SYS3815
+          HelpText            #@SYS17189
+          Mandatory           #Yes
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendGroupId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #PaymTermId
+        STRING
+        PROPERTIES
+          Name                #PaymTermId
+          HelpText            #@SYS57525
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPaymTermId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #CashDisc
+        STRING
+        PROPERTIES
+          Name                #CashDisc
+          HelpText            #@SYS15767
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendCashDiscCode
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #Currency
+        STRING
+        PROPERTIES
+          Name                #Currency
+          HelpText            #@SYS20786
+          Mandatory           #Yes
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendCurrencyCode
+              #
+            ENDARRAY
+          StringSize          #3
+        ENDPROPERTIES
+        
+      FIELD #CompanyIdNAF
+        STRING
+        PROPERTIES
+          Name                #CompanyIdNAF
+          Table               #VendTable
+          AnalysisVisibility  #Low
+          ExtendedDataType    
+            ARRAY 
+              #CompanyIdNAF
+              #
+            ENDARRAY
+          StringSize          #4
+        ENDPROPERTIES
+        
+      FIELD #LineDisc
+        STRING
+        PROPERTIES
+          Name                #LineDisc
+          HelpText            #@SYS7138
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendLineDiscCode
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #EnterpriseNumber
+        STRING
+        PROPERTIES
+          Name                #EnterpriseNumber
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #TaxEnterpriseNumber
+              #
+            ENDARRAY
+          StringSize          #50
+        ENDPROPERTIES
+        
+      FIELD #Blocked
+        ENUM
+        PROPERTIES
+          Name                #Blocked
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendBlocked
+              #
+            ENDARRAY
+          EnumType            #CustVendorBlocked
+        ENDPROPERTIES
+        
+      FIELD #OneTimeVendor
+        ENUM
+        PROPERTIES
+          Name                #OneTimeVendor
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #OneTimeSupplier
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #Dimension
+        STRING
+        PROPERTIES
+          Name                #Dimension
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Dimension
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #Telex
+        STRING
+        PROPERTIES
+          Name                #Telex
+          HelpText            #@SYS137
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Telex
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #PriceGroup
+        STRING
+        PROPERTIES
+          Name                #PriceGroup
+          HelpText            #@SYS5185
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPriceGroup
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #MultiLineDisc
+        STRING
+        PROPERTIES
+          Name                #MultiLineDisc
+          Label               #@SYS11440
+          HelpText            #@SYS8892
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendMultiLineDiscCode
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #EndDisc
+        STRING
+        PROPERTIES
+          Name                #EndDisc
+          HelpText            #@SYS893
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendEndDiscCode
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #PaymId
+        STRING
+        PROPERTIES
+          Name                #PaymId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPaymId
+              #
+            ENDARRAY
+          StringSize          #200
+        ENDPROPERTIES
+        
+      FIELD #CustAccount
+        STRING
+        PROPERTIES
+          Name                #CustAccount
+          HelpText            #@SYS1414
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #CustAccount
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #VATNum
+        STRING
+        PROPERTIES
+          Name                #VATNum
+          HelpText            #@SYS1339
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VATNum
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #CountryRegionId
+        STRING
+        PROPERTIES
+          Name                #CountryRegionId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressCountryRegionId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #InventLocation
+        STRING
+        PROPERTIES
+          Name                #InventLocation
+          HelpText            #@SYS16977
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #InventLocationId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #YourAccountNum
+        STRING
+        PROPERTIES
+          Name                #YourAccountNum
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendAccountExt
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #DlvTerm
+        STRING
+        PROPERTIES
+          Name                #DlvTerm
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendDlvTermId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #DlvMode
+        STRING
+        PROPERTIES
+          Name                #DlvMode
+          HelpText            #@SYS6488
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendDlvModeId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #BankAccount
+        STRING
+        PROPERTIES
+          Name                #BankAccount
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendBankAccountId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #PaymMode
+        STRING
+        PROPERTIES
+          Name                #PaymMode
+          HelpText            #@SYS12830
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPaymMode
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #PaymSpec
+        STRING
+        PROPERTIES
+          Name                #PaymSpec
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #PaymSpec
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #MarkupGroup
+        STRING
+        PROPERTIES
+          Name                #MarkupGroup
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendMarkupGroupId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #ClearingPeriod
+        STRING
+        PROPERTIES
+          Name                #ClearingPeriod
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendClearingPeriod
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #ZipCode
+        STRING
+        PROPERTIES
+          Name                #ZipCode
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressZipCodeId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #State
+        STRING
+        PROPERTIES
+          Name                #State
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressStateId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #County
+        STRING
+        PROPERTIES
+          Name                #County
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressCountyId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #URL
+        STRING
+        PROPERTIES
+          Name                #URL
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #URL
+              #
+            ENDARRAY
+          StringSize          #255
+        ENDPROPERTIES
+        
+      FIELD #Email
+        STRING
+        PROPERTIES
+          Name                #Email
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Email
+              #
+            ENDARRAY
+          StringSize          #80
+        ENDPROPERTIES
+        
+      FIELD #CellularPhone
+        STRING
+        PROPERTIES
+          Name                #CellularPhone
+          HelpText            #@SYS28167
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #PhoneMobile
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #PhoneLocal
+        STRING
+        PROPERTIES
+          Name                #PhoneLocal
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #PhoneLocal
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #CompanyIdSiret
+        STRING
+        PROPERTIES
+          Name                #CompanyIdSiret
+          Table               #VendTable
+          AnalysisVisibility  #Low
+          ExtendedDataType    
+            ARRAY 
+              #CompanyIdSiret
+              #
+            ENDARRAY
+          StringSize          #14
+        ENDPROPERTIES
+        
+      FIELD #TaxGroup
+        STRING
+        PROPERTIES
+          Name                #TaxGroup
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #TaxGroup
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #FreightZone
+        STRING
+        PROPERTIES
+          Name                #FreightZone
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendFreightZoneId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #MinorityOwned
+        ENUM
+        PROPERTIES
+          Name                #MinorityOwned
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #MinorityOwner
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #FemaleOwned
+        ENUM
+        PROPERTIES
+          Name                #FemaleOwned
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #FemaleOwner
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #CreditRating
+        STRING
+        PROPERTIES
+          Name                #CreditRating
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendCreditRating
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #CreditMax
+        REAL
+        PROPERTIES
+          Name                #CreditMax
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendCreditMaxMST
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #Tax1099Reports
+        ENUM
+        PROPERTIES
+          Name                #Tax1099Reports
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Tax1099Reporting
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #Tax1099RegNum
+        STRING
+        PROPERTIES
+          Name                #Tax1099RegNum
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Tax1099RegNum
+              #
+            ENDARRAY
+          StringSize          #11
+        ENDPROPERTIES
+        
+      FIELD #PaymSched
+        STRING
+        PROPERTIES
+          Name                #PaymSched
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPaymSchedId
+              #
+            ENDARRAY
+          StringSize          #30
+        ENDPROPERTIES
+        
+      FIELD #Tax1099Box
+        STRING
+        PROPERTIES
+          Name                #Tax1099Box
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Tax1099Box
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #NameAlias
+        STRING
+        PROPERTIES
+          Name                #NameAlias
+          Table               #VendTable
+          AliasFor            #AccountNum
+          ExtendedDataType    
+            ARRAY 
+              #VendTableAlias
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #ItemBuyerGroupId
+        STRING
+        PROPERTIES
+          Name                #ItemBuyerGroupId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #ItemBuyerGroupId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #ContactPersonId
+        STRING
+        PROPERTIES
+          Name                #ContactPersonId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #ContactPersonId
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #PurchPoolId
+        STRING
+        PROPERTIES
+          Name                #PurchPoolId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPurchPoolId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #PurchAmountPurchaseOrder
+        ENUM
+        PROPERTIES
+          Name                #PurchAmountPurchaseOrder
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #PurchAmountPurchaseOrder
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #InclTax
+        ENUM
+        PROPERTIES
+          Name                #InclTax
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #InclTax
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #VendItemGroupId
+        STRING
+        PROPERTIES
+          Name                #VendItemGroupId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendItemGroupId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #DEL_ResidenceForeignCountry
+        STRING
+        PROPERTIES
+          Name                #DEL_ResidenceForeignCountry
+          Visible             #No
+          ConfigurationKey    #SysDeletedObjects40
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressCountryRegionId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #numberSequenceGroup
+        STRING
+        PROPERTIES
+          Name                #numberSequenceGroup
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #NumberSequenceGroupId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #LanguageId
+        STRING
+        PROPERTIES
+          Name                #LanguageId
+          HelpText            #@SYS9756
+          Mandatory           #Yes
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendLanguageId
+              #
+            ENDARRAY
+          StringSize          #7
+        ENDPROPERTIES
+        
+      FIELD #PaymDayId
+        STRING
+        PROPERTIES
+          Name                #PaymDayId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPaymDayId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #DestinationCodeId
+        STRING
+        PROPERTIES
+          Name                #DestinationCodeId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendDestinationCodeId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #LineOfBusinessId
+        STRING
+        PROPERTIES
+          Name                #LineOfBusinessId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendLineOfBusinessId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #SuppItemGroupId
+        STRING
+        PROPERTIES
+          Name                #SuppItemGroupId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendSuppItemGroupId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #BankCentralBankPurposeText
+        STRING
+        PROPERTIES
+          Name                #BankCentralBankPurposeText
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #BankCentralBankPurposeText
+              #
+            ENDARRAY
+          StringSize          #140
+        ENDPROPERTIES
+        
+      FIELD #BankCentralBankPurposeCode
+        STRING
+        PROPERTIES
+          Name                #BankCentralBankPurposeCode
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #BankCentralBankPurposeCode
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #DEL_PrintModuleType
+        ENUM
+        PROPERTIES
+          Name                #DEL_PrintModuleType
+          Label               #@SYS54502
+          Visible             #No
+          ConfigurationKey    #SysDeletedObjects41
+          Table               #VendTable
+          EnumType            #DEL_ModuleVendPurchParameters
+        ENDPROPERTIES
+        
+      FIELD #City
+        STRING
+        PROPERTIES
+          Name                #City
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressCity
+              #
+            ENDARRAY
+          StringSize          #60
+        ENDPROPERTIES
+        
+      FIELD #Street
+        STRING
+        PROPERTIES
+          Name                #Street
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressStreet
+              #
+            ENDARRAY
+          StringSize          #250
+        ENDPROPERTIES
+        
+      FIELD #OffsetAccount
+        STRING
+        PROPERTIES
+          Name                #OffsetAccount
+          Label               #@SYS11162
+          HelpText            #@SYS11446
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #LedgerJournalAC
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #OffsetAccountType
+        ENUM
+        PROPERTIES
+          Name                #OffsetAccountType
+          HelpText            #@SYS23950
+          Table               #VendTable
+          EnumType            #LedgerJournalACType
+        ENDPROPERTIES
+        
+      FIELD #PurchCalendarId
+        STRING
+        PROPERTIES
+          Name                #PurchCalendarId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #PurchCalendarId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #Pager
+        STRING
+        PROPERTIES
+          Name                #Pager
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Pager
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #SMS
+        STRING
+        PROPERTIES
+          Name                #SMS
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #SMS
+              #
+            ENDARRAY
+          StringSize          #80
+        ENDPROPERTIES
+        
+      FIELD #OrganizationNumber
+        STRING
+        PROPERTIES
+          Name                #OrganizationNumber
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #OrganizationNumber
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #DEL_RefZipCode
+        INT64
+        PROPERTIES
+          Name                #DEL_RefZipCode
+          AllowEditOnCreate   #No
+          AllowEdit           #No
+          ConfigurationKey    #SysDeletedObjects40
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #RefRecId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #FiscalCode
+        STRING
+        PROPERTIES
+          Name                #FiscalCode
+          HelpText            #@SYS79239
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #FiscalCode
+              #
+            ENDARRAY
+          StringSize          #16
+        ENDPROPERTIES
+        
+      FIELD #PartyId
+        STRING
+        PROPERTIES
+          Name                #PartyId
+          AllowEdit           #No
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #DirPartyId
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #TaxWithholdCalculate
+        ENUM
+        PROPERTIES
+          Name                #TaxWithholdCalculate
+          Label               #@SYS81757
+          HelpText            #@SYS81758
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #NoYesId
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #TaxWithholdGroup
+        STRING
+        PROPERTIES
+          Name                #TaxWithholdGroup
+          HelpText            #@SYS81759
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #TaxWithholdGroup
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #BirthDate
+        DATE
+        PROPERTIES
+          Name                #BirthDate
+          Label               #@SYS78855
+          HelpText            #@SYS81760
+          ConfigurationKey    #CRSEItaly
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #TransDate
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #BirthPlace
+        STRING
+        PROPERTIES
+          Name                #BirthPlace
+          Label               #@SYS81761
+          HelpText            #@SYS81762
+          ConfigurationKey    #CRSEItaly
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressCity
+              #
+            ENDARRAY
+          StringSize          #60
+        ENDPROPERTIES
+        
+      FIELD #ResidenceForeignCountryRegionId
+        STRING
+        PROPERTIES
+          Name                #ResidenceForeignCountryRegionId
+          Label               #@SYS81763
+          HelpText            #@SYS81764
+          ConfigurationKey    #CRSEItaly
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #AddressCountryRegionId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #NameControl
+        STRING
+        PROPERTIES
+          Name                #NameControl
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #NameControl
+              #
+            ENDARRAY
+          StringSize          #4
+        ENDPROPERTIES
+        
+      FIELD #ForeignEntityIndicator
+        ENUM
+        PROPERTIES
+          Name                #ForeignEntityIndicator
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #Tax1099ForeignEntityIndicator
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #TaxIDType
+        ENUM
+        PROPERTIES
+          Name                #TaxIDType
+          Table               #VendTable
+          EnumType            #TaxIDType
+        ENDPROPERTIES
+        
+      FIELD #DBA
+        STRING
+        PROPERTIES
+          Name                #DBA
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #DBA
+              #
+            ENDARRAY
+          StringSize          #60
+        ENDPROPERTIES
+        
+      FIELD #Tax1099NameChoice
+        ENUM
+        PROPERTIES
+          Name                #Tax1099NameChoice
+          Table               #VendTable
+          EnumType            #Tax1099NameChoice
+        ENDPROPERTIES
+        
+      FIELD #SecondTIN
+        ENUM
+        PROPERTIES
+          Name                #SecondTIN
+          Label               #@SYS84761
+          HelpText            #@SYS84762
+          ConfigurationKey    #CRSEUnitedStates
+          Table               #VendTable
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #InventSiteId
+        STRING
+        PROPERTIES
+          Name                #InventSiteId
+          HelpText            #@SYS109382
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #InventSiteId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #SegmentId
+        STRING
+        PROPERTIES
+          Name                #SegmentId
+          ConfigurationKey    #SmmCRM
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #smmSegmentId
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #SubsegmentId
+        STRING
+        PROPERTIES
+          Name                #SubsegmentId
+          ConfigurationKey    #SmmCRM
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #smmSubsegmentId
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #CompanyChainId
+        STRING
+        PROPERTIES
+          Name                #CompanyChainId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #smmChainId
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #MainContactId
+        STRING
+        PROPERTIES
+          Name                #MainContactId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #smmBusRelAccResponsible
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #VendPriceToleranceGroupId
+        STRING
+        PROPERTIES
+          Name                #VendPriceToleranceGroupId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendPriceToleranceGroupId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #Memo
+        STRING
+        PROPERTIES
+          Name                #Memo
+          ConfigurationKey    #SmmCRM
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #smmBusRelMemo
+              #
+            ENDARRAY
+          StringSize          #(Memo)
+        ENDPROPERTIES
+        
+      FIELD #SmallBusiness
+        ENUM
+        PROPERTIES
+          Name                #SmallBusiness
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendSmallBusiness
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #PartyType
+        ENUM
+        PROPERTIES
+          Name                #PartyType
+          Mandatory           #Yes
+          AllowEdit           #No
+          Table               #VendTable
+          EnumType            #DirPartyType
+        ENDPROPERTIES
+        
+      FIELD #LocallyOwned
+        ENUM
+        PROPERTIES
+          Name                #LocallyOwned
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendLocallyOwned
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #BidOnly
+        ENUM
+        PROPERTIES
+          Name                #BidOnly
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendBidOnly
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #W9
+        ENUM
+        PROPERTIES
+          Name                #W9
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #VendW9
+              #
+            ENDARRAY
+          EnumType            #NoYes
+        ENDPROPERTIES
+        
+      FIELD #OrgId
+        STRING
+        PROPERTIES
+          Name                #OrgId
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #OrgId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+      FIELD #FactoringAccount
+        STRING
+        PROPERTIES
+          Name                #FactoringAccount
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #BankVendFactoringAccount
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #DEL_NPIBankingFactoringAccount
+        STRING
+        PROPERTIES
+          Name                #DEL_NPIBankingFactoringAccount
+          ConfigurationKey    #SysDeletedObjects40
+          Table               #VendTable
+          ExtendedDataType    
+            ARRAY 
+              #BankVendFactoringAccount
+              #
+            ENDARRAY
+          StringSize          #20
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+      GROUP #AutoReport
+        PROPERTIES
+          Name                #AutoReport
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #AccountNum
+          #OrgId
+          #Name
+          #Address
+          #Phone
+          #Currency
+          #VendGroup
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #AutoLookup
+        PROPERTIES
+          Name                #AutoLookup
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #AccountNum
+          #PartyId
+          #Name
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Address
+        PROPERTIES
+          Name                #Address
+          Label               #@SYS9362
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Street
+          #ZipCode
+          #City
+          #County
+          #State
+          #CountryRegionId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #AddressDisplay
+        PROPERTIES
+          Name                #AddressDisplay
+          Label               #@SYS9362
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Address
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #AddressLookup
+        PROPERTIES
+          Name                #AddressLookup
+          Label               #@SYS88672
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #AccountNum
+          #Name
+          #NameAlias
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Administration
+        PROPERTIES
+          Name                #Administration
+          Label               #@SYS9853
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Blocked
+          #ItemBuyerGroupId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Budget
+        PROPERTIES
+          Name                #Budget
+          Label               #@SYS15436
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #ClearingPeriod
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #CompanyChain
+        PROPERTIES
+          Name                #CompanyChain
+          Label               #@SYS105794
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #CompanyChainId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #ContactInfo
+        PROPERTIES
+          Name                #ContactInfo
+          Label               #@SYS21663
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Phone
+          #PhoneLocal
+          #CellularPhone
+          #Pager
+          #TeleFax
+          #Email
+          #SMS
+          #URL
+          #Telex
+          #ContactPersonId
+          #editContactPersonName
+          #LineOfBusinessId
+          #BirthDate
+          #BirthPlace
+          #ResidenceForeignCountryRegionId
+          #CompanyIdSiret
+          #CompanyIdNAF
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Credit
+        PROPERTIES
+          Name                #Credit
+          Label               #@SYS7084
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #CreditRating
+          #CreditMax
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Currency
+        PROPERTIES
+          Name                #Currency
+          Label               #@SYS7572
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Currency
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Customer
+        PROPERTIES
+          Name                #Customer
+          Label               #@SYS302
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #CustAccount
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Deleted
+        PROPERTIES
+          Name                #Deleted
+          Label               #@SYS4197
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #DEL_NPIBankingFactoringAccount
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Delivery
+        PROPERTIES
+          Name                #Delivery
+          Label               #@SYS4508
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #FreightZone
+          #DlvTerm
+          #DlvMode
+          #DestinationCodeId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Description
+        PROPERTIES
+          Name                #Description
+          Label               #@SYS7576
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Name
+          #NameAlias
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Dimension
+        PROPERTIES
+          Name                #Dimension
+          Label               #@SYS5951
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Dimension
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Identification
+        PROPERTIES
+          Name                #Identification
+          Label               #@SYS5711
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #AccountNum
+          #PartyId
+          #PartyType
+          #OrgId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Invoice
+        PROPERTIES
+          Name                #Invoice
+          Label               #@SYS12128
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #InvoiceAccount
+          #numberSequenceGroup
+          #VendPriceToleranceGroupId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #MainContact
+        PROPERTIES
+          Name                #MainContact
+          Label               #@SYS105795
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #MainContactId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Memo
+        PROPERTIES
+          Name                #Memo
+          Label               #@SYS105796
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Memo
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #NotificationToTheCentralBank
+        PROPERTIES
+          Name                #NotificationToTheCentralBank
+          Label               #@SYS67156
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #BankCentralBankPurposeCode
+          #BankCentralBankPurposeText
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #OffsetAccount
+        PROPERTIES
+          Name                #OffsetAccount
+          Label               #@SYS11162
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #OffsetAccountType
+          #OffsetAccount
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Payment
+        PROPERTIES
+          Name                #Payment
+          Label               #@SYS828
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #PaymTermId
+          #PaymMode
+          #paymentType
+          #PaymSpec
+          #PaymSched
+          #CashDisc
+          #BankAccount
+          #PaymId
+          #PaymDayId
+          #FactoringAccount
+          #bankAccountNum
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Posting
+        PROPERTIES
+          Name                #Posting
+          Label               #@SYS12919
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #VendGroup
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #PurchaseDiscount
+        PROPERTIES
+          Name                #PurchaseDiscount
+          Label               #@SYS13267
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #MultiLineDisc
+          #EndDisc
+          #PriceGroup
+          #LineDisc
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #PurchaseOrder
+        PROPERTIES
+          Name                #PurchaseOrder
+          Label               #@SYS15812
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #MarkupGroup
+          #InventSiteId
+          #InventLocation
+          #VendItemGroupId
+          #PurchPoolId
+          #YourAccountNum
+          #balanceAllCurrency
+          #PurchAmountPurchaseOrder
+          #PurchCalendarId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #SalesTax
+        PROPERTIES
+          Name                #SalesTax
+          Label               #@SYS5878
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #TaxGroup
+          #InclTax
+          #VATNum
+          #EnterpriseNumber
+          #FiscalCode
+          #OrganizationNumber
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Segment
+        PROPERTIES
+          Name                #Segment
+          Label               #@SYS105797
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #SegmentId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Subsegment
+        PROPERTIES
+          Name                #Subsegment
+          Label               #@SYS105798
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #SubsegmentId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #SupplementaryItem
+        PROPERTIES
+          Name                #SupplementaryItem
+          Label               #@SYS58240
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #SuppItemGroupId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Tax1099
+        PROPERTIES
+          Name                #Tax1099
+          Label               #@SYS84747
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #Tax1099Reports
+          #W9
+          #Tax1099RegNum
+          #TaxIDType
+          #Tax1099Box
+          #ForeignEntityIndicator
+          #SecondTIN
+          #Tax1099NameChoice
+          #DBA
+          #NameControl
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #VendorProfile
+        PROPERTIES
+          Name                #VendorProfile
+          Label               #@SYS114264
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #BidOnly
+          #LocallyOwned
+          #MinorityOwned
+          #OneTimeVendor
+          #SmallBusiness
+          #FemaleOwned
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #VendorTable
+        PROPERTIES
+          Name                #VendorTable
+          Label               #@SYS13709
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #LanguageId
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #WebCategoryBrowsing
+        PROPERTIES
+          Name                #WebCategoryBrowsing
+          Label               #@SYS74258
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #VendGroup
+          #Currency
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #WithholdingTax
+        PROPERTIES
+          Name                #WithholdingTax
+          Label               #@SYS7372
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #TaxWithholdCalculate
+          #TaxWithholdGroup
+        ENDGROUPFIELDS
+      ENDGROUP
+    ENDGROUPS
+    
+    INDICES
+      #AccountIdx
+      PROPERTIES
+        Name                #AccountIdx
+        AllowDuplicates     #No
+      ENDPROPERTIES
+      
+      INDEXFIELDS
+        #AccountNum
+      ENDINDEXFIELDS
+      
+      #PartyIdx
+      PROPERTIES
+        Name                #PartyIdx
+        AllowDuplicates     #No
+      ENDPROPERTIES
+      
+      INDEXFIELDS
+        #PartyId
+      ENDINDEXFIELDS
+      
+      #NameAliasIDx
+      PROPERTIES
+        Name                #NameAliasIDx
+      ENDPROPERTIES
+      
+      INDEXFIELDS
+        #NameAlias
+      ENDINDEXFIELDS
+      
+      #YourAccountNumIdx
+      PROPERTIES
+        Name                #YourAccountNumIdx
+      ENDPROPERTIES
+      
+      INDEXFIELDS
+        #YourAccountNum
+      ENDINDEXFIELDS
+      
+      #PhoneIdx
+      PROPERTIES
+        Name                #PhoneIdx
+      ENDPROPERTIES
+      
+      INDEXFIELDS
+        #Phone
+        #CellularPhone
+      ENDINDEXFIELDS
+      
+    ENDINDICES
+    REFERENCES
+      REFERENCE #County
+        PROPERTIES
+          Name                #County
+          Table               #AddressCounty
+          EntityRelationshipRole  #@SYS125028
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #CountryRegionId
+            RelatedField        #CountryRegionId
+          ENDPROPERTIES
+          
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #State
+            RelatedField        #StateId
+          ENDPROPERTIES
+          
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #County
+            RelatedField        #CountyId
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #DirPartyView
+        PROPERTIES
+          Name                #DirPartyView
+          Table               #DirPartyView
+          Validate            #No
+          EntityRelationshipRole  #@SYS126057
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #PartyId
+            RelatedField        #PartyId
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #smmBusRelSubSegmentGroup
+        PROPERTIES
+          Name                #smmBusRelSubSegmentGroup
+          Table               #smmBusRelSubSegmentGroup
+          EntityRelationshipRole  #@SYS126058
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #SubsegmentId
+            RelatedField        #SubsegmentId
+          ENDPROPERTIES
+          
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #SegmentId
+            RelatedField        #SegmentId
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #State
+        PROPERTIES
+          Name                #State
+          Table               #AddressState
+          EntityRelationshipRole  #@SYS125028
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #CountryRegionId
+            RelatedField        #CountryRegionId
+          ENDPROPERTIES
+          
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #State
+            RelatedField        #StateId
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #Tax1099Summary
+        PROPERTIES
+          Name                #Tax1099Summary
+          Table               #Tax1099Summary
+          Validate            #No
+          EntityRelationshipRole  #@SYS126059
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #AccountNum
+            RelatedField        #VendAccount
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #VATNum
+        PROPERTIES
+          Name                #VATNum
+          Table               #TaxVATNumTable
+          EntityRelationshipRole  #@SYS126060
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #VATNum
+            RelatedField        #VATNum
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #VendBankAccount
+        PROPERTIES
+          Name                #VendBankAccount
+          Table               #VendBankAccount
+          EntityRelationshipRole  #@SYS123560
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #AccountNum
+            RelatedField        #VendAccount
+          ENDPROPERTIES
+          
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #BankAccount
+            RelatedField        #AccountID
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #VendPaymentModeSpec
+        PROPERTIES
+          Name                #VendPaymentModeSpec
+          Table               #VendPaymModeSpec
+          EntityRelationshipRole  #@SYS126061
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #PaymMode
+            RelatedField        #PaymMode
+          ENDPROPERTIES
+          
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #PaymSpec
+            RelatedField        #Specification
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+    ENDREFERENCES
+    
+    DELETEACTIONS
+      #PrintMgmtDocInstance
+      PROPERTIES
+        Table               #PrintMgmtDocInstance
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #smmResponsibilitiesEmplTable
+      PROPERTIES
+        Table               #smmResponsibilitiesEmplTable
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #InventTestAssociationTable
+      PROPERTIES
+        Table               #InventTestAssociationTable
+        DeleteAction        #Restricted
+      ENDPROPERTIES
+      
+      #SysCompanyUserInfo
+      PROPERTIES
+        Table               #SysCompanyUserInfo
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #VendStateTaxID
+      PROPERTIES
+        Table               #VendStateTaxID
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #VendDefaultAccounts
+      PROPERTIES
+        Table               #VendDefaultAccounts
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #smmBusRelTable
+      PROPERTIES
+        Table               #smmBusRelTable
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #VendTrans
+      PROPERTIES
+        Table               #VendTrans
+        DeleteAction        #Restricted
+      ENDPROPERTIES
+      
+      #PurchTable
+      PROPERTIES
+        Table               #PurchTable
+        DeleteAction        #Restricted
+      ENDPROPERTIES
+      
+      #ForecastPurch
+      PROPERTIES
+        Table               #ForecastPurch
+        DeleteAction        #Restricted
+      ENDPROPERTIES
+      
+      #WrkCtrTable
+      PROPERTIES
+        Table               #WrkCtrTable
+        DeleteAction        #Restricted
+      ENDPROPERTIES
+      
+      #InventTable
+      PROPERTIES
+        Table               #InventTable
+        DeleteAction        #Restricted
+      ENDPROPERTIES
+      
+      #TaxAuthorityAddress
+      PROPERTIES
+        Table               #TaxAuthorityAddress
+        DeleteAction        #Restricted
+      ENDPROPERTIES
+      
+      #Tax1099Reports
+      PROPERTIES
+        Table               #Tax1099Reports
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #SuppItemTable
+      PROPERTIES
+        Table               #SuppItemTable
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #ReqPO
+      PROPERTIES
+        Table               #ReqPO
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #PurchJournalAutoSummary
+      PROPERTIES
+        Table               #PurchJournalAutoSummary
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #PriceDiscTable
+      PROPERTIES
+        Table               #PriceDiscTable
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #PriceDiscAdmTrans
+      PROPERTIES
+        Table               #PriceDiscAdmTrans
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #MarkupAutoTable
+      PROPERTIES
+        Table               #MarkupAutoTable
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #CustVendExternalItem
+      PROPERTIES
+        Table               #CustVendExternalItem
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #ContactPerson
+      PROPERTIES
+        Table               #ContactPerson
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #BusinessStatisticsData
+      PROPERTIES
+        Table               #BusinessStatisticsData
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #Address
+      PROPERTIES
+        Table               #Address
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #VendLedgerAccounts
+      PROPERTIES
+        Table               #VendLedgerAccounts
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #VendBankAccount
+      PROPERTIES
+        Table               #VendBankAccount
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+      #DocuRef
+      PROPERTIES
+        Table               #DocuRef
+        DeleteAction        #Cascade
+      ENDPROPERTIES
+      
+    ENDDELETEACTIONS
+    
+    METHODS
+      Version: 3
+      SOURCE #balanceAllCurrency
+        #//BP Deviation Documented
+        #display AmountCur balanceAllCurrency(CustCurrencyCode _currencyCode = this.Currency)
+        #{
+        #    return this.CustVendTable::balanceAllCurrency(_currencyCode);
+        #}
+      ENDSOURCE
+      SOURCE #balanceCurPerDate
+        #server AmountCur balanceCurPerDate(TransDate    _transactionDate    = systemdateget(),
+        #                                   CurrencyCode _currencyCode       = CompanyInfo::find().CurrencyCode)
+        #{
+        #    return this.CustVendTable::balanceCurPerDate(_transactionDate, _currencyCode);
+        #}
+      ENDSOURCE
+      SOURCE #BalanceCurrency
+        #AmountCur balanceCurrency(TransDate     _fromDate       = dateNull(),
+        #                          TransDate     _toDate         = dateMax(),
+        #                          CurrencyCode  _fromCurrency   = '',
+        #                          CurrencyCode  _toCurrency     = '')
+        #{
+        #
+        #    return this.CustVendTable::balanceCurrency(_fromDate,
+        #                                               _toDate,
+        #                                               _fromCurrency,
+        #                                               _toCurrency);
+        #}
+      ENDSOURCE
+      SOURCE #BalanceMST
+        #//BP Deviation Documented
+        #display AmountMST balanceMST(FromDate   _fromDate   = dateNull(),
+        #                             ToDate     _toDate     = dateMax())
+        #{
+        #    return this.CustVendTable::balanceMST(_fromDate, _toDate);
+        #}
+      ENDSOURCE
+      SOURCE #BalancePerDate
+        #server AmountMST balancePerDate(TransDate _transactionDate = systemdateget())
+        #{
+        #    return this.CustVendTable::balancePerDate(_transactionDate);
+        #}
+      ENDSOURCE
+      SOURCE #bankAccountName
+        #// add by Setiaji, 20 June 2012
+        #display Name bankAccountName()
+        #{
+        #    return VendBankAccount::find(this.AccountNum, this.BankAccount).Name;
+        #}
+      ENDSOURCE
+      SOURCE #bankAccountNum
+        #//BP Deviation documented
+        #display BankAccount bankAccountNum()
+        #{
+        #    return VendBankAccount::find(this.AccountNum, this.BankAccount).AccountNum;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #bankRegistrationNum
+        #// add by Setiaji, 20 June 2012
+        #display BankRegNum bankRegistrationNum()
+        #{
+        #    return VendBankAccount::find(this.AccountNum, this.BankAccount).RegistrationNum;
+        #}
+      ENDSOURCE
+      SOURCE #CashDiscName
+        #//BP Deviation Documented
+        #display VendCashDiscName cashDiscName()
+        #{
+        #    return CashDisc::find(this.CashDisc).Description;
+        #}
+      ENDSOURCE
+      SOURCE #CheckAccountBlocked
+        #boolean checkAccountBlocked(AmountCur amountCur)
+        #{
+        #    boolean ret = true;
+        #
+        #    if (this.Blocked    == CustVendorBlocked::All ||
+        #       (this.Blocked    == CustVendorBlocked::Invoice && amountCur < 0))
+        #    {
+        #        ret = checkFailed(strfmt("@SYS1138", this.AccountNum));
+        #    }
+        #    return ret;
+        #}
+      ENDSOURCE
+      SOURCE #CheckBlockedAll
+        #boolean  checkBlockedAll()
+        #{
+        #    boolean ret = true;
+        #
+        #    if (this.Blocked == CustVendorBlocked::All)
+        #    {
+        #        ret = checkFailed(strfmt("@SYS22005", this.AccountNum, CustVendorBlocked::All));
+        #    }
+        #
+        #    return ret;
+        #}
+      ENDSOURCE
+      SOURCE #checkInvoice
+        #/*
+        #    AOSRunMode::Called
+        #*/
+        #boolean checkInvoice(InvoiceId          invoiceId,
+        #                     TransDate          transDate = systemdateget(),
+        #                     LedgerJournalId    _ledgerJournalId = '' )
+        #{
+        #    TransDate           fromDate;
+        #    TransDate           toDate;
+        #    TransDate           foundDate;
+        #    boolean             found;
+        #    VendInvoiceJour     vendInvoiceJour;
+        #    AmountCur           invoiceAmount;
+        #    ;
+        #    if (!invoiceId)
+        #    {
+        #        return true;
+        #    }
+        #
+        #    switch (VendParameters::find().CheckInvoice)
+        #    {
+        #        case ReuseVoucher::NoDuplicate :
+        #            while   select InvoiceDate,InvoiceAmount
+        #                    from vendInvoiceJour
+        #                    index hint InvoiceIdx
+        #                    where vendInvoiceJour.InvoiceAccount      == this.AccountNum    &&
+        #                         vendInvoiceJour.InvoiceId            == invoiceId          &&
+        #                         vendInvoiceJour.InvoiceAmount        != 0
+        #            {
+        #                invoiceAmount += vendInvoiceJour.InvoiceAmount;
+        #                if (!foundDate)
+        #                    foundDate = vendInvoiceJour.InvoiceDate;
+        #            }
+        #            if (invoiceAmount)
+        #            {
+        #                found = true;
+        #            }
+        #            break;
+        #
+        #        case ReuseVoucher::NoDuplicateInYear :
+        #            fromDate =  LedgerPeriod::findOpeningDate(transDate);
+        #            toDate   =  LedgerPeriod::closingPeriodEnd(transDate);
+        #            while   select InvoiceDate,InvoiceAmount
+        #                    from vendInvoiceJour
+        #                    index hint InvoiceIdx
+        #                    where    vendInvoiceJour.InvoiceAccount     == this.AccountNum    &&
+        #                             vendInvoiceJour.InvoiceId          == invoiceId          &&
+        #                             vendInvoiceJour.InvoiceAmount      !=0                   &&
+        #                             vendInvoiceJour.InvoiceDate        >=  fromDate          &&
+        #                             vendInvoiceJour.InvoiceDate        <=  toDate
+        #            {
+        #                invoiceAmount += vendInvoiceJour.InvoiceAmount;
+        #                if (!foundDate)
+        #                    foundDate = vendInvoiceJour.InvoiceDate;
+        #            }
+        #            if (invoiceAmount)
+        #            {
+        #                found = true;
+        #            }
+        #            break;
+        #
+        #        case ReuseVoucher::AcceptDuplicate :
+        #            found = false;
+        #            break;
+        #
+        #        case ReuseVoucher::WarnDuplicate :
+        #            fromDate =  LedgerPeriod::findOpeningDate(transDate);
+        #            toDate   =  LedgerPeriod::closingPeriodEnd(transDate);
+        #            select firstonly InvoiceDate,InvoiceAmount
+        #                from vendInvoiceJour
+        #                index hint InvoiceIdx
+        #                where    vendInvoiceJour.InvoiceAccount     == this.AccountNum    &&
+        #                         vendInvoiceJour.InvoiceId          == invoiceId          &&
+        #                         vendInvoiceJour.InvoiceAmount      != 0                  &&
+        #                         vendInvoiceJour.InvoiceDate        >=  fromDate          &&
+        #                         vendInvoiceJour.InvoiceDate        <=  toDate;
+        #            if (vendInvoiceJour)
+        #            {
+        #                found = false;
+        #                warning(strfmt("@SYS50887",invoiceId,
+        #                        date2StrUsr(vendInvoiceJour.InvoiceDate, DateFlags::FormatAll)));
+        #            }
+        #            break;
+        #    }
+        #
+        #    if (found)
+        #    {
+        #        return checkFailed(strfmt("@SYS50887",invoiceId,date2StrUsr(foundDate, DateFlags::FormatAll)));
+        #    }
+        #
+        #    return true;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #checkPackingSlip
+        #/*
+        #    AOSRunMode::Called
+        #*/
+        #boolean checkPackingSlip(PackingSlipId  packingSlipId,
+        #                         TransDate      transDate = systemdateget() )
+        #{
+        #    VendPackingSlipJour vendPackingSlipJour;
+        #    ;
+        #    switch (VendParameters::find().CheckPackingSlip)
+        #    {
+        #        case ReuseVoucher::NoDuplicate :
+        #            select firstonly DeliveryDate
+        #                from vendPackingSlipJour
+        #                index hint PackingSlipIdx
+        #                where vendPackingSlipJour.InvoiceAccount == this.AccountNum       &&
+        #                      vendPackingSlipJour.PackingSlipId  == packingSlipId         &&
+        #                      vendPackingSlipJour.PurchaseType   != PurchaseType::Journal;
+        #            break;
+        #
+        #        case ReuseVoucher::NoDuplicateInYear :
+        #            select firstonly DeliveryDate
+        #                from vendPackingSlipJour
+        #                index hint PackingSlipIdx
+        #                where vendPackingSlipJour.InvoiceAccount == this.AccountNum       &&
+        #                      vendPackingSlipJour.PackingSlipId  == packingSlipId         &&
+        #                      vendPackingSlipJour.PurchaseType   != PurchaseType::Journal &&
+        #                         vendPackingSlipJour.DeliveryDate   >=  LedgerPeriod::findOpeningDate(transDate) &&
+        #                         vendPackingSlipJour.DeliveryDate   <=  LedgerPeriod::closingPeriodEnd(transDate);
+        #            break;
+        #
+        #        case ReuseVoucher::AcceptDuplicate :
+        #            return true;
+        #
+        #        case ReuseVoucher::WarnDuplicate:
+        #            if (appl.ttsLevel() == 0)
+        #            {
+        #                select firstonly DeliveryDate
+        #                    from vendPackingSlipJour
+        #                    index hint PackingSlipIdx
+        #                    where vendPackingSlipJour.InvoiceAccount == this.AccountNum       &&
+        #                          vendPackingSlipJour.PackingSlipId  == packingSlipId         &&
+        #                          vendPackingSlipJour.PurchaseType   != PurchaseType::Journal;
+        #
+        #                if (vendPackingSlipJour)
+        #                {
+        #                    warning(strfmt("@SYS50926",packingSlipId,
+        #                                   date2StrUsr(vendPackingSlipJour.DeliveryDate, DateFlags::FormatAll)));
+        #                    vendPackingSlipJour = null;
+        #                }
+        #            }
+        #            break;
+        #    }
+        #
+        #    if (vendPackingSlipJour)
+        #    {
+        #        return checkFailed(strfmt("@SYS50926",packingSlipId,
+        #                                  date2StrUsr(vendPackingSlipJour.DeliveryDate, DateFlags::FormatAll)));
+        #    }
+        #
+        #    return true;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #checkVATNumUsed
+        #boolean checkVATNumUsed()
+        #{
+        #    boolean    ret = true;
+        #    VendTable  tmpVendTable;
+        #    ;
+        #    if (TaxParameters::find().VatBookEnable == NoYes::Yes && this.vatNum)
+        #    {
+        #        select firstonly  tmpVendTable
+        #            where tmpVendTable.RecId  != this.RecId  &&
+        #                  tmpVendTable.vatNum == this.vatNum;
+        #        if (tmpVendTable.RecId)
+        #        {
+        #            ret = checkFailed(strfmt("@SYS79301",fieldpname(VendTable, vatNum)));
+        #        }
+        #    }
+        #    return ret;
+        #}
+      ENDSOURCE
+      SOURCE #ClearingAccount
+        #//BP Deviation Documented
+        #display LedgerAccount clearingAccount(VendPostingProfile vendPostingProfile =  VendParameters::find().PostingProfile)
+        #{
+        #    return this.CustVendTable::clearingAccount(vendPostingProfile, this.AccountNum);
+        #}
+      ENDSOURCE
+      SOURCE #ClearingAccountGroup
+        #LedgerAccount clearingAccountGroup(VendAccount          _vendAccount,
+        #                                   VendPostingProfile   _vendPostingProfile =  VendParameters::find().PostingProfile)
+        #{
+        #    VendLedgerAccounts  vendLedgerAccounts;
+        #
+        #    return CustVendLedgerAccounts::clearingAccount(_vendAccount,
+        #                                                   _vendPostingProfile,
+        #                                                   vendLedgerAccounts,
+        #                                                   TableGroupAll::GroupId);
+        #}
+      ENDSOURCE
+      SOURCE #ClearingPeriod
+        #VendClearingPeriod clearingPeriod()
+        #{
+        #    return (this.ClearingPeriod ? this.ClearingPeriod : VendGroup::find(this.VendGroup).clearingPeriod());
+        #}
+      ENDSOURCE
+      SOURCE #convertCurrencyCode
+        #server void convertCurrencyCode()
+        #{
+        #    CurrencyCode    origCurrencyCode;
+        #    PurchTable      purchTable;
+        #
+        #    origCurrencyCode = this.orig().Currency;
+        #
+        #    ttsbegin;
+        #
+        #    purchTable  = PurchTable::vendOpenOrders(this.AccountNum,true);
+        #
+        #    while (purchTable)
+        #    {
+        #        if (purchTable.CurrencyCode == origCurrencyCode)
+        #        {
+        #            purchTable.convertCurrencyCode(this.Currency);
+        #            purchTable.update();
+        #        }
+        #        next purchTable;
+        #    }
+        #
+        #    ttscommit;
+        #}
+      ENDSOURCE
+      SOURCE #countryRegionName
+        #//BP Deviation Documented
+        #display AddressCountryRegionName countryRegionName()
+        #{
+        #    return AddressCountryRegion::find(this.CountryRegionId).Name;
+        #}
+      ENDSOURCE
+      SOURCE #countyName
+        #//BP Deviation Documented
+        #display AddressCountyName countyName()
+        #{
+        #    return AddressCounty::find(this.CountryRegionId, this.State, this.County).Name;
+        #}
+      ENDSOURCE
+      SOURCE #creditMaxCur
+        #//BP Deviation Documented
+        #display VendCreditMaxCur creditMaxCur()
+        #{
+        #    return Currency::curAmount(this.CreditMax, this.Currency);
+        #}
+        #
+      ENDSOURCE
+      SOURCE #CurrencyName
+        #//BP Deviation Documented
+        #display CurrencyName currencyName()
+        #{
+        #    return Currency::find(this.Currency).Txt;
+        #}
+      ENDSOURCE
+      SOURCE #CustomerAccountName
+        #//BP Deviation Documented
+        #display CustInvoiceAccountName customerAccountName()
+        #{
+        #    return CustTable::find(this.CustAccount).Name;
+        #}
+      ENDSOURCE
+      SOURCE #delete
+        #public void delete()
+        #{
+        #    CustTable custTable;
+        #    ;
+        #
+        #    ttsbegin;
+        #
+        #    smmBusRelTable::deleteFromCustVend(this.TableId,this.PartyId);
+        #
+        #    InventPosting::deleteFromVend(this.AccountNum);
+        #    if(VendParameters::find().PurchCycle)
+        #    {
+        #        SalesPurchCycle::deleteFromVend(this.AccountNum);
+        #    }
+        #
+        #    if (this.CustAccount)
+        #    {
+        #        custTable = CustTable::find(this.CustAccount, true);
+        #
+        #        if (custTable)
+        #        {
+        #            custTable.VendAccount = '';
+        #            custTable.update();
+        #        }
+        #    }
+        #
+        #    // Remove links to contact person
+        #    ContactPerson::removeCustVendLink(this.TableId, this.AccountNum);
+        #
+        #    super();
+        #
+        #    // Auto delete party at backend
+        #    DirParty::autoDeleteParty(this.PartyId);
+        #
+        #    ttscommit;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #DlvModeName
+        #//BP Deviation Documented
+        #display VendDlvModeName dlvModeName()
+        #{
+        #    return DlvMode::find(this.DlvMode).Txt;
+        #}
+      ENDSOURCE
+      SOURCE #editContactPersonName
+        #//AOSRunMode::Called
+        #//BP Deviation Documented
+        #public edit ContactPersonName editContactPersonName(boolean _set, ContactPersonName _name)
+        #{
+        #    return this.CustVendTable::editContactPersonName(_set, _name);
+        #}
+      ENDSOURCE
+      SOURCE #EndDiscName
+        #//BP Deviation Documented
+        #display EndDiscName endDiscName()
+        #{
+        #    return PriceDiscGroup::find(ModuleInventCustVend::Vend,
+        #                                PriceGroupType::EndDiscGroup,
+        #                                this.EndDisc).Name;
+        #}
+      ENDSOURCE
+      SOURCE #exceedMax
+        #AmountMST exceedMax(AmountMST   _nowBalance)
+        #{
+        #    return (this.CreditMax ? -this.CreditMax - _nowBalance : 0);
+        #}
+        #
+      ENDSOURCE
+      SOURCE #existOpenOrders
+        #boolean existOpenOrders()
+        #{
+        #    return PurchTable::existVendOpenOrder(this.AccountNum);
+        #}
+      ENDSOURCE
+      SOURCE #firstOpenPayment
+        #VendTransOpen firstOpenPayment()
+        #{
+        #    VendTransOpen   vendTransOpen;
+        #    ;
+        #
+        #    vendTransOpen = this.CustVendTable::firstOpenPayment();
+        #
+        #    return vendTransOpen;
+        #}
+      ENDSOURCE
+      SOURCE #firstSettledPayment
+        #VendSettlement firstSettledPayment()
+        #{
+        #    VendSettlement  vendSettlement;
+        #    ;
+        #
+        #    vendSettlement = this.CustVendTable::firstSettledPayment();
+        #
+        #    return vendSettlement;
+        #}
+      ENDSOURCE
+      SOURCE #freeValueCur
+        #//BP Deviation Documented
+        #display VendCreditFreeValueCur freeValueCur(AmountMST _adjustment = 0)
+        #{
+        #    return this.CustVendTable::freeValueCur(_adjustment);
+        #}
+      ENDSOURCE
+      SOURCE #freeValueMST
+        #//BP Deviation Documented
+        #display VendCreditFreeValueMST freeValueMST(AmountMST _adjustment = 0)
+        #{
+        #    return this.CustVendTable::freeValueMST(_adjustment);
+        #}
+      ENDSOURCE
+      SOURCE #getSettleDate
+        #public TransDate getSettleDate(SettleDatePrinc    _saveDatePrinciple      = SettleDatePrinc::DateOfPayment,
+        #                               TransDate          _saveDate               = dateNull())
+        #{
+        #    return this.CustVendTable::getSettleDate(_saveDatePrinciple, _saveDate);
+        #}
+      ENDSOURCE
+      SOURCE #GraphicsByAgeAllocate
+        #client void graphicsByAgeAllocate(Graphics_ByAgeAllocation _graph)
+        #{
+        #    this.CustVendTable::graphicsByAgeAllocate(_graph, NoYes::Yes);
+        #}
+      ENDSOURCE
+      SOURCE #HasForecastPurch
+        #//BP Deviation Documented
+        #display ForecastHasPurch hasForecastPurch()
+        #{
+        #    return (select forecastPurch
+        #                where forecastPurch.VendAccountId == this.AccountNum).RecId != 0;
+        #}
+      ENDSOURCE
+      SOURCE #initFromContactInfo
+        #void initFromContactInfo()
+        #{
+        #    this.CustVendTable::initFromContactInfo();
+        #}
+        #
+      ENDSOURCE
+      SOURCE #initFromDirParty
+        #void initFromDirParty(DirParty _dirParty)
+        #{
+        #    ;
+        #    if (_dirParty.parmType() != DirPartyType::None)
+        #    {
+        #        this.PartyType = _dirParty.parmType();
+        #    }
+        #
+        #    // basic info
+        #    if (_dirParty.parmBasicInfo())
+        #    {
+        #        this.Name            = _dirParty.parmName();
+        #        this.NameAlias       = _dirParty.parmNameAlias();
+        #        this.LanguageId      = _dirParty.parmLanguageId();
+        #    }
+        #    // communication info
+        #    if (_dirParty.parmCommunicationInfo())
+        #    {
+        #        this.DirECommunicationMap::initCommInfoFromDirParty(_dirParty);
+        #    }
+        #    // address
+        #    if (_dirParty.parmAddressInfo())
+        #    {
+        #        this.AddressMap::initFromDirParty(_dirParty);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #InitFromPurchTable
+        #void initFromPurchTable(PurchTable  _purchTable)
+        #{
+        #//    this.name           = purchTable.deliveryName;
+        #//    this.address        = purchTable.deliveryAddress;
+        #
+        #//    this.country        = purchTable.dlvCountry;
+        #//    this.state          = purchTable.dlvState;
+        #//    this.county         = purchTable.dlvCounty;
+        #    this.OneTimeVendor  = _purchTable.OneTimeVendor;
+        #}
+      ENDSOURCE
+      SOURCE #InitFromVendGroup
+        #void initFromVendGroup(VendGroup _vendGroup)
+        #{
+        #    VendDefaultAccounts     vendDefaultAccounts;
+        #    ;
+        #    this.PaymTermId = _vendGroup.PaymTermId;
+        #    this.PaymSched  = PaymTerm::find(this.PaymTermId).PaymSched;
+        #
+        #    vendDefaultAccounts = VendDefaultAccounts::findDefault(this.AccountNum, curext(), _vendGroup.VendGroup);
+        #
+        #    if (vendDefaultAccounts)
+        #    {
+        #        this.OffsetAccountType  = vendDefaultAccounts.LedgerJournalACType;
+        #        this.OffsetAccount      = vendDefaultAccounts.AccountNum;
+        #    }
+        #    else
+        #    {
+        #        this.OffsetAccount = '';
+        #    }
+        #
+        #    //
+        #    //If default tax group is set on vendor group
+        #    //than sales tax group on vendors is filled in by default from TaxGroupId
+        #    //
+        #    if(_vendGroup.TaxGroupId)
+        #    {
+        #       this.TaxGroup = _vendGroup.TaxGroupId;
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #InitValue
+        #void initValue()
+        #{
+        #    super();
+        #
+        #    this.PartyType = DirParameters::find().VendDefaultPartyType;
+        #
+        #    // Syp Modifications - SP3 [JEPPEOML][SE-896-507-5HZD] - BEGIn
+        #    // If the languageId and Currency are empty strings a blank new vendor is created in the table and thus
+        #    // the following values should be initialised with default values. If the languageId and Currency are non-empty
+        #    // the customer is created from a template and the values should not be touched.
+        #    // Added the if-construct.
+        #    if(this.LanguageId == "" || this.Currency == "")
+        #    {
+        #        this.LanguageId                 = CompanyInfo::find().LanguageId;
+        #        this.Currency                   = CompanyInfo::find().CurrencyCode;
+        #        this.PurchAmountPurchaseOrder   = VendParameters::find().AmountPurchaseOrder;
+        #    }
+        #    // Syp Modifications - SP3 [JEPPEOML][SE-896-507-5HZD] - ENd
+        #}
+      ENDSOURCE
+      SOURCE #insert
+        #void insert()
+        #{
+        #    VendTable this_Orig = this.orig();
+        #    ;
+        #
+        #    ttsbegin;
+        #
+        #    this.setNameAlias();
+        #    this.Tax1099RegNum = Tax1099ElectronicCheck::formatTIN(this.Tax1099RegNum, this.TaxIDType);
+        #
+        #
+        #    // Check if not associated to Party
+        #    if (!this.PartyId)
+        #    {
+        #        // Create a Party entry for customer
+        #        this.PartyId = DirParty::createPartyFromCommon(this).PartyId;
+        #
+        #    }
+        #    else
+        #    {
+        #        DirParty::updatePartyFromCommonInsert(this.PartyId,this);
+        #    }
+        #
+        #    super();
+        #
+        #    smmTransLog::initTrans(this, smmLogAction::insert);
+        #
+        #    this.setAccountOnCust(this_Orig);
+        #
+        #    PurchJournalAutoSummary::initAllFromVendTable(this);
+        #
+        #    // Add links to contact person
+        #    ContactPerson::addCustVendLink(this.TableId, this.PartyId, this.AccountNum);
+        #
+        #
+        #    ttscommit;
+        #}
+      ENDSOURCE
+      SOURCE #interCompanyAccount
+        #//BP Deviation Documented
+        #display InterCompanyCustomer interCompanyAccount()
+        #{
+        #    AifEndpoint     aifEndpoint;
+        #    boolean         interCompanyOrg;
+        #    ;
+        #    aifEndpoint = AifEndpoint::findInterCompanyEnabled(this.interCompanyEndpointId());
+        #    if (aifEndpoint.InterCompanyOrg)
+        #    {
+        #        changecompany(aifEndpoint.InterCompanyCompanyId)
+        #        {
+        #            interCompanyOrg = AifEndpoint::findInterCompany(aifEndpoint.DataAreaId).InterCompanyOrg;
+        #        }
+        #    }
+        #    return interCompanyOrg;
+        #}
+      ENDSOURCE
+      SOURCE #interCompanyAccountExist
+        #boolean  interCompanyAccountExist()
+        #{;
+        #    return (this.interCompanyAccount());
+        #}
+      ENDSOURCE
+      SOURCE #interCompanyCompanyId
+        #//BP Deviation Documented
+        #display InterCompanyCompanyId  interCompanyCompanyId()
+        #{
+        #    InterCompanyCompanyId   interCompanyCompanyId;
+        #    ;
+        #
+        #    if (this.interCompanyAccountExist())
+        #    {
+        #        interCompanyCompanyId = AifEndpoint::findInterCompanyEnabled(this.interCompanyEndpointId()).InterCompanyCompanyId;
+        #    }
+        #
+        #    return interCompanyCompanyId;
+        #}
+      ENDSOURCE
+      SOURCE #IntercompanyEndpointId
+        #AifEndpointId interCompanyEndpointId()
+        #{
+        #    return AifEndpointConstraint::findInterCompanyEndpointId(this);
+        #}
+      ENDSOURCE
+      SOURCE #InvoiceAccountName
+        #//BP Deviation Documented
+        #display VendInvoiceAccountName invoiceAccountName()
+        #{
+        #    return VendTable::find(this.InvoiceAccount).Name;
+        #}
+      ENDSOURCE
+      SOURCE #invoiceAddress
+        #Address invoiceAddress()
+        #{
+        #    Address     address = DirPartyAddress::findAddress(this, AddressType::Invoice);
+        #    ;
+        #    if (!address)
+        #    {
+        #        address.clear();
+        #        address.CountryRegionId = this.CountryRegionId;
+        #        address.County          = this.County;
+        #        address.Email           = this.Email;
+        #        address.sms             = this.sms;
+        #        address.Name            = this.Name;
+        #        address.Phone           = this.Phone;
+        #        address.PhoneLocal      = this.PhoneLocal;
+        #        address.CellularPhone   = this.CellularPhone;
+        #        address.Pager           = this.Pager;
+        #        address.State           = this.State;
+        #        address.TeleFax         = this.TeleFax;
+        #        address.Telex           = this.Telex;
+        #        address.url             = this.url;
+        #        address.ZipCode         = this.ZipCode;
+        #        address.Street          = this.Street;
+        #        address.City            = this.City;
+        #        address.Address         = this.Address;
+        #    }
+        #    return address;
+        #}
+      ENDSOURCE
+      SOURCE #LastInvoice
+        #VendInvoiceJour lastInvoice(NoYes _invoiceCustomer = NoYes::Yes)
+        #{
+        #    VendInvoiceJour vendInvoiceJour;
+        #    ;
+        #    return this.CustVendTable::lastInvoice(vendInvoiceJour,
+        #                                           _invoiceCustomer);
+        #
+        #}
+      ENDSOURCE
+      SOURCE #LastInvoiceDate
+        #//BP Deviation Documented
+        #display InvoiceDate lastInvoiceDate()
+        #{
+        #    VendInvoiceJour vendInvoiceJour;
+        #    ;
+        #    select firstonly InvoiceDate from vendInvoiceJour
+        #        order by InvoiceDate desc , InvoiceId desc
+        #        where vendInvoiceJour.InvoiceAccount   == this.AccountNum   &&
+        #              vendInvoiceJour.InvoiceId;
+        #
+        #    return vendInvoiceJour.InvoiceDate;
+        #}
+      ENDSOURCE
+      SOURCE #LastPayment
+        #VendTrans lastPayment()
+        #{
+        #    VendTrans  vendTrans;
+        #
+        #    select firstonly vendTrans
+        #        index hint AccountDateIdx
+        #        order by TransDate desc, Voucher desc
+        #        where vendTrans.AccountNum  == this.AccountNum  &&
+        #              vendTrans.Invoice     == '';
+        #
+        #    return vendTrans;
+        #}
+      ENDSOURCE
+      SOURCE #LastPaymentDate
+        #//BP Deviation Documented
+        #display TransDate lastPaymentDate()
+        #{
+        #    return this.lastPayment().TransDate;
+        #}
+      ENDSOURCE
+      SOURCE #LineDiscName
+        #//BP Deviation Documented
+        #display LineDiscName lineDiscName()
+        #{
+        #    return PriceDiscGroup::find(ModuleInventCustVend::Vend,
+        #                                PriceGroupType::LineDiscGroup,
+        #                                this.LineDisc).Name;
+        #}
+      ENDSOURCE
+      SOURCE #modifiedField
+        #public void modifiedField(fieldId _fieldId)
+        #{
+        #    #ISOCountryRegionCodes
+        #    ;
+        #    super(_fieldId);
+        #    switch(_fieldId)
+        #    {
+        #        case fieldnum(VendTable, PartyType) :
+        #        if (this.PartyId)
+        #        {
+        #            this.initFromDirParty(DirParty::constructBlank(this.PartyType));
+        #        }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PartyId) :
+        #            this.initFromDirParty(DirParty::constructFromPartyId(this.PartyId));
+        #            break;
+        #
+        #        case fieldnum(VendTable, Name):
+        #            DirParty::modifiedNameField(this);
+        #            this.setNameAlias();
+        #            break;
+        #        case fieldnum(VendTable, VendGroup):
+        #            this.initFromVendGroup(VendGroup::find(this.VendGroup));
+        #            break;
+        #        case fieldnum(VendTable, PaymTermId):
+        #            this.PaymSched = PaymTerm::find(this.PaymTermId).PaymSched;
+        #            break;
+        #        case fieldnum(VendTable, PaymMode):
+        #            this.CustVendTable::paymModeModified();
+        #            break;
+        #        case fieldnum(VendTable, ContactPersonId) :
+        #            this.initFromContactInfo();
+        #            break;
+        #        case fieldnum(VendTable, BankCentralBankPurposeCode) :
+        #            this.CustVendTable::modifiedBankCentralBankPurposeCode();
+        #            break;
+        #        case fieldnum(VendTable, InventSiteId) :
+        #            this.InventStorageDimMap::modifiedField(fieldnum(InventStorageDimMap, InventSiteId));
+        #            break;
+        #        case fieldnum(VendTable, InventLocation) :
+        #            this.InventStorageDimMap::modifiedField(fieldnum(InventStorageDimMap, InventLocationId));
+        #            break;
+        #        case fieldnum(VendTable, OrgId) :
+        #            if(VendParameters::find().VendAccountOrgIdCreate)
+        #            {
+        #                if(this.RecId == 0
+        #                    && (this.AccountNum == '' ||
+        #                    Box::yesNo("@SYS113287", DialogButton::Yes) == DialogButton::Yes))
+        #                {
+        #                    this.AccountNum = this.OrgId;
+        #                }
+        #                else
+        #                {
+        #                    if(strcmp(this.OrgId, substr(this.AccountNum, 1, strlen(this.OrgId))) != 0
+        #                        && Box::yesNo(strfmt("@SYS113288", '\n'), DialogButton::Yes) == DialogButton::Yes)
+        #                    {
+        #                        this.OrgId = this.orig().OrgId;
+        #                    }
+        #                }
+        #            }
+        #            break;
+        #        case fieldnum(VendTable, EnterpriseNumber) :
+        #            if (this.EnterpriseNumber && AddressCountryRegion::find(this.CountryRegionId).isOcode == #isoBE)
+        #            {
+        #                this.vatNum = strkeep(this.EnterpriseNumber, '0123456789.');
+        #            }
+        #            break;
+        #
+        #    }
+        #
+        #    this.AddressMap::modifiedField(_fieldId);
+        #}
+      ENDSOURCE
+      SOURCE #MultiLineDiscName
+        #//BP Deviation Documented
+        #display MultiLineDiscName multiLineDiscName()
+        #{
+        #    return PriceDiscGroup::find(ModuleInventCustVend::Vend,
+        #                                PriceGroupType::MultiLineDiscGroup,
+        #                                this.MultiLineDisc).Name;
+        #}
+      ENDSOURCE
+      SOURCE #openBalanceCur
+        #public AmountCur openBalanceCur(TransDate      _fromDate       = dateNull(),
+        #                                TransDate      _toDate         = dateMax(),
+        #                                TransDate      _assessmentDate = dateNull(),
+        #                                CurrencyCode   _currency       = CompanyInfo::standardCurrency())
+        #{
+        #    ;
+        #    return this.CustVendTable::openBalanceCur(_fromDate, _toDate, _assessmentDate, _currency);
+        #}
+      ENDSOURCE
+      SOURCE #OpenBalanceMST
+        #//BP Deviation Documented
+        #display AmountMST openBalanceMST(FromDate   _fromDate       = dateNull(),
+        #                                 ToDate     _toDate         = dateMax(),
+        #                                 TransDate  _assessmentDate = dateNull())
+        #{
+        #
+        #    return this.CustVendTable::openBalanceMST(_fromDate, _toDate, _assessmentDate);
+        #}
+      ENDSOURCE
+      SOURCE #openBalanceMSTDoc
+        #AmountMST openBalanceMSTDoc(TransDate   _transDate  = dateNull(),
+        #                            FromDate    _fromDate   = dateNull(),
+        #                            ToDate      _toDate     = dateMax())
+        #{
+        #    return this.CustVendTable::openBalanceMSTDoc(_transDate, _fromDate, _toDate);
+        #}
+        #
+      ENDSOURCE
+      SOURCE #OpenBalanceMSTDue
+        #AmountMST openBalanceMSTDue(TransDate   _transDate  = dateNull(),
+        #                            FromDate    _fromDate   = dateNull(),
+        #                            ToDate      _toDate     = dateMax())
+        #{
+        #    return this.CustVendTable::openBalanceMSTDue(_transDate, _fromDate, _toDate);
+        #}
+      ENDSOURCE
+      SOURCE #openInvoiceBalanceMST
+        #AmountMST openInvoiceBalanceMST(FromDate   _fromDate       = dateNull(),
+        #                                ToDate     _toDate         = dateMax(),
+        #                                TransDate  _assessmentDate = dateNull())
+        #{
+        #    VendTrans       vendTrans;
+        #    VendTransOpen   vendTransOpen;
+        #    VendSettlement  vendSettlement;
+        #    AmountMST       openBalanceMST = 0;
+        #
+        #    if (_assessmentDate)
+        #    {
+        #        select sum(SettleAmountMST),sum(ExchAdjustment) from vendSettlement
+        #            group by AccountNum
+        #            where vendSettlement.AccountNum == this.AccountNum
+        #               && vendSettlement.TransDate  >  _assessmentDate
+        #        join vendTrans
+        #            where vendTrans.RecId       == vendSettlement.TransRecId
+        #               && vendTrans.TransDate   >= _fromDate
+        #               && vendTrans.TransDate   <= _toDate
+        #               && (vendTrans.Invoice    != ''
+        #               || (vendTrans.Invoice    == '' && vendTrans.AmountMST    < 0));
+        #
+        #        openBalanceMST  = vendSettlement.SettleAmountMST + vendSettlement.ExchAdjustment;
+        #        openBalanceMST += this.openInvoiceBalanceMST(_fromDate, _toDate);
+        #    }
+        #    else
+        #    {
+        #        vendTrans       = this.transBuffer();
+        #        vendTransOpen   = this.transOpenBuffer();
+        #
+        #        while select sum(AmountMST) from vendTransOpen
+        #        group by RefRecId
+        #            where vendTransOpen.AccountNum  == this.AccountNum
+        #               && vendTransOpen.TransDate   >= _fromDate
+        #               && vendTransOpen.TransDate   <= _toDate
+        #            join  vendTrans
+        #                where vendTrans.RecId       == vendTransOpen.RefRecId
+        #                   && (vendTrans.Invoice    != ''
+        #                   || (vendTrans.Invoice    == '' && vendTrans.AmountMST    < 0))
+        #        {
+        #            openBalanceMST += vendTransOpen.AmountMST;
+        #        }
+        #    }
+        #
+        #    return openBalanceMST;
+        #}
+      ENDSOURCE
+      SOURCE #openInvoiceBalanceMSTDoc
+        #AmountMST openInvoiceBalanceMSTDoc(TransDate   _transDate  = dateNull(),
+        #                                   FromDate    _fromDate   = dateNull(),
+        #                                   ToDate      _toDate     = dateMax())
+        #{
+        #    VendTrans       vendTrans;
+        #    VendTransOpen   vendTransOpen;
+        #    AmountMST       amountMST = 0;
+        #
+        #    while select sum(AmountMST) from vendTransOpen
+        #        order by RefRecId
+        #        where vendTransOpen.AccountNum  == this.AccountNum
+        #           && vendTransOpen.TransDate   <= _transDate
+        #    exists join vendTrans
+        #        where vendTrans.RecId           == vendTransOpen.RefRecId
+        #           && ((vendTrans.DocumentDate
+        #           &&   vendTrans.DocumentDate  >= _fromDate
+        #           &&   vendTrans.DocumentDate  <= _toDate)
+        #           ||  (!vendTrans.DocumentDate
+        #           &&    vendTrans.TransDate    >= _fromDate
+        #           &&    vendTrans.TransDate    <= _toDate))
+        #           &&  (vendTrans.Invoice     != ''
+        #           ||  (vendTrans.Invoice     == '' && vendTrans.AmountMST        < 0))
+        #    {
+        #        amountMST += vendTransOpen.AmountMST;
+        #    }
+        #    return amountMST;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #openInvoiceBalanceMSTDue
+        #AmountMST openInvoiceBalanceMSTDue(TransDate   _transDate  = dateNull(),
+        #                                   FromDate    _fromDate   = dateNull(),
+        #                                   ToDate      _toDate     = dateMax())
+        #{
+        #    VendTransOpen   vendTransOpen;
+        #    VendTrans       vendTrans;
+        #    AmountMST       amountMST = 0;
+        #
+        #    while select sum(AmountMST) from vendTransOpen
+        #    group by RefRecId
+        #        where vendTransOpen.AccountNum  == this.AccountNum
+        #           && vendTransOpen.TransDate   <= _transDate
+        #           && vendTransOpen.DueDate     >= _fromDate
+        #           && vendTransOpen.DueDate     <= _toDate
+        #        join vendTrans
+        #            where vendTrans.RecId       == vendTransOpen.RefRecId
+        #               && (vendTrans.Invoice    != ''
+        #               || (vendTrans.Invoice    == '' && vendTrans.AmountMST < 0))
+        #    {
+        #        amountMST += vendTransOpen.AmountMST;
+        #    }
+        #    return amountMST;
+        #}
+      ENDSOURCE
+      SOURCE #openPaymentBalanceMST
+        #AmountMST openPaymentBalanceMST(FromDate   _fromDate       = dateNull(),
+        #                                ToDate     _toDate         = dateMax(),
+        #                                TransDate  _assessmentDate = dateNull())
+        #{
+        #    VendTrans       vendTrans;
+        #    VendTransOpen   vendTransOpen;
+        #    VendSettlement  vendSettlement;
+        #    AmountMST       openBalanceMST;
+        #    ;
+        #
+        #    if (_assessmentDate)
+        #    {
+        #        select sum(SettleAmountMST),sum(ExchAdjustment) from vendSettlement
+        #            group by AccountNum
+        #            where vendSettlement.AccountNum == this.AccountNum
+        #               && vendSettlement.TransDate  >  _assessmentDate
+        #        join vendTrans
+        #            where vendTrans.RecId       == vendSettlement.TransRecId
+        #               && vendTrans.TransDate   >= _fromDate
+        #               && vendTrans.TransDate   <= _toDate
+        #               && vendTrans.AmountMST    > 0
+        #               && vendTrans.Invoice     == '';
+        #        {
+        #            openBalanceMST  = vendSettlement.SettleAmountMST + vendSettlement.ExchAdjustment;
+        #            openBalanceMST += this.openPaymentBalanceMST(_fromDate, _toDate);
+        #        }
+        #    }
+        #    else
+        #    {
+        #        vendTrans       = this.transBuffer();
+        #        vendTransOpen   = this.transOpenBuffer();
+        #
+        #        while select sum(AmountMST) from vendTransOpen
+        #        group by RefRecId
+        #            where vendTransOpen.AccountNum  == this.AccountNum
+        #              &&  vendTransOpen.TransDate   >= _fromDate
+        #              &&  vendTransOpen.TransDate   <= _toDate
+        #            join  vendTrans
+        #                where vendTrans.RecId       == vendTransOpen.RefRecId
+        #                   && vendTrans.AmountMST    > 0
+        #                   && vendTrans.Invoice     == ''
+        #        {
+        #            openBalanceMST += vendTransOpen.AmountMST;
+        #        }
+        #    }
+        #
+        #    return openBalanceMST;
+        #}
+      ENDSOURCE
+      SOURCE #openPaymentBalanceMSTDoc
+        #AmountMST openPaymentBalanceMSTDoc(TransDate   _transDate  = dateNull(),
+        #                                   FromDate    _fromDate   = dateNull(),
+        #                                   ToDate      _toDate     = dateMax())
+        #{
+        #    VendTrans       vendTrans;
+        #    VendTransOpen   vendTransOpen;
+        #    AmountMST       amountMST = 0;
+        #
+        #    while select sum(AmountMST) from vendTransOpen
+        #        order by RefRecId
+        #        where vendTransOpen.AccountNum  == this.AccountNum  &&
+        #              vendTransOpen.TransDate   <= _transDate
+        #     exists join vendTrans
+        #        where vendTrans.RecId            == vendTransOpen.RefRecId  &&
+        #            ((vendTrans.DocumentDate                                &&
+        #              vendTrans.DocumentDate     >= _fromDate               &&
+        #              vendTrans.DocumentDate     <= _toDate)                ||
+        #             (!vendTrans.DocumentDate                               &&
+        #              vendTrans.DocumentDate     >= _fromDate               &&
+        #              vendTrans.DocumentDate     <= _toDate))               &&
+        #              vendTrans.AmountMST         > 0                       &&
+        #              vendTrans.Invoice          == ''
+        #    {
+        #        amountMST += vendTransOpen.AmountMST;
+        #    }
+        #    return amountMST;
+        #}
+        #
+        #
+      ENDSOURCE
+      SOURCE #openPaymentBalanceMSTDue
+        #AmountMST openPaymentBalanceMSTDue(TransDate   _transDate  = dateNull(),
+        #                                   FromDate    _fromDate   = dateNull(),
+        #                                   ToDate      _toDate     = dateMax())
+        #{
+        #    VendTransOpen   vendTransOpen;
+        #    VendTrans       vendTrans;
+        #    AmountMST       amountMST = 0;
+        #
+        #    while select sum(AmountMST) from vendTransOpen
+        #    group by RefRecId
+        #        where vendTransOpen.AccountNum  == this.AccountNum
+        #           && vendTransOpen.TransDate   <= _transDate
+        #           && vendTransOpen.DueDate     >= _fromDate
+        #           && vendTransOpen.DueDate     <= _toDate
+        #        join vendTrans
+        #            where vendTrans.RecId  == vendTransOpen.RefRecId
+        #               && vendTrans.AmountMST    > 0
+        #               && vendTrans.Invoice     == ' '
+        #    {
+        #        amountMST += vendTransOpen.AmountMST;
+        #    }
+        #    return amountMST;
+        #}
+      ENDSOURCE
+      SOURCE #paymentType
+        #/// <summary>
+        #/// Returns the type of payment associated with the selected method of payment.
+        #/// </summary>
+        #/// <returns>
+        #/// An associated payment type for the selected method of payment.
+        #/// </returns>
+        #/// <remarks>
+        #/// If the user modifies the method of payment, this method will display the payment type
+        #/// associated with the selected method of payment.
+        #/// </remarks>
+        #
+        #//BP Deviation Documented
+        #display PaymType paymentType()
+        #{
+        #    VendPaymModeTable vendPaymMode;
+        #    str paymentType;
+        #    ;
+        #
+        #    select firstonly vendPaymMode
+        #        where this.PaymMode == vendPaymMode.PaymMode;
+        #        if(vendPaymMode)
+        #        {
+        #            paymentType = enum2str(vendPaymMode.PaymentType);
+        #        }
+        #    return paymentType;
+        #}
+      ENDSOURCE
+      SOURCE #paymName
+        #//BP Deviation Documented
+        #display Description paymName()
+        #{
+        #    return this.CustVendTable::paymName();
+        #}
+      ENDSOURCE
+      SOURCE #PriceDiscGroupName
+        #//BP Deviation Documented
+        #display PriceDiscName priceDiscGroupName()
+        #{
+        #    return PriceDiscGroup::find(ModuleInventCustVend::Vend,
+        #                                PriceGroupType::PriceGroup,
+        #                                this.PriceGroup).Name;
+        #}
+      ENDSOURCE
+      SOURCE #PurchLedgerAccount
+        #//BP Deviation Documented
+        #display LedgerAccount purchLedgerAccount(VendPostingProfile _vendPostingProfile = VendParameters::find().PostingProfile)
+        #{
+        #
+        #    return VendLedgerAccounts::purchLedgerAccount(this.AccountNum, _vendPostingProfile);
+        #}
+      ENDSOURCE
+      SOURCE #PurchLedgerOffsetAccount
+        #//BP Deviation Documented
+        #display LedgerAccount purchLedgerOffsetAccount(VendPostingProfile _vendPostingProfile = VendParameters::find().PostingProfile)
+        #{
+        #    return VendLedgerAccounts::purchLedgerOffsetAccount(this.AccountNum, _vendPostingProfile);
+        #}
+      ENDSOURCE
+      SOURCE #renamePrimaryKey
+        #public void renamePrimaryKey()
+        #{
+        #    boolean             isVirtual;
+        #    DataArea            company;
+        #    VendTable           originalVendTable;
+        #    LedgerJournalTrans  ledgerJournalTrans;
+        #    VirtualDataAreaList virtualCompanies;
+        #    container           concreteCompanies;
+        #    int                 concreteCompanyCount;
+        #    CompanyId           outerCompany;
+        #    int                 innerLoopCounter;
+        #    CompanyId           innerCompany;
+        #    ;
+        #
+        #    // Capture the renamed record
+        #    originalVendTable = this.orig();
+        #
+        #    super();
+        #
+        #    select firstonly company where company.Id == this.DataAreaId;
+        #    isVirtual = company.IsVirtual;
+        #
+        #    if (isVirtual)
+        #    {
+        #        // Vendor is in a virtual company
+        #
+        #        // Capture the concrete companies that are part of the vendor's virtual company
+        #        while select virtualCompanies where virtualCompanies.VirtualDataArea == this.DataAreaId
+        #        {
+        #            concreteCompanies += virtualCompanies.Id;
+        #        }
+        #
+        #        concreteCompanyCount = conlen(concreteCompanies);
+        #
+        #        if (isConfigurationkeyEnabled(configurationkeynum(LedgerAdvIntercompanyAccounting)))
+        #        {
+        #            // Intercompany is enabled - need to loop over all concrete companies
+        #            while select company
+        #                where company.IsVirtual == false
+        #            {
+        #                outerCompany = company.Id;
+        #
+        #                // Update related records for each concrete company
+        #                changecompany(outerCompany)
+        #                {
+        #                    // Reset the ledgerJournalTrans
+        #                    ledgerJournalTrans = null;
+        #                    ledgerJournalTrans.skipDataMethods(true);
+        #
+        #                    // Loop over concrete companies in the virtual company
+        #                    for (innerLoopCounter = 1; innerLoopCounter <= concreteCompanyCount; innerLoopCounter++)
+        #                    {
+        #                        innerCompany = conpeek(concreteCompanies, innerLoopCounter);
+        #
+        #                        // Update records with this vendor as primary account
+        #                        update_recordset ledgerJournalTrans
+        #                            setting AccountNum = this.AccountNum
+        #                        where ledgerJournalTrans.Company == innerCompany &&
+        #                            ledgerJournalTrans.AccountType == LedgerJournalACType::Vend &&
+        #                            ledgerJournalTrans.AccountNum == originalVendTable.AccountNum;
+        #
+        #                        // Update records with this vendor as offset account
+        #                        update_recordset ledgerJournalTrans
+        #                            setting OffsetAccount = this.AccountNum
+        #                        where ledgerJournalTrans.OffsetCompany == innerCompany &&
+        #                            ledgerJournalTrans.OffsetAccountType == LedgerJournalACType::Vend &&
+        #                            ledgerJournalTrans.OffsetAccount == originalVendTable.AccountNum;
+        #                    }
+        #                }
+        #            }
+        #        }
+        #        else
+        #        {
+        #            // Intercompany is disabled - need to loop over concrete companies in the virtual company
+        #            for (innerLoopCounter = 1; innerLoopCounter <= concreteCompanyCount; innerLoopCounter++)
+        #            {
+        #                innerCompany = conpeek(concreteCompanies, innerLoopCounter);
+        #
+        #                changecompany(innerCompany)
+        #                {
+        #                    // Reset the ledgerJournalTrans
+        #                    ledgerJournalTrans = null;
+        #                    ledgerJournalTrans.skipDataMethods(true);
+        #
+        #                    // Update records with this vendor as primary account
+        #                    // OffsetAccount will be updated in super() from the relation.
+        #                    update_recordset ledgerJournalTrans
+        #                        setting AccountNum = this.AccountNum
+        #                    where ledgerJournalTrans.Company == innerCompany &&
+        #                        ledgerJournalTrans.AccountType == LedgerJournalACType::Vend &&
+        #                        ledgerJournalTrans.AccountNum == originalVendTable.AccountNum;
+        #                }
+        #            }
+        #        }
+        #    }
+        #    else
+        #    {
+        #        // Vendor that is being updated is not in a virtual company
+        #        // If intercompany is enabled, must update the intercompany transactions for all other companies
+        #        if (isConfigurationkeyEnabled(configurationkeynum(LedgerAdvIntercompanyAccounting)))
+        #        {
+        #            while select company
+        #                where company.IsVirtual == false
+        #            {
+        #                outerCompany = company.Id;
+        #
+        #                // Update related records for each concrete company
+        #                changecompany(outerCompany)
+        #                {
+        #                    // Reset the ledgerJournalTrans
+        #                    ledgerJournalTrans = null;
+        #                    ledgerJournalTrans.skipDataMethods(true);
+        #
+        #                    // Update records with this vendor as primary account
+        #                    update_recordset ledgerJournalTrans
+        #                        setting AccountNum = this.AccountNum
+        #                    where ledgerJournalTrans.Company == originalVendTable.DataAreaId &&
+        #                        ledgerJournalTrans.AccountType == LedgerJournalACType::Vend &&
+        #                        ledgerJournalTrans.AccountNum == originalVendTable.AccountNum;
+        #                }
+        #            }
+        #        }
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #SetAccountOnCust
+        #void setAccountOnCust(VendTable vendTable_Orig)
+        #{
+        #
+        #    CustTable custTable;
+        #    ;
+        #    ttsbegin;
+        #
+        #    if (this.CustAccount  != vendTable_Orig.CustAccount)
+        #    {
+        #        if (vendTable_Orig.CustAccount)
+        #        {
+        #            custTable = CustTable::find(vendTable_Orig.CustAccount, true);
+        #
+        #            if (custTable)
+        #            {
+        #                custTable.VendAccount = '';
+        #                custTable.update();
+        #            }
+        #        }
+        #
+        #        if (this.CustAccount)
+        #        {
+        #            custTable = CustTable::find(this.CustAccount, true);
+        #
+        #            if (custTable)
+        #            {
+        #                custTable.VendAccount = this.AccountNum;
+        #                custTable.update();
+        #            }
+        #        }
+        #    }
+        #    ttscommit;
+        #}
+      ENDSOURCE
+      SOURCE #SetNameAlias
+        #void setNameAlias()
+        #{
+        #    if (! this.NameAlias)
+        #    {
+        #        this.NameAlias = this.Name;
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #settlementBuffer
+        #VendSettlement settlementBuffer()
+        #{
+        #    VendSettlement  vendSettlement;
+        #    ;
+        #
+        #    return vendSettlement;
+        #}
+      ENDSOURCE
+      SOURCE #showContactPerson
+        #//BP Deviation Documented
+        #display ContactPersonName showContactPerson()
+        #{;
+        #    return ContactPerson::find(this.ContactPersonId).Name;
+        #}
+      ENDSOURCE
+      SOURCE #showPartyMatchIcon
+        #//BP Deviation documented
+        #display DirPartyMatchIcon showPartyMatchIcon()
+        #{
+        #    ;
+        #    return DirParty::showPartyMatchIcon(this);
+        #}
+      ENDSOURCE
+      SOURCE #stateName
+        #//BP Deviation Documented
+        #display AddressStatename stateName()
+        #{
+        #    return AddressState::find(this.CountryRegionId, this.State).Name;
+        #}
+      ENDSOURCE
+      SOURCE #SumAccount
+        #//BP Deviation Documented
+        #display LedgerAccount sumAccount(VendPostingProfile _vendPostingProfile = VendParameters::find().PostingProfile)
+        #{
+        #    return VendLedgerAccounts::sumAccount(this.AccountNum, _vendPostingProfile);
+        #}
+      ENDSOURCE
+      SOURCE #TaxGroupName
+        #//BP Deviation Documented
+        #display TaxGroupName taxGroupName()
+        #{
+        #    return TaxGroupHeading::find(this.TaxGroup).TaxGroupName;
+        #}
+      ENDSOURCE
+      SOURCE #transBuffer
+        #VendTrans transBuffer()
+        #{
+        #    VendTrans   vendTrans;
+        #    ;
+        #
+        #    return vendTrans;
+        #}
+      ENDSOURCE
+      SOURCE #transOpenBuffer
+        #VendTransOpen transOpenBuffer()
+        #{
+        #    VendTransOpen   vendTransOpen;
+        #    ;
+        #
+        #    return vendTransOpen;
+        #}
+      ENDSOURCE
+      SOURCE #Update
+        #void update(boolean _updateSmmBusRelTable = true, boolean _updateParty = true)
+        #{
+        #    VendTable       this_Orig    = this.orig();
+        #    ForecastPurch   forecastPurch;
+        #    ;
+        #
+        #    ttsbegin;
+        #
+        #    this.setNameAlias();
+        #
+        #    if (this.dataSource())
+        #    {
+        #        this.Tax1099RegNum = Tax1099ElectronicCheck::formatTIN(this.Tax1099RegNum, this.TaxIDType);
+        #    }
+        #
+        #
+        #    if (_updateParty)
+        #    {
+        #        DirParty::updatePartyFromCommon(this.PartyId, this);
+        #
+        #    }
+        #
+        #    super();
+        #
+        #    if (_updateSmmBusRelTable)
+        #    {
+        #        smmBusRelTable::updateFromVendTableSFA2(this);
+        #    }
+        #
+        #    smmTransLog::initTrans(this, smmLogAction::update);
+        #
+        #    this.setAccountOnCust(this_Orig);
+        #
+        #    if (this_Orig.VendGroup != this.VendGroup)
+        #    {
+        #        while select forupdate forecastPurch
+        #            where forecastPurch.VendAccountId   == this.AccountNum      &&
+        #                  forecastPurch.VendGroupId     == this_Orig.VendGroup  &&
+        #                  forecastPurch.ExpandId        == 0
+        #        {
+        #
+        #            forecastPurch.VendGroupId = this.VendGroup;
+        #            forecastPurch.update();
+        #        }
+        #
+        #    }
+        #
+        #    ttscommit;
+        #}
+      ENDSOURCE
+      SOURCE #updateOffsetAccount
+        #/*
+        #    AOSRunMode::Called
+        #*/
+        #void updateOffsetAccount()
+        #{
+        #    Counter             numOfDefaultAccounts;
+        #    VendDefaultAccounts vendDefaultAccounts;
+        #    ;
+        #    ttsbegin;
+        #
+        #    numOfDefaultAccounts = VendDefaultAccounts::numOfVendAccount(this.AccountNum);
+        #
+        #    if (numOfDefaultAccounts > 1)
+        #    {
+        #        select firstonly vendDefaultAccounts
+        #            where vendDefaultAccounts.VendAccount == this.AccountNum &&
+        #                  vendDefaultAccounts.IsDefault;
+        #
+        #        if (vendDefaultAccounts)
+        #        {
+        #            this.OffsetAccountType  = vendDefaultAccounts.LedgerJournalACType;
+        #            this.OffsetAccount      = vendDefaultAccounts.AccountNum;
+        #        }
+        #        else
+        #        {
+        #            this.OffsetAccountType  = LedgerJournalACType::Ledger;
+        #            this.OffsetAccount      = '';
+        #        }
+        #    }
+        #    else
+        #    {
+        #        if (numOfDefaultAccounts == 1)
+        #        {
+        #            vendDefaultAccounts     = VendDefaultAccounts::findVend(this.AccountNum);
+        #            this.OffsetAccountType  = vendDefaultAccounts.LedgerJournalACType;
+        #            this.OffsetAccount      = vendDefaultAccounts.AccountNum;
+        #        }
+        #        else
+        #        {
+        #            this.OffsetAccountType  = LedgerJournalACType::Ledger;
+        #            this.OffsetAccount      = '';
+        #        }
+        #    }
+        #
+        #    this.update();
+        #    ttscommit;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #validateDelete
+        #public boolean validateDelete()
+        #{
+        #    boolean         ret;
+        #    VendTable       vendTable;
+        #
+        #    ret = super();
+        #
+        #    if (this.AccountNum)
+        #    {
+        #        select count(RecId) from vendTable
+        #            where vendTable.InvoiceAccount == this.AccountNum;
+        #
+        #        if (vendTable.RecId)
+        #        {
+        #            ret = checkFailed("@SYS67134");
+        #        }
+        #    }
+        #
+        #    return ret;
+        #}
+      ENDSOURCE
+      SOURCE #validateField
+        #boolean validateField(fieldId p1)
+        #{
+        #    #isoCountryRegionCodes
+        #    #VendFaults
+        #    boolean ret;
+        #    ;
+        #
+        #    //AIFFault Mesgs
+        #
+        #    switch (p1)
+        #    {
+        #        case fieldnum(VendTable, InvoiceAccount):
+        #            if (this.InvoiceAccount && !VendTable::find(this.InvoiceAccount))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.InvoiceAccount), #InvalidInvoiceAccount);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, VendGroup):
+        #            if (this.VendGroup && !VendGroup::find(this.VendGroup))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.VendGroup), #InvalidVendGroup);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PaymTermId):
+        #            if (this.PaymTermId && !PaymTerm::find(this.PaymTermId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PaymTermId), #InvalidPaymTermId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, CashDisc):
+        #            if (this.CashDisc && !CashDisc::find(this.CashDisc))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.CashDisc), #InvalidCashDisc);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, Currency):
+        #            if (this.Currency && !Currency::find(this.Currency))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.Currency), #InvalidCurrency);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, LineDisc):
+        #            if (this.LineDisc && !PriceDiscGroup::find(ModuleInventCustVend::Vend, PriceGroupType::LineDiscGroup, this.LineDisc))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.LineDisc), #InvalidLineDisc);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PriceGroup):
+        #            if (this.PriceGroup && !PriceDiscGroup::find(ModuleInventCustVend::Vend, PriceGroupType::PriceGroup, this.PriceGroup))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PriceGroup), #InvalidPriceGroup);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, MultiLineDisc):
+        #            if (this.MultiLineDisc && !PriceDiscGroup::find(ModuleInventCustVend::Vend, PriceGroupType::MultiLineDiscGroup, this.MultiLineDisc))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.MultiLineDisc), #InvalidMultiLineDisc);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, EndDisc):
+        #            if (this.EndDisc && !PriceDiscGroup::find(ModuleInventCustVend::Vend, PriceGroupType::EndDiscGroup, this.EndDisc))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.EndDisc), #InvalidEndDisc);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, CustAccount):
+        #            if (this.CustAccount && !CustTable::find(this.CustAccount))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.CustAccount), #InvalidCustAccount);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, CountryRegionId):
+        #            if (this.CountryRegionId && !AddressCountryRegion::find(this.CountryRegionId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.CountryRegionId), #InvalidCountryRegionId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, InventLocation):
+        #            if (this.InventLocation && !InventLocation::find(this.InventLocation))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.InventLocation), #InvalidInventLocation);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, DlvTerm):
+        #            if (this.DlvTerm && !DlvTerm::find(this.DlvTerm))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.DlvTerm), #InvalidDlvTerm);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, DlvMode):
+        #            if (this.DlvMode && !DlvMode::find(this.DlvMode))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.DlvMode), #InvalidDlvMode);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, BankAccount):
+        #            if (this.BankAccount && !VendBankAccount::find(this.AccountNum, this.BankAccount))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.BankAccount), #InvalidBankAccount);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PaymMode):
+        #            if (this.PaymMode && !VendPaymModeTable::find(this.PaymMode))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PaymMode), #InvalidPaymMode);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PaymSpec):
+        #            if (this.PaymMode && this.PaymSpec && !VendPaymModeSpec::findSpec(this.PaymMode, this.PaymSpec))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PaymSpec), #InvalidPaymSpec);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, MarkupGroup):
+        #            if (this.MarkupGroup && !MarkupGroup::find(ModuleInventCustVend::Vend, this.MarkupGroup))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.MarkupGroup), #InvalidMarkupGroup);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, ClearingPeriod):
+        #            if (this.ClearingPeriod && !PaymTerm::find(this.ClearingPeriod))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.ClearingPeriod), #InvalidClearingPeriod);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, ZipCode):
+        #            if (this.ZipCode && !AddressZipCode::find(this.ZipCode))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.ZipCode), #InvalidZipCode);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, CountryRegionId):
+        #            if (this.CountryRegionId && this.State && this.County &&
+        #                !AddressCounty::find(this.CountryRegionId, this.State, this.County))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.CountryRegionId), #InvalidCountryRegionId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, TaxGroup):
+        #            if (this.TaxGroup && !TaxGroupHeading::find(this.TaxGroup))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.TaxGroup), #InvalidTaxGroup);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PaymSched):
+        #            if (this.PaymSched && !PaymSched::find(this.PaymSched))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PaymSched), #InvalidPaymSched);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, ItemBuyerGroupId):
+        #            if (this.ItemBuyerGroupId && !InventBuyerGroup::find(this.ItemBuyerGroupId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.ItemBuyerGroupId), #InvalidItemBuyerGroupId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, ContactPersonId):
+        #            if (this.ContactPersonId && !ContactPerson::find(this.ContactPersonId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.ContactPersonId), #InvalidContactPersonId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PurchPoolId):
+        #            if (this.PurchPoolId && !PurchPool::find(this.PurchPoolId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PurchPoolId), #InvalidPurchPoolId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, VendItemGroupId):
+        #            if (this.VendItemGroupId && !CustVendItemGroup::find(ModuleInventCustVend::Vend, this.VendItemGroupId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.VendItemGroupId), #InvalidVendItemGroupId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, NumberSequenceGroup):
+        #            if (this.NumberSequenceGroup && !NumberSequenceGroup::find(this.NumberSequenceGroup))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.NumberSequenceGroup), #InvalidNumberSequenceGroup);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PaymDayId):
+        #            if (this.PaymDayId && !PaymDay::find(this.PaymDayId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PaymDayId), #InvalidPaymDayId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, DestinationCodeId):
+        #            if (this.DestinationCodeId && !DestinationCode::find(this.DestinationCodeId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.DestinationCodeId), #InvalidDestinationCodeId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, LineOfBusinessId):
+        #            if (this.LineOfBusinessId && !LineOfBusiness::find(this.LineOfBusinessId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.LineOfBusinessId), #InvalidLineOfBusinessId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, SuppItemGroupId):
+        #            if (this.SuppItemGroupId && !SuppItemGroup::find(ModuleInventCustVend::Vend, this.SuppItemGroupId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.SuppItemGroupId), #InvalidSuppItemGroupId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, BankCentralBankPurposeCode):
+        #            if (this.BankCentralBankPurposeCode && !BankCentralBankPurpose::find(this.BankCentralBankPurposeCode))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.BankCentralBankPurposeCode), #InvalidBankCentralBankPurposeCode);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, PurchCalendarId):
+        #            if (this.PurchCalendarId && !WorkCalendarTable::find(this.PurchCalendarId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.PurchCalendarId), #InvalidPurchCalendarId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, TaxWithholdGroup):
+        #            if (this.TaxWithholdGroup && !TaxWithholdGroupHeading::find(this.TaxWithholdGroup))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.TaxWithholdGroup), #InvalidTaxWithholdGroup);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, ResidenceForeignCountryRegionId):
+        #            if (this.ResidenceForeignCountryRegionId && !AddressCountryRegion::find(this.ResidenceForeignCountryRegionId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.ResidenceForeignCountryRegionId), #InvalidResidenceForeignCountryRegionId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, InventSiteId):
+        #            if (this.InventSiteId && !InventSite::find(this.InventSiteId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.InventSiteId), #InvalidInventSiteId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, SegmentId):
+        #            if (this.SegmentId && !smmBusRelSegmentGroup::find(this.SegmentId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.SegmentId), #InvalidSegmentId);
+        #            }
+        #        break;
+        #
+        #        case fieldnum(VendTable, MainContactId):
+        #            if (this.MainContactId && !EmplTable::find(this.MainContactId))
+        #            {
+        #                ret =  AifFault::checkFailedLogFault(strfmt("@SYS120870", fieldid2name(tablenum(VendTable), p1), this.MainContactId), #InvalidMainContactId);
+        #            }
+        #        break;
+        #
+        #    }
+        #//AIF Fault Mesgs end here
+        #
+        #    if(!this.AddressMap::validatePostalCode(p1))
+        #    {
+        #        return false;
+        #    }
+        #
+        #
+        #    ret = super(p1);
+        #
+        #    if (ret)
+        #    {
+        #        switch (p1)
+        #        {
+        #            case fieldnum(VendTable, vatNum):
+        #                ret = TaxVATNumTable::checkVATNum(this.vatNum, this, p1);
+        #                ret = ret && TaxEnterpriseBranchNumber_BE::checkEnterPriseNumber(this.EnterpriseNumber, this.vatNum, true);
+        #                if (ret)
+        #                {
+        #                    ret = this.checkVATNumUsed();
+        #                }
+        #                break;
+        #
+        #            case fieldnum(VendTable, CreditMax) :
+        #                if (this.CreditMax < 0)
+        #                {
+        #                    ret = checkFailed("@SYS69970");
+        #                }
+        #                break;
+        #            case fieldnum(VendTable, Tax1099RegNum):
+        #                if (CompanyInfo::find().Validate1099OnEntry)
+        #                {
+        #                    ret = Tax1099ElectronicCheck::validateTINIRS(this.Tax1099RegNum, tablepname(VendTable), fieldpname(VendTable, Tax1099RegNum), false, this.AccountNum); // writeToFile
+        #                }
+        #                break;
+        #            case fieldnum(VendTable, EnterpriseNumber) :
+        #                 if (this.EnterpriseNumber && AddressCountryRegion::find(this.CountryRegionId).isOcode != #isoBE)
+        #                {
+        #                    ret = checkFailed("@SYS117686");
+        #                }
+        #                else
+        #                {
+        #                    ret = ret && TaxEnterpriseBranchNumber_BE::checkEnterPriseNumber(this.EnterpriseNumber);
+        #                }
+        #                break;
+        #            case fieldnum(VendTable, url) :
+        #                if (this.url)
+        #                {
+        #                    ret = ret && isValidURL(this.url);
+        #                    if (!ret)
+        #                    {
+        #                        ret = checkFailed("@SYS91305");
+        #                    }
+        #                }
+        #
+        #                break;
+        #
+        #            case fieldnum(VendTable, InventLocation) :
+        #                ret = this.InventStorageDimMap::validateField(fieldnum(InventStorageDimMap, InventLocationId));
+        #                break;
+        #
+        #            case fieldnum(VendTable, OrgId) :
+        #                if(VendParameters::find().VendOrgIdValidate
+        #                    && this.CustVendTable::checkOrgId() == false)
+        #                {
+        #                    ret = checkFailed("@SYS113286");
+        #                }
+        #                break;
+        #
+        #            }
+        #    }
+        #    return ret;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #validateIRSData
+        #boolean validateIRSData(boolean writeToFile = false)
+        #{
+        #    boolean ret;
+        #    boolean nameOK;
+        #    boolean streetOK;
+        #    boolean cityOK;
+        #    boolean stateOK;
+        #    boolean zipCodeOK;
+        #    boolean tax1099RegNumOK;
+        #    ;
+        #
+        #    setprefix(strfmt("@SYS84735", "@SYS84767"));
+        #
+        #    nameOK = Tax1099ElectronicCheck::validateForIRS(this.Name, tablepname(VendTable), fieldpname(VendTable, Name), writeToFile, this.AccountNum);
+        #
+        #    streetOK = Tax1099ElectronicCheck::validateForIRS(this.Street, tablepname(VendTable), fieldpname(VendTable, Street), writeToFile, this.AccountNum);
+        #
+        #    cityOK = Tax1099ElectronicCheck::validateForIRS(this.City, tablepname(VendTable), fieldpname(VendTable, City), writeToFile, this.AccountNum);
+        #
+        #    stateOK = Tax1099ElectronicCheck::validateForIRS(this.State, tablepname(VendTable), fieldpname(VendTable, State), writeToFile, this.AccountNum);
+        #
+        #    zipCodeOK = Tax1099ElectronicCheck::validateForIRS(this.ZipCode, tablepname(VendTable), fieldpname(VendTable, ZipCode), writeToFile, this.AccountNum);
+        #
+        #    tax1099RegNumOK = Tax1099ElectronicCheck::validateTINIRS(this.Tax1099RegNum, tablepname(VendTable), fieldpname(VendTable, Tax1099RegNum), writeToFile, this.AccountNum);
+        #
+        #    ret = nameOK && streetOK && cityOK && stateOK && zipCodeOK && tax1099RegNumOK;
+        #
+        #    return ret;
+        #}
+      ENDSOURCE
+      SOURCE #ValidateWrite
+        #boolean  validateWrite()
+        #{
+        #    #isoCountryRegionCodes
+        #    boolean ret;
+        #    ;
+        #
+        #    ret = super();
+        #
+        #    if (ret)
+        #    {
+        #        if (this.Tax1099Reports == NoYes::Yes && ! this.Tax1099RegNum)
+        #        {
+        #            ret = checkFailed(strfmt("@SYS104370", this.AccountNum));
+        #        }
+        #
+        #        if (!this.OneTimeVendor && TaxVATNumTable::isVATNumMandatory(VendParameters::find().MandatoryVATNum, this))
+        #        {
+        #            ret = checkFailed("@SYS54494");
+        #        }
+        #
+        #        if (this.TaxWithholdCalculate && this.TaxWithholdGroup == '')
+        #        {
+        #            ret = checkFailed(strfmt("@SYS81766",
+        #                                     fieldid2pname(tablenum(VendTable), fieldnum(VendTable, TaxWithholdCalculate)),
+        #                                     fieldid2pname(tablenum(VendTable), fieldnum(VendTable, TaxWithholdGroup))));
+        #        }
+        #    }
+        #
+        #    if (ret)
+        #    {
+        #        if (CompanyInfo::find().Validate1099OnEntry && this.Tax1099Reports == NoYes::Yes)
+        #            ret = this.validateIRSData(false);
+        #    }
+        #
+        #    if (ret)
+        #    {
+        #        ret = appl.dimensionSetValidation().checkDimension(this, fieldnum(VendTable, Dimension), true);
+        #    }
+        #
+        #
+        #    if(ret && VendParameters::find().VendMandatoryOrgId
+        #        && !this.OrgId)
+        #    {
+        #        ret = checkFailed("@SYS113289");
+        #    }
+        #
+        #    // Verify if MandatoryTaxGroup check is set on VendParameters.
+        #    if (ret && !this.TaxGroup && VendParameters::find().MandatoryTaxGroup)
+        #    {
+        #        ret = checkFailed("@SYS113299");
+        #    }
+        #    //SIG - start
+        #    // Check if not associated to Party
+        #    if (isConfigurationkeyEnabled(configurationkeynum(SIG)) && ret && !this.RecId && !this.PartyId)
+        #    {
+        #        // Create a Party entry for customer
+        #        this.PartyId = DirParty::createPartyFromCommon(this).PartyId;
+        #    }
+        #    //SIG - end
+        #
+        #    return ret;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #blocked
+        #static CustVendorBlocked blocked(VendAccount vendAccount)
+        #{
+        #    return VendTable::find(vendAccount).Blocked;
+        #}
+      ENDSOURCE
+      SOURCE #canVendorBeUpdated
+        #static boolean canVendorBeUpdated(VendAccount           _vendAccount,
+        #                                  VendInvoiceAccount    _invoiceAccount,
+        #                                  DocumentStatus        _documentStatus = DocumentStatus::None)
+        #{
+        #    boolean  ok = true;
+        #    ;
+        #
+        #    if (_documentStatus == DocumentStatus::Invoice)
+        #    {
+        #        ok = (!(VendTable::blocked(_vendAccount)    != CustVendorBlocked::No    ||
+        #                VendTable::blocked(_invoiceAccount) != CustVendorBlocked::No));
+        #    }
+        #    else
+        #    {
+        #        ok = (!(VendTable::blocked(_vendAccount) == CustVendorBlocked::All));
+        #    }
+        #    return ok;
+        #}
+      ENDSOURCE
+      SOURCE #changeDefaultAccounts
+        #client static void changeDefaultAccounts(VendTable          _vendTable,
+        #                                         FormStringControl  _ctrl)
+        #{
+        #    Args                args = new Args();
+        #    FormRun             formRun;
+        #    ;
+        #
+        #    args.name(formstr(VendDefaultLedgerListPanel));
+        #    args.caller(_ctrl);
+        #    args.record(_vendTable);
+        #
+        #    formRun = classfactory.formRunClass(args);
+        #    formRun.init();
+        #    if (formRun)
+        #    {
+        #        formRun.run();
+        #        formRun.wait();
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #checkCreditLimit
+        #server static boolean checkCreditLimit(VendAccount          _vendAccount,
+        #                                       TypeOfCreditmaxCheck _check,
+        #                                       AmountMST            _amountMST = 0,
+        #                                       PurchId              _excludePurchId = '')
+        #{
+        #    VendTable   vendTable = VendTable::find(_vendAccount);
+        #    AmountMST   openBalanceMst;
+        #    AmountMST   purchBalanceMst;
+        #
+        #
+        #    if (vendTable.CreditMax > 0)
+        #    {
+        #        if (_check != TypeOfCreditmaxCheck::None)
+        #        {
+        #            openBalanceMst = -vendTable.openBalanceMST();
+        #        }
+        #
+        #        switch(_check)
+        #        {
+        #            case TypeOfCreditmaxCheck::None :
+        #                return true;
+        #
+        #            case TypeOfCreditmaxCheck::Balance :
+        #                purchBalanceMst = _amountMST;
+        #                if (openBalanceMst + purchBalanceMst > vendTable.CreditMax)
+        #                {
+        #                    return checkFailed(strfmt("@SYS21487",openBalanceMst,purchBalanceMst,
+        #                                                          openBalanceMst+purchBalanceMst,vendTable.CreditMax));
+        #                }
+        #                return true;
+        #
+        #            case TypeOfCreditmaxCheck::BalanceAll :
+        #                purchBalanceMst = PurchTable::balanceAmountNotInvoiced(_vendAccount, _excludePurchId) + _amountMST;
+        #                if (openBalanceMst + purchBalanceMst > vendTable.CreditMax)
+        #                {
+        #                    return checkFailed(strfmt("@SYS25668",openBalanceMst,purchBalanceMst,
+        #                                               openBalanceMst+purchBalanceMst,vendTable.CreditMax,
+        #                                               (openBalanceMst+purchBalanceMst)-vendTable.CreditMax));
+        #                }
+        #                return true;
+        #
+        #            case TypeOfCreditmaxCheck::BalanceDelivered :
+        #                purchBalanceMst = PurchTable::balanceAmountDelivered(_vendAccount, _excludePurchId) + _amountMST;
+        #                if (openBalanceMst + purchBalanceMst > vendTable.CreditMax)
+        #                {
+        #                    return checkFailed(strfmt("@SYS25668",openBalanceMst,purchBalanceMst,
+        #                                                          openBalanceMst+purchBalanceMst,vendTable.CreditMax,
+        #                                                          (openBalanceMst+purchBalanceMst)-vendTable.CreditMax));
+        #                }
+        #                return true;
+        #
+        #            default :
+        #                return checkFailed(strfmt("@SYS12580", _check));
+        #        }
+        #    }
+        #    return true;
+        #}
+      ENDSOURCE
+      SOURCE #checkExist
+        #public static boolean checkExist(VendAccount _vendAccount )
+        #{
+        #    boolean ret = true;
+        #    ;
+        #
+        #    if (!VendTable::exist(_vendAccount))
+        #    {
+        #        ret = checkFailed(strfmt(VendTable::txtNotExist(), _vendAccount));
+        #    }
+        #
+        #    return ret;
+        #}
+      ENDSOURCE
+      SOURCE #checkExistAndOpen
+        #static boolean checkExistAndOpen(VendAccount        _vendAccount,
+        #                                 AmountMST          _amountMST,
+        #                                 LedgerTransType    _ledgerTransType)
+        #{
+        #    boolean     ret = true;
+        #    VendTable   vendTable;
+        #    ;
+        #    vendTable = VendTable::find(_vendAccount);
+        #
+        #    if (! vendTable)
+        #    {
+        #        ret = checkFailed(strfmt("@SYS11817", _vendAccount));
+        #    }
+        #    else
+        #    {
+        #        if (vendTable.Blocked   == CustVendorBlocked::All       ||
+        #           (vendTable.Blocked   == CustVendorBlocked::Invoice   &&
+        #            _amountMST           > 0                            &&
+        #            _ledgerTransType    != LedgerTransType::Interest))
+        #        {
+        #            ret = checkFailed(strfmt("@SYS1138", _vendAccount));
+        #        }
+        #    }
+        #    return ret;
+        #}
+      ENDSOURCE
+      SOURCE #createOneTimeAccount
+        #server static VendAccount createOneTimeAccount(PurchTable _purchTable)
+        #{
+        #    NumberSeq   numberSeq;
+        #    VendTable   vendTable;
+        #    ;
+        #
+        #    if (!VendTable::createOneTimeAccountValidate())
+        #    {
+        #        return '';
+        #    }
+        #
+        #    ttsbegin;
+        #
+        #    numberSeq   =  NumberSeq::newGetNum(VendParameters::numRefOneTimeSupplierAccount());
+        #    vendTable   = VendTable::find(VendParameters::find().DefaultVend);
+        #
+        #    vendTable.AccountNum = numberSeq.num();
+        #    vendTable.PartyId = '';
+        #    vendTable.initFromPurchTable(_purchTable);
+        #    vendTable.insert();
+        #
+        #    ttscommit;
+        #
+        #    return vendTable.AccountNum;
+        #}
+      ENDSOURCE
+      SOURCE #createOneTimeAccountValidate
+        #static boolean createOneTimeAccountValidate()
+        #{
+        #    boolean ok = true;
+        #
+        #    if (!VendTable::find(VendParameters::find().DefaultVend))
+        #    {
+        #        ok = checkFailed("@SYS57595");
+        #    }
+        #    return ok;
+        #}
+      ENDSOURCE
+      SOURCE #exist
+        #public static boolean exist(VendAccount _vendAccount )
+        #{
+        #    boolean found;
+        #    ;
+        #
+        #    found = (select firstonly
+        #                 RecId
+        #            from
+        #                 vendTable
+        #             where
+        #                 vendTable.AccountNum == _vendAccount).RecId != 0;
+        #
+        #    return found;
+        #}
+      ENDSOURCE
+      SOURCE #find
+        #public static VendTable find(
+        #    VendAccount _vendAccount ,
+        #    boolean                 _forupdate = false,
+        #    ConcurrencyModel        _concurrencyModel = ConcurrencyModel::Auto)
+        #{
+        #    VendTable vendTable;
+        #    ;
+        #
+        #    vendTable.selectForUpdate(_forupdate);
+        #    if (_forupdate  && _concurrencyModel != ConcurrencyModel::Auto)
+        #    {
+        #        vendTable.concurrencyModel(_concurrencyModel);
+        #    }
+        #
+        #    if (_vendAccount != '')
+        #    {
+        #        select firstonly
+        #            vendTable
+        #            where
+        #            vendTable.AccountNum == _vendAccount;
+        #    }
+        #
+        #    return vendTable;
+        #}
+      ENDSOURCE
+      SOURCE #findByCompany
+        #/// <summary>
+        #/// Finds the specified record in the VendTable table.
+        #/// </summary>
+        #/// <param name="_company">
+        #/// The company of the vendor record.
+        #/// </param>
+        #/// <param name="_vendAccount">
+        #/// The account number of the vendor record.
+        #/// </param>
+        #/// <param name="_forUpdate">
+        #/// A Boolean value that indicates whether to read the record for update; optional.
+        #/// </param>
+        #/// <returns>
+        #/// A record in the VendTable table; otherwise, an empty record.
+        #/// </returns>
+        #public static VendTable findByCompany(
+        #    dataAreaId _company,
+        #    VendAccount _vendAccount,
+        #    boolean _forUpdate = false)
+        #{
+        #    VendTable vend;
+        #    ;
+        #
+        #    changecompany(_company)
+        #    {
+        #        vend = VendTable::find(_vendAccount, _forUpdate);
+        #    }
+        #
+        #    return vend;
+        #}
+      ENDSOURCE
+      SOURCE #findByPartyId
+        #static VendTable findByPartyId(DirPartyId   _partyId,
+        #                             boolean _forUpdate = false)
+        #{
+        #    VendTable vendTable;
+        #    ;
+        #
+        #    if (_partyId)
+        #    {
+        #        if (_forUpdate)
+        #            vendTable.selectForUpdate(_forUpdate);
+        #
+        #        select firstonly vendTable
+        #            where vendTable.PartyId == _partyId;
+        #    }
+        #    return vendTable;
+        #}
+      ENDSOURCE
+      SOURCE #findRecId
+        #static VendTable findRecId(recId    _recId,
+        #                           boolean  _forUpdate = false)
+        #{
+        #    VendTable vendTable;
+        #    ;
+        #
+        #    if (_recId)
+        #    {
+        #        vendTable.selectForUpdate(_forUpdate);
+        #
+        #        select firstonly vendTable
+        #            where vendTable.RecId == _recId;
+        #    }
+        #    return vendTable;
+        #}
+      ENDSOURCE
+      SOURCE #groupId
+        #static VendGroupId groupId(VendAccount _vendAccount)
+        #{
+        #    return VendTable::find(_vendAccount).CustVendTable::groupId();
+        #}
+      ENDSOURCE
+      SOURCE #lookupDefaultAccountNum
+        #client static boolean lookupDefaultAccountNum(FormStringControl _ctrl,
+        #                                              LedgerPostingType _posting = LedgerPostingType::None,
+        #                                              CompanyId         _company = curext(),
+        #                                              VendAccount       _vendAccount = '',
+        #                                              LedgerJournalType _ledgerJournalType = LedgerJournalType::Daily)
+        #
+        #{
+        #    LedgerAccountLookup accountLookup;
+        #    Args                args;
+        #    CompanyId           companyId;
+        #    FormRun             formRun;
+        #    TmpLedgerTable      tmpLedgerTable;
+        #    LedgerTableLookup   ledgerTableLookup;
+        #    ;
+        #
+        #    // The following block is needed for the case that intercompany transactions is disabled and someone passes
+        #    // in an empty string. Ideally one would remove the "curext()" defaulting from the paramter list, but this
+        #    // code was added as part of a bug fix, and did not have the scope or need of changing the interface.
+        #    if (!_company)
+        #    {
+        #        companyId = curext();
+        #    }
+        #    else
+        #    {
+        #        companyId = _company;
+        #        if (! xDataArea::exist(companyId))
+        #            throw error(strfmt("@SYS10666",companyId));
+        #    }
+        #
+        #    changecompany(companyId)
+        #    {
+        #        ledgerTableLookup = new LedgerTableLookup(_posting);
+        #        tmpLedgerTable    = ledgerTableLookup.createList(companyId);
+        #
+        #        accountLookup     = new LedgerAccountLookup(_posting,
+        #                                                    companyId,
+        #                                                    tmpLedgerTable,
+        #                                                    true,
+        #                                                    _vendAccount);
+        #
+        #        args = new Args();
+        #        if (!VendDefaultAccounts::existDefault(_vendAccount) || _ledgerJournalType == LedgerJournalType::PurchaseLedger) //enum name = InvoiceRegister
+        #        {
+        #            args.name(formstr(LedgerAccountLookup));
+        #        }
+        #        else
+        #        {
+        #            args.name(formstr(VendDefaultLedgerAccountLookup));
+        #            args.parmEnum(true);
+        #            args.parmEnumType(enumnum(NoYes));
+        #        }
+        #        args.parmObject(accountLookup);
+        #        args.caller(_ctrl);
+        #        formRun = classfactory.formRunClass(args);
+        #        formRun.init();
+        #        _ctrl.performFormLookup(formRun);
+        #        return formRun.closedCancel();
+        #    }
+        #    return true;
+        #}
+      ENDSOURCE
+      SOURCE #lookupNonLedgerDefaultAccountNum
+        #client static boolean lookupNonLedgerDefaultAccountNum(FormStringControl    _ctrl,
+        #                                                       LedgerJournalACType  _ledgerJournalACType,
+        #                                                       CompanyId            _company        = curext(),
+        #                                                       VendAccount          _vendAccount    = '')
+        #{
+        #    VendDefaultNonLedgerTableLookup vendDefaultNonLedgerTableLookup;
+        #    Args                            args;
+        #    CompanyId                       companyId;
+        #    FormRun                         formRun;
+        #    ;
+        #
+        #    // The following block is needed for the case that intercompany transactions is disabled and someone passes
+        #    // in an empty string. Ideally one would remove the "curext()" defaulting from the paramter list, but this
+        #    // code was added as part of a bug fix, and did not have the scope or need of changing the interface.
+        #    if (!_company)
+        #    {
+        #        companyId = curext();
+        #    }
+        #    else
+        #    {
+        #        companyId = _company;
+        #        if (! xDataArea::exist(companyId))
+        #            throw error(strfmt("@SYS10666",companyId));
+        #    }
+        #
+        #    changecompany(companyId)
+        #    {
+        #        vendDefaultNonLedgerTableLookup = VendDefaultNonLedgerTableLookup::construct(_vendAccount,
+        #                                                                                     _ledgerJournalACType,
+        #                                                                                     companyId);
+        #        args = new Args();
+        #        args.name(formstr(VendDefaultNonLedgerAccountLookup));
+        #        args.parmObject(vendDefaultNonLedgerTableLookup);
+        #        args.caller(_ctrl);
+        #        formRun = classfactory.formRunClass(args);
+        #        formRun.init();
+        #        _ctrl.performFormLookup(formRun);
+        #        return formRun.closedCancel();
+        #    }
+        #    return true;
+        #}
+      ENDSOURCE
+      SOURCE #lookupOffsetAccount
+        #client public static void lookupOffsetAccount(VendTable            _vendTable,
+        #                                              LedgerJournalACType  _ledgerJournalACType,
+        #                                              FormStringControl    _formStringControl,
+        #                                              CompanyId            _companyId = curext())
+        #{
+        #    ;
+        #    switch (_ledgerJournalACType)
+        #    {
+        #        case LedgerJournalACType::Bank :
+        #            BankAccountTable::lookupBankAccount(_formStringControl, _companyId);
+        #            break;
+        #
+        #        case LedgerJournalACType::Cust :
+        #            CustTable::lookupCustomer(_formStringControl, _companyId);
+        #            break;
+        #
+        #        case LedgerJournalACType::Ledger :
+        #            LedgerTable::lookupAccountNum(_formStringControl);
+        #            break;
+        #
+        #        case LedgerJournalACType::Project :
+        #            ProjTable::lookupProjId(_formStringControl, _vendTable);
+        #            break;
+        #
+        #        case LedgerJournalACType::Vend :
+        #            VendTable::lookupVendor(_formStringControl, _companyId);
+        #            break;
+        #
+        #        case LedgerJournalACType::FixedAssets :
+        #            AssetTable::lookupAccountNum(_formStringControl, _companyId);
+        #
+        #        default :
+        #
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #lookupVendAccountItem
+        #client static void lookupVendAccountItem(FormStringControl  _ctrl,
+        #                                         ItemId             _itemId,
+        #                                         InventDim          _inventDim = null)
+        #{
+        #    Args    args;
+        #    Object  formRun;
+        #    ;
+        #
+        #    args = new Args();
+        #    args.caller(_ctrl);
+        #    args.name(formstr(VendAccountItemLookup));
+        #    formRun = classfactory.formRunClass(args);
+        #    formRun.setItemId(_itemId);
+        #    formRun.setInventDim(_inventDim);
+        #    formRun.init();
+        #    _ctrl.performFormLookup(formRun);
+        #}
+        #
+      ENDSOURCE
+      SOURCE #lookupVendor
+        #client static void lookupVendor(FormStringControl   _ctrl,
+        #                                CompanyId           _company = curext())
+        #{
+        #    Args        args;
+        #    CompanyId   companyId;
+        #    FormRun     formRun;
+        #    ;
+        #
+        #    // The following block is needed for the case that intercompany transactions is disabled and someone passes
+        #    // in an empty string. Ideally one would remove the "curext()" defaulting from the paramter list, but this
+        #    // code was added as part of a bug fix, and did not have the scope or need of changing the interface.
+        #    if (!_company)
+        #    {
+        #        companyId = curext();
+        #    }
+        #    else
+        #    {
+        #        companyId = _company;
+        #        if (! xDataArea::exist(companyId))
+        #            throw error(strfmt("@SYS10666",companyId));
+        #    }
+        #
+        #    changecompany(companyId)
+        #    {
+        #        args = new Args();
+        #        args.name(formstr(VendTableLookup));
+        #        args.caller(_ctrl);
+        #        args.lookupField(fieldnum(VendTable, AccountNum));
+        #        args.lookupValue(_ctrl.text());
+        #        formRun = classfactory.formRunClass(args);
+        #        formRun.init();
+        #        _ctrl.performFormLookup(formRun);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #promptAddress
+        #static str promptAddress(VendAccount _vendAccount)
+        #{
+        #    VendTable   vendTable = VendTable::find(_vendAccount);
+        #    ;
+        #    return (vendTable.Name + '\n' + vendTable.Address);
+        #}
+      ENDSOURCE
+      SOURCE #promptConvertCurrencyCode
+        #client static boolean promptConvertCurrencyCode()
+        #{;
+        #    return (Box::yesNo("@SYS54747", DialogButton::Yes) == DialogButton::Yes);
+        #}
+      ENDSOURCE
+      SOURCE #txtNotExist
+        #static TxtNotExist txtNotExist()
+        #{
+        #    return "@SYS9779";
+        #}
+      ENDSOURCE
+      SOURCE #webLookupVendTable
+        #client static void webLookupVendTable()
+        #{
+        #    webTableLookup          webTableLookup;
+        #    Query                   query;
+        #    QueryBuildDataSource    queryBuildDataSource;
+        #;
+        #
+        #    webTableLookup = webTableLookup::newParameters(tablenum(VendTable));
+        #    webTableLookup.addLookupfield(fieldnum(VendTable, AccountNum),true);
+        #    webTableLookup.addLookupfield(fieldnum(VendTable, Name));
+        #
+        #    query = new Query();
+        #    queryBuildDataSource = query.addDataSource(tablenum(VendTable));
+        #    webTableLookup.parmQuery(query);
+        #
+        #    webTableLookup.run();
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: END
