@@ -1,0 +1,3956 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: FTM
+
+; Microsoft Dynamics AX MENUITEM : WCS_InventJournalMapping02 unloaded
+; --------------------------------------------------------------------------------
+  VERSION 1
+  
+  MENUITEM #WCS_InventJournalMapping02
+    Type: 1
+    PROPERTIES
+      Name                #WCS_InventJournalMapping02
+      Label               #Main Configuration
+      HelpText            #Main Configuration
+      Object              #WCS_InventJournalMapping02
+      Origin              #{C17D2B10-9AA8-4B35-9237-1B63E6A418BB}
+    ENDPROPERTIES
+    
+  ENDMENUITEM
+  
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : WCS_ItemMappingJournalLine unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #WCS_ItemMappingJournalLine
+    EnforceFKRelation 1
+    PROPERTIES
+      Name                #WCS_ItemMappingJournalLine
+      CreateRecIdIndex    #Yes
+      PrimaryIndex        #SurrogateKey
+      ClusterIndex        #SurrogateKey
+      Origin              #{2A284C19-0FC2-4E3A-A556-72E847267F9B}
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #InventJournalNameId
+        STRING
+        PROPERTIES
+          Name                #InventJournalNameId
+          Table               #WCS_ItemMappingJournalLine
+          Origin              #{C96A32A8-A722-4597-86F1-BB5958374314}
+          ExtendedDataType    #InventJournalNameId
+        ENDPROPERTIES
+        
+      FIELD #ItemGroupId
+        STRING
+        PROPERTIES
+          Name                #ItemGroupId
+          Table               #WCS_ItemMappingJournalLine
+          Origin              #{E959043F-38A9-4D08-8108-57E159905ECB}
+          ExtendedDataType    #ItemGroupId
+        ENDPROPERTIES
+        
+      FIELD #MapLineDesc
+        STRING
+        PROPERTIES
+          Name                #MapLineDesc
+          Label               #Line desc
+          Table               #WCS_ItemMappingJournalLine
+          Origin              #{6295CBB3-18D1-4276-B78E-6C38E2940BFA}
+        ENDPROPERTIES
+        
+      FIELD #MapLineId
+        STRING
+        PROPERTIES
+          Name                #MapLineId
+          Label               #Line id
+          Table               #WCS_ItemMappingJournalLine
+          Origin              #{9144A593-0F4A-49C3-9ED1-B14936E02B82}
+        ENDPROPERTIES
+        
+      FIELD #MapTableId
+        STRING
+        PROPERTIES
+          Name                #MapTableId
+          Table               #WCS_ItemMappingJournalLine
+          Origin              #{97AB4262-B8B7-4CC2-B765-67B93F1C9F90}
+          ExtendedDataType    #WCS_MapTableId
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    INDICES
+    ENDINDICES
+    FULLTEXTINDICES
+    ENDFULLTEXTINDICES
+    REFERENCES
+      REFERENCE #InventItemGroup
+        PROPERTIES
+          Name                #InventItemGroup
+          Table               #InventItemGroup
+          UseDefaultRoleNames #Yes
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE PKFK
+          PROPERTIES
+            Field               #ItemGroupId
+            RelatedField        #ItemGroupId
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #InventJournalName
+        PROPERTIES
+          Name                #InventJournalName
+          Table               #InventJournalName
+          UseDefaultRoleNames #Yes
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE PKFK
+          PROPERTIES
+            Field               #InventJournalNameId
+            RelatedField        #JournalNameId
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+      REFERENCE #WCS_ItemMappingJournal
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal
+          Table               #WCS_ItemMappingJournal
+          UseDefaultRoleNames #Yes
+          EDTRelation         #Yes
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #MapTableId
+            RelatedField        #MapTableId
+            SourceEDT           #WCS_MapTableId
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+    ENDREFERENCES
+    
+    DELETEACTIONS
+    ENDDELETEACTIONS
+    
+    METHODS
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : WCS_ItemMappingJournal unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #WCS_ItemMappingJournal
+    EnforceFKRelation 1
+    PROPERTIES
+      Name                #WCS_ItemMappingJournal
+      CreateRecIdIndex    #Yes
+      PrimaryIndex        #SurrogateKey
+      Origin              #{1C6D9EEE-C428-40B2-8B94-8E6061BAF75B}
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #MapTableDesc
+        STRING
+        PROPERTIES
+          Name                #MapTableDesc
+          Label               #Table desc
+          Table               #WCS_ItemMappingJournal
+          Origin              #{905C3C45-45BB-4AAE-9E73-EE076A67456E}
+        ENDPROPERTIES
+        
+      FIELD #MapTableId
+        STRING
+        PROPERTIES
+          Name                #MapTableId
+          Table               #WCS_ItemMappingJournal
+          Origin              #{B4EA4B42-4B49-4A59-91AD-9A734F09F99E}
+          ExtendedDataType    #WCS_MapTableId
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    INDICES
+      #TableIdIDX
+      PROPERTIES
+        Name                #TableIdIDX
+        AllowDuplicates     #No
+        Origin              #{A78564CD-A78A-48B9-AA7A-B9C481ECE542}
+      ENDPROPERTIES
+      
+      INDEXFIELDS
+        #MapTableId
+      ENDINDEXFIELDS
+      
+    ENDINDICES
+    FULLTEXTINDICES
+    ENDFULLTEXTINDICES
+    REFERENCES
+    ENDREFERENCES
+    
+    DELETEACTIONS
+    ENDDELETEACTIONS
+    
+    METHODS
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: UTS
+
+; Microsoft Dynamics AX String: WCS_MapTableId unloaded
+; --------------------------------------------------------------------------------
+  USERTYPEVERSION 6
+  
+  USERTYPE #WCS_MapTableId
+  STRING
+    PROPERTIES
+      Name                #WCS_MapTableId
+      Label               #Table id
+      Origin              #{2887077E-5EC7-45BA-BEB1-F88A6E0CC333}
+      ReferenceTable      #WCS_ItemMappingJournal
+    ENDPROPERTIES
+    
+    TYPEELEMENTS
+    ENDTYPEELEMENTS
+    
+    TYPEREFERENCES
+    ENDTYPEREFERENCES
+    
+    TYPELOOKUPS
+      TYPELOOKUP LOOKUP
+      PROPERTIES
+        Table               #WCS_ItemMappingJournal
+        RelatedField        #MapTableId
+      ENDPROPERTIES
+      
+    ENDTYPELOOKUPS
+    
+  ENDUSERTYPE
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : WCS_ItemGroupJournal unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #WCS_ItemGroupJournal
+    PROPERTIES
+      Name                #WCS_ItemGroupJournal
+      SaveDataPerCompany  #Yes
+      Origin              #{F3AC171F-A49C-4951-ADD4-B59D476502A7}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #20
+        NextUniqueId        #1005
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #InventTable
+          PROPERTIES
+            Name                #InventTable
+            Table               #InventTable
+            UniqueId            #1000
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+            BLOCK #InventItemGroupItem
+              PROPERTIES
+                Name                #InventItemGroupItem
+                Table               #InventItemGroupItem
+                UniqueId            #1001
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+              ENDLINES
+              BLOCKS
+                BLOCK #WCS_ItemMappingJournalLine
+                  PROPERTIES
+                    Name                #WCS_ItemMappingJournalLine
+                    Table               #WCS_ItemMappingJournalLine
+                    UniqueId            #1002
+                  ENDPROPERTIES
+                  
+                  FIELDLIST
+                    PROPERTIES
+                    ENDPROPERTIES
+                    
+                  ENDFIELDLIST
+                  LINES
+                  ENDLINES
+                  BLOCKS
+                    BLOCK #InventItemGroup
+                      PROPERTIES
+                        Name                #InventItemGroup
+                        Table               #InventItemGroup
+                        UniqueId            #1003
+                      ENDPROPERTIES
+                      
+                      FIELDLIST
+                        PROPERTIES
+                        ENDPROPERTIES
+                        
+                      ENDFIELDLIST
+                      LINES
+                      ENDLINES
+                      BLOCKS
+                        BLOCK #InventJournalName
+                          PROPERTIES
+                            Name                #InventJournalName
+                            Table               #InventJournalName
+                            UniqueId            #1004
+                          ENDPROPERTIES
+                          
+                          FIELDLIST
+                            PROPERTIES
+                            ENDPROPERTIES
+                            
+                          ENDFIELDLIST
+                          LINES
+                          ENDLINES
+                          BLOCKS
+                          ENDBLOCKS
+                          ASSOCIATIONS
+                            ASSOCIATION
+                              JOINDATASOURCE #WCS_ItemMappingJournalLine
+                              MASTERFIELD  #InventJournalNameId
+                              DETAILSFIELD #JournalNameId
+                          ENDASSOCIATIONS
+                        ENDBLOCK
+                      ENDBLOCKS
+                      ASSOCIATIONS
+                        ASSOCIATION
+                          JOINDATASOURCE #InventItemGroupItem
+                          MASTERFIELD  #ItemGroupId
+                          DETAILSFIELD #ItemGroupId
+                      ENDASSOCIATIONS
+                    ENDBLOCK
+                  ENDBLOCKS
+                  ASSOCIATIONS
+                    ASSOCIATION
+                      JOINDATASOURCE #InventItemGroupItem
+                      MASTERFIELD  #ItemGroupId
+                      DETAILSFIELD #ItemGroupId
+                  ENDASSOCIATIONS
+                ENDBLOCK
+              ENDBLOCKS
+              ASSOCIATIONS
+                ASSOCIATION
+                  JOINDATASOURCE #InventTable
+                  MASTERFIELD  #ItemId
+                  DETAILSFIELD #ItemId
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #ItemId
+        PROPERTIES
+          Name                #ItemId
+          Table               #WCS_ItemGroupJournal
+          ExtendedDataType    #ItemId
+          StringSize          #20
+          DataSource          #InventTable
+          DataField           #ItemId
+          Origin              #{42412F75-A69D-43BF-A258-EB8399589F22}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ItemGroupId
+        PROPERTIES
+          Name                #ItemGroupId
+          Table               #WCS_ItemGroupJournal
+          ExtendedDataType    #ItemGroupId
+          StringSize          #10
+          DataSource          #InventItemGroupItem
+          DataField           #ItemGroupId
+          Origin              #{6F73C592-03CB-497A-B9CB-D62AECBA520C}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #InventJournalNameId
+        PROPERTIES
+          Name                #InventJournalNameId
+          Table               #WCS_ItemGroupJournal
+          ExtendedDataType    #InventJournalNameId
+          StringSize          #10
+          DataSource          #WCS_ItemMappingJournalLine
+          DataField           #InventJournalNameId
+          Origin              #{8128A288-99C9-4CA2-A800-7801D39213E1}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ItemName
+        PROPERTIES
+          Name                #ItemName
+          Table               #WCS_ItemGroupJournal
+          ExtendedDataType    #ItemNameAlias
+          StringSize          #100
+          DataSource          #InventTable
+          DataField           #NameAlias
+          Origin              #{93F8BEE8-1574-4C7B-9D97-94A99EC0C310}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #GroupName
+        PROPERTIES
+          Name                #GroupName
+          Table               #WCS_ItemGroupJournal
+          ExtendedDataType    #Name
+          StringSize          #60
+          DataSource          #InventItemGroup
+          DataField           #Name
+          Origin              #{67641209-EB47-4BA2-8F53-37B3DAE9D8C2}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #JournalNameDesc
+        PROPERTIES
+          Name                #JournalNameDesc
+          Table               #WCS_ItemGroupJournal
+          ExtendedDataType    #JournalDescription
+          StringSize          #60
+          DataSource          #InventJournalName
+          DataField           #Description
+          Origin              #{A812A1E4-D4B0-4BD8-A60D-B3463C5EA2F5}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #InventJournalMovement
+  PROPERTIES
+    Name                #InventJournalMovement
+    Origin              #{CE7D4E03-D472-4411-8B8F-1C600A44F24B}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #final class FormRun extends ObjectRun
+      #{
+      #    InventJournalFormTrans_Movement             journalFormTrans;
+      #    DimensionDefaultingController               dimensionDefaultingController;
+      #    LedgerDimensionDefaultAccountController     offsetLedgerDimensionAccountController;
+      #    // <GIN>
+      #    #ISOCountryRegionCodes
+      #    TaxExciseTypeController_IN                  taxExciseTypeController;
+      #    boolean exciseEnabled;
+      #    // </GIN>
+      #}
+    ENDSOURCE
+    SOURCE #activate
+      #public void activate(boolean _active)
+      #{
+      #    if (#PdsShelfEnabled)
+      #    {
+      #        element.pdsShow();
+      #    }
+      #
+      #    super(_active);
+      #}
+    ENDSOURCE
+    SOURCE #close
+      #void close()
+      #{
+      #    journalFormTrans.formClosePre();
+      #
+      #    super();
+      #}
+    ENDSOURCE
+    SOURCE #doRefresh
+      #void doRefresh()
+      #{
+      #    InventJournalTrans           pdsInventJournalTrans;
+      #
+      #    pdsInventJournalTrans = inventJournalTrans.data();
+      #    inventJournalTrans_ds.research();
+      #    inventJournalTrans_ds.findRecord(pdsInventJournalTrans);
+      #}
+    ENDSOURCE
+    SOURCE #enableFieldsActive_IN
+      #// <GIN>
+      #public void enableFieldsActive_IN()
+      #{
+      #    if (exciseEnabled)
+      #    {
+      #        taxExciseTypeController.enableDisableExciseRecordType(inventJournalTrans.ExciseType_IN);
+      #        taxExciseTypeController.enableDisableECCNumber(inventJournalTrans.ExciseType_IN);
+      #        taxExciseTypeController.enableDisableDSA(inventJournalTrans.ExciseType_IN, inventJournalTrans.ExciseRecordType_IN, InventJournalTrans.ItemId);
+      #    }
+      #}
+      #// </GIN>
+    ENDSOURCE
+    SOURCE #init
+      #void init()
+      #{
+      #    PdsCWFormCtrl   cwFormCtrl;
+      #    journalFormTrans = new InventJournalFormTrans_Movement(element);
+      #
+      #    if (#PdsCatchWeightEnabled)
+      #    {
+      #        cwFormCtrl = PdsCWFormCtrl::constructFromForm(element);
+      #
+      #        cwFormCtrl.parmFieldIds(PdsCWValidation::fieldMapFromContainers(
+      #            [[fieldnum(InventJournalTrans,Qty), fieldnum(InventJournalTrans,PdsCWQty)]] ));
+      #        cwFormCtrl.parmItemFieldId(fieldnum(InventJournalTrans,ItemId));
+      #        cwFormCtrl.parmUnitMethodStr(tablemethodstr(InventJournalTrans,pdsCWUnitId));
+      #
+      #        journalFormTrans.parmCWFormCtrl(cwFormCtrl);
+      #    }
+      #
+      #    super();
+      #
+      #    journalFormTrans.parmCtrlCheckJournal(checkJournal);
+      #    journalFormTrans.parmCtrlPostJournal(postJournal);
+      #    journalFormTrans.parmCtrlInfolog(showInfolog);
+      #    journalFormTrans.parmCtrlVoucherGrid(inventJournalTrans_Voucher);
+      #    journalFormTrans.parmCtrlVoucherTab(voucher);
+      #    journalFormTrans.parmCtrlLineLogImage(lineLogImage);
+      #    journalFormTrans.parmCtrlDeleteLines(inventJournalDeleteTrans);
+      #
+      #    journalFormTrans.formInitPost();
+      #
+      #    dimensionDefaultingController = DimensionDefaultingController::constructInTabWithValues(true, true, true, 0, this, financialDimensionsTab, "@SYS306622");
+      #    dimensionDefaultingController.parmAttributeValueSetDataSource(inventJournalTrans_ds, fieldstr(InventJournalTrans, DefaultDimension));
+      #
+      #    offsetLedgerDimensionAccountController = LedgerDimensionDefaultAccountController::construct(
+      #        inventJournalTrans_ds,
+      #        fieldstr(InventJournalTrans, LedgerDimension));
+      #    // <GIN>
+      #    exciseEnabled = TaxParameters::isExciseEnable_IN();
+      #
+      #    if (exciseEnabled)
+      #    {
+      #        taxExciseTypeController = TaxExciseTypeController_IN::construct(
+      #                                    ExciseNone,
+      #                                    ExciseManufacture,
+      #                                    ExciseTraders,
+      #                                    TaxInformationIN_ECCNumber,
+      #                                    TaxInformationIN_ManECCRegistrationNumberTable,
+      #                                    TaxInformationIN_TraderECCRegistrationNumberTable,
+      #                                    InventJournalTrans_DS);
+      #        taxExciseTypeController.parmFieldNumDSA(fieldNum(InventJournalTrans, DSA_IN));
+      #        element.setVisible_IN();
+      #    }
+      #    // </GIN>
+      #
+      #    if (cwFormCtrl)
+      #    {
+      #        if (journalFormTrans.journalTableData()
+      #            && journalFormTrans.journalTableData().journalTable()
+      #            && journalFormTrans.journalTableData().journalTable().JournalNameId
+      #                == InventParameters::find().PdsCWInventJournalNameId)
+      #        {
+      #            cwFormCtrl.parmCWValidation().parmSkipValidation(true);
+      #        }
+      #    }
+      #}
+      #
+      #
+    ENDSOURCE
+    SOURCE #initDatasourceAllow
+      #// <GEERU>
+      #public void initDatasourceAllow()
+      #{
+      #    if (dimensionDefaultingController)
+      #    {
+      #        dimensionDefaultingController.setEditability(inventJournalTrans_ds.allowEdit());
+      #    }
+      #}
+      #// </GEERU>
+      #
+    ENDSOURCE
+    SOURCE #inventDimSetupObject
+      #InventDimCtrl_Frm_Mov inventDimSetupObject()
+      #{
+      #    return journalFormTrans.inventDimSetupObject();
+      #}
+    ENDSOURCE
+    SOURCE #isEntry
+      #public boolean isEntry()
+      #{
+      #
+      #    InventJournalTable inventJournalTable;
+      #
+      #    //dilepas sementara
+      #  /*  if(true){
+      #        return true;
+      #    }
+      #  */
+      #
+      #    if(inventJournalTrans.SCC_MovementType == SCC_MovementType::In){
+      #            return true;
+      #    }
+      #
+      #    select inventJournalTable
+      #    where inventJournalTable.JournalId == inventJournalTrans.JournalId;
+      #
+      #    if(inventJournalTable.Scc_EntryMovementWFStatus == Scc_MovementWFEnum::COMPLETE){
+      #        return true;
+      #    }
+      #
+      #    return false;
+      #
+      #}
+    ENDSOURCE
+    SOURCE #isReserve
+      #public boolean isReserve()
+      #{
+      #
+      #    InventTransOrigin inventTransOrigin;
+      #    InventTrans inventTrans ;
+      #    boolean stsMovement = false;
+      #
+      #    //dilepas sementara
+      #   /* if(true){
+      #        return true;
+      #
+      #    }
+      #   */
+      #
+      #    if(inventJournalTrans.SCC_MovementType == SCC_MovementType::Out && inventJournalTrans.JournalType == InventJournalType::Movement){
+      #
+      #        stsMovement = true;
+      #
+      #        while select Scc_ReserveWFStatus from inventTrans
+      #            join inventTransOrigin where inventTransOrigin.Recid == inventTrans.InventTransOrigin
+      #            && inventTransOrigin.InventTransId == inventJournalTrans.InventTransId
+      #        {
+      #            //info(strFmt("RecId : %1 status wf %2",inventTrans.RecId,inventTrans.Scc_ReserveWFStatus));
+      #            if(inventTrans.Scc_ReserveWFStatus == Scc_MovementWFEnum::COMPLETE){
+      #                return true;
+      #            }
+      #        }
+      #    }
+      #
+      #    /**   kondisi jurnal movement, tapi belum melakukan reservasi */
+      #    if(stsMovement){
+      #        return false;
+      #    }
+      #
+      #
+      #    /* kondisi bukan jurnal movement */
+      #    return true;
+      #}
+    ENDSOURCE
+    SOURCE #journalForm
+      #JournalForm journalForm()
+      #{
+      #    return journalFormTrans;
+      #}
+    ENDSOURCE
+    SOURCE #pdsShow
+      #void pdsShow()
+      #{
+      #    if (inventoryDimensionsGrid_inventBatchId.visible())
+      #    {
+      #        pdsDispositionCode.visible(true);
+      #        pdsDispositionStatus.visible(true);
+      #    }
+      #    else
+      #    {
+      #        pdsDispositionCode.visible(false);
+      #        pdsDispositionStatus.visible(false);
+      #    }
+      #}
+    ENDSOURCE
+    SOURCE #setVisible_IN
+      #// <GIN>
+      #private void setVisible_IN()
+      #{
+      #    taxInformation_IN.visible(exciseEnabled);
+      #    excise_IN.visible(exciseEnabled);
+      #}
+      #// </GIN>
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventJournalTrans
+          Table               #InventJournalTrans
+          CounterField        #LineNum
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD TransDate
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedTransDatePost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD ItemId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedItemIdPost();
+                #    // <GIN>
+                #    if (exciseEnabled)
+                #    {
+                #        InventJournalTrans.initCompanyLocation_IN();
+                #        InventJournalTransTaxExtensionIN.TaxInformation_IN = TaxInformation_IN::findDefaultbyLocation(InventJournalTrans.WarehouseLocation_IN).RecId;
+                #        InventJournalTransTaxExtensionIN_DS.object(fieldNum(InventJournalTransTaxExtensionIN, TaxInformation_IN)).modified();
+                #        element.enableFieldsActive_IN();
+                #    }
+                #    // </GIN>
+                #}
+              ENDSOURCE
+              SOURCE #validate
+                #public boolean validate()
+                #{
+                #    return journalFormTrans.fieldValidateItemId();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD Qty
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedQtyPost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD CostPrice
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedCostPricePost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD PriceUnit
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedPriceUnitPost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD CostMarkup
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedCostMarkupPost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD CostAmount
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedCostAmountPost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD Counted
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedCountedPost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventTransIdReturn
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #lookup
+                #public void lookup(FormControl _formControl, str _filterStr)
+                #{
+                #    InventTransOrigin::lookupTransIdReturn(_formControl,inventJournalTrans, inventDim);
+                #}
+              ENDSOURCE
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventTransIdReturnPost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          REFERENCEFIELD LedgerDimension
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #resolveReference
+                #public Common resolveReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    return offsetLedgerDimensionAccountController.resolveReference();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+          DATAFIELD ExciseType_IN
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #    element.enableFieldsActive_IN();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD ExciseRecordType_IN
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #    element.enableFieldsActive_IN();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD Storno_RU
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedStornoPost_RU();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD PdsCWQty
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedPdsCWQtyPost();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          REFERENCEFIELD PostalAddress_IN
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #// <GIN>
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    InventJournalTrans.WarehouseLocation_IN            = LogisticsPostalAddress::getLocation(InventJournalTrans.PostalAddress_IN);
+                #    InventJournalTransTaxExtensionIN.TaxInformation_IN = TaxInformation_IN::findDefaultbyLocation(InventJournalTrans.WarehouseLocation_IN).RecId;
+                #    InventJournalTransTaxExtensionIN_DS.object(fieldNum(InventJournalTransTaxExtensionIN, TaxInformation_IN)).modified();
+                #}
+                #// </GIN>
+              ENDSOURCE
+              SOURCE #lookupReference
+                #public Common lookupReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    Common ret;
+                #
+                #    ret = LogisticsLocationSelectionLookup::lookupAddressForm(_formReferenceControl,
+                #        InventLocation::find(InventJournalTrans.inventDim().InventLocationId),
+                #        [LogisticsLocationRoleType::Delivery], false);
+                #    return ret;
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #absoluteQty
+          #edit SCC_RealAbsolute absoluteQty(boolean _set, InventJournalTrans _inventJournalTrans, SCC_RealAbsolute _qty)
+          #{
+          #    SCC_RealAbsolute    qty;
+          #
+          #    if (_set)
+          #    {
+          #        qty = _qty;
+          #
+          #        if (_inventJournalTrans.SCC_MovementType == SCC_MovementType::Out)
+          #        {
+          #            qty = _qty * -1;
+          #        }
+          #
+          #        journalFormTrans.setQty(qty);
+          #        journalFormTrans.fieldModifiedQtyPost();
+          #    }
+          #    else
+          #    {
+          #        return abs(_inventJournalTrans.Qty);
+          #    }
+          #
+          #
+          #    return _qty;
+          #}
+        ENDSOURCE
+        SOURCE #ExciseTraders_IN
+          #// <GIN>
+          #edit ExciseTraders_IN ExciseTraders_IN(
+          #    boolean          _set,
+          #    ExciseTraders_IN _exciseTraders_IN)
+          #{
+          #    ExciseTraders_IN        exciseTraders_IN;
+          #
+          #    InventJournalTrans.ExciseRecordType_IN = TaxExciseTypeController_IN::exciseTraders(_set,_exciseTraders_IN,InventJournalTrans.ExciseRecordType_IN);
+          #
+          #    exciseTraders_IN = taxExciseTypeController.exciseRecordType2ExciseTraders(InventJournalTrans.ExciseRecordType_IN);
+          #
+          #    return exciseTraders_IN;
+          #}
+          #// </GIN>
+        ENDSOURCE
+        SOURCE #ExciseNone_IN
+          #// <GIN>
+          #edit ExciseNone_IN ExciseNone_IN(
+          #    boolean         _set,
+          #    ExciseNone_IN   _exciseNone_IN)
+          #{
+          #    ExciseNone_IN           exciseNone_IN;
+          #    InventJournalTrans.ExciseRecordType_IN = TaxExciseTypeController_IN::exciseNone(_set,_exciseNone_IN,InventJournalTrans.ExciseRecordType_IN);
+          #
+          #    exciseNone_IN = taxExciseTypeController.exciseRecordType2ExciseNone(InventJournalTrans.ExciseRecordType_IN);
+          #    return exciseNone_IN;
+          #}
+          #// </GIN>
+        ENDSOURCE
+        SOURCE #ExciseManufacture_IN
+          #// <GIN>
+          #edit ExciseManufacture_IN ExciseManufacture_IN(
+          #    boolean                 _set,
+          #    ExciseManufacture_IN    _exciseManufacture_IN)
+          #{
+          #    ExciseManufacture_IN    exciseManufacture_IN;
+          #    InventJournalTrans.ExciseRecordType_IN = TaxExciseTypeController_IN::exciseManufacture(_set,_exciseManufacture_IN,InventJournalTrans.ExciseRecordType_IN);
+          #    exciseManufacture_IN = taxExciseTypeController.exciseRecordType2ExciseManufacture(InventJournalTrans.ExciseRecordType_IN);
+          #
+          #    return exciseManufacture_IN;
+          #}
+          #// </GIN>
+        ENDSOURCE
+        SOURCE #validateWrite
+          #public boolean validateWrite()
+          #{
+          #    boolean ret;
+          #
+          #    inventJournalTrans.InventDimId = InventDim::findOrCreate(inventDim).InventDimId;
+          #
+          #    ret = super();
+          #
+          #    ret = journalFormTrans.datasourceValidateWritePost(ret);
+          #
+          #    return ret;
+          #}
+        ENDSOURCE
+        SOURCE #write
+          #void write()
+          #{
+          #    try
+          #    {
+          #        journalFormTrans.datasourceWritePre();
+          #
+          #        ttsbegin;
+          #
+          #        dimensionDefaultingController.writing();
+          #
+          #        super();
+          #
+          #        journalFormTrans.datasourceWritePost();
+          #
+          #        ttscommit;
+          #    }
+          #    catch (Exception::Error)
+          #    {
+          #        if (!inventJournalTrans.RecId)
+          #        {
+          #            inventJournalTrans.InventTransId = '';
+          #        }
+          #        throw Exception::Error;
+          #    }
+          #    // <GIN>
+          #    if (inventJournalTransTaxExtensionIN_ds.isNeeded())
+          #    {
+          #        TaxModelDocLineExtensionController_IN::insertTaxExtensionRecord(inventJournalTransTaxExtensionIN, inventJournalTrans);
+          #    }
+          #    // </GIN>
+          #}
+        ENDSOURCE
+        SOURCE #lineLogImage
+          #display Integer lineLogImage(InventJournalTrans _journalTrans)
+          #{
+          #    return journalFormTrans.datasourceMethodLineLogImage(_journalTrans);
+          #}
+        ENDSOURCE
+        SOURCE #linkActive
+          #void linkActive()
+          #{
+          #    journalFormTrans.datasourceLinkActivePre();
+          #
+          #    super();
+          #}
+        ENDSOURCE
+        SOURCE #init
+          #void init()
+          #{
+          #    super();
+          #
+          #    journalFormTrans.datasourceInitPost(inventJournalTrans);
+          #}
+        ENDSOURCE
+        SOURCE #initValue
+          #void initValue()
+          #{
+          #    journalFormTrans.datasourceInitValuePre();
+          #
+          #    super();
+          #
+          #    journalFormTrans.datasourceInitValuePost();
+          #}
+        ENDSOURCE
+        SOURCE #executeQuery
+          #public void executeQuery()
+          #{
+          #
+          #
+          #
+          #
+          #    super();
+          #
+          #    journalFormTrans.datasourceExecuteQueryPost();
+          #
+          #    WF_inventJournalTable_DS.createWFDatasource(InventJournalTrans.JOurnalId);
+          #
+          #}
+        ENDSOURCE
+        SOURCE #delete
+          #void delete()
+          #{
+          #    dimensionDefaultingController.deleted();
+          #
+          #    ttsbegin;
+          #
+          #    journalFormTrans.datasourceDeletePre();
+          #
+          #    super();
+          #
+          #    journalFormTrans.datasourceDeletePost();
+          #
+          #    ttscommit;
+          #}
+        ENDSOURCE
+        SOURCE #create
+          #void create(boolean append = false)
+          #{
+          #    journalFormTrans.datasourceCreatePre();
+          #
+          #    super(append);
+          #}
+        ENDSOURCE
+        SOURCE #active
+          #int active()
+          #{
+          #    int ret = super();
+          #
+          #    journalFormTrans.datasourceActivePost();
+          #
+          #    dimensionDefaultingController.activated();
+          #
+          #    // <GIN>
+          #    element.enableFieldsActive_IN();
+          #    // </GIN>
+          #    return ret;
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventDim
+          Table               #InventDim
+          JoinSource          #InventJournalTrans
+          LinkType            #InnerJoin
+          DelayActive         #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD inventBatchId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    InventBatch             pdsInventBatch;
+                #    PdsStatus               pdsCheck;
+                #    PdsDispositionMaster    pdsDispositionMaster;
+                #
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim,fieldNum(InventDim,InventBatchId));
+                #
+                #    if (#PdsShelfEnabled)
+                #    {
+                #        if (inventDim.InventBatchId)
+                #        {
+                #            pdsInventBatch = InventBatch::find(inventDim.InventBatchId, inventJournalTrans.ItemId);
+                #            pdsDispositionMaster = PdsDispositionMaster::find(pdsInventBatch.PdsDispositionCode);
+                #            pdsCheck = pdsDispositionMaster.Status;
+                #        }
+                #        else
+                #        {
+                #            pdsCheck = PdsStatus::Available;
+                #        }
+                #    }
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD wMSLocationId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim,fieldNum(InventDim,wmsLocationId));
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD wMSPalletId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim,fieldnum(InventDim, wmsPalletId));
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD inventSerialId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim,fieldNum(InventDim,InventSerialId));
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventLocationId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim,fieldNum(InventDim,InventLocationId));
+                #    // <GIN>
+                #    if (exciseEnabled)
+                #    {
+                #        InventJournalTrans.initCompanyLocation_IN(InventDim.InventLocationId);
+                #        InventJournalTransTaxExtensionIN.TaxInformation_IN = TaxInformation_IN::findDefaultbyLocation(InventJournalTrans.WarehouseLocation_IN).RecId;
+                #        InventJournalTransTaxExtensionIN_DS.object(fieldNum(InventJournalTransTaxExtensionIN, TaxInformation_IN)).modified();
+                #    }
+                #    // </GIN>
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD configId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim,fieldNum(InventDim,ConfigId));
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventSizeId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim, fieldNum(InventDim,InventSizeId));
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventColorId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim, fieldNum(InventDim,InventColorId));
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventSiteId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim, fieldNum(InventDim,InventSiteId));
+                #    // <GIN>
+                #    if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoIN]))
+                #    {
+                #        InventDim_DS.object(fieldNum(InventDim, InventLocationId)).modified();
+                #    }
+                #    // </GIN>
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventGtdId_RU
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #// <GEERU>
+                #public void modified()
+                #{
+                #    super();
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim, fieldnum(InventDim, InventGtdId_RU));
+                #}
+                #// </GEERU>
+                #
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventProfileId_RU
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #// <GEERU>
+                #public void modified()
+                #{
+                #    super();
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim, fieldnum(InventDim, InventProfileId_RU));
+                #}
+                #// </GEERU>
+                #
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventOwnerId_RU
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #// <GEERU>
+                #public void modified()
+                #{
+                #    super();
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim, fieldnum(InventDim, InventOwnerId_RU));
+                #}
+                #// </GEERU>
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          DATAFIELD InventStyleId
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #modified
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    journalFormTrans.fieldModifiedInventDimFieldsPost(inventDim, fieldNum(InventDim,InventStyleId));
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDDATAFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #write
+          #public void write()
+          #{
+          #}
+        ENDSOURCE
+        SOURCE #init
+          #public void init()
+          #{
+          #    super();
+          #    journalFormTrans.inventDimInitPost(inventDim);
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #TaxInformationIN
+          Table               #TaxInformation_IN
+          AllowCheck          #No
+          AllowEdit           #No
+          AllowCreate         #No
+          JoinSource          #InventJournalTransTaxExtensionIN
+        ENDPROPERTIES
+        
+        FIELDLIST
+          REFERENCEFIELD ManECCRegistrationNumberTable
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #jumpRef
+                #// <GIN>
+                #public void jumpRef()
+                #{
+                #    TaxRegistrationNumbers_IN::jumpRef(
+                #        TaxRegistrationNumbers_IN::find(taxInformationIN.ManECCRegistrationNumberTable).RegistrationNumber,
+                #        TaxType_IN::Excise,
+                #        InventJournalTrans);
+                #}
+                #// </GIN>
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+          REFERENCEFIELD TraderECCRegistrationNumberTable
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #jumpRef
+                #// <GIN>
+                #public void jumpRef()
+                #{
+                #    TaxRegistrationNumbers_IN::jumpRef(
+                #        TaxRegistrationNumbers_IN::find(taxInformationIN.TraderECCRegistrationNumberTable).RegistrationNumber,
+                #        TaxType_IN::Excise,
+                #        InventJournalTrans);
+                #}
+                #// </GIN>
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+          REFERENCEFIELD ECCNumber
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #jumpRef
+                #// <GIN>
+                #public void jumpRef()
+                #{
+                #    TaxRegistrationNumbers_IN::jumpRef(
+                #        TaxRegistrationNumbers_IN::find(taxInformationIN.ECCNumber).RegistrationNumber,
+                #        TaxType_IN::Excise,
+                #        InventJournalTrans);
+                #}
+                #// </GIN>
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventJournalTransTaxExtensionIN
+          Table               #InventJournalTransTaxExtensionIN
+          JoinSource          #InventJournalTrans
+          LinkType            #Passive
+        ENDPROPERTIES
+        
+        FIELDLIST
+          REFERENCEFIELD TaxInformation_IN
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #jumpRef
+                #public void jumpRef()
+                #{
+                #    TaxInformation_IN::jumpRef(InventJournaltransTaxExtensionIN.TaxInformation_IN, this);
+                #}
+              ENDSOURCE
+              SOURCE #modified
+                #// <GIN>
+                #public void modified()
+                #{
+                #    super();
+                #
+                #    TaxInformationIN_DS.linkActive();
+                #}
+                #// </GIN>
+              ENDSOURCE
+              SOURCE #lookupReference
+                #// <GIN>
+                #public Common lookupReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    return TaxInformation_IN::lookup(_formReferenceControl, InventJournalTrans.WarehouseLocation_IN);
+                #}
+                #// </GIN>
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #initValue
+          #// <GIN>
+          #public void initValue()
+          #{
+          #    super();
+          #    InventJournalTransTaxExtensionIN.TaxModelDocLineExtensionIN::init(InventJournalTrans);
+          #    TaxInformationIN_ds.executeQuery();
+          #}
+          #// </GIN>
+        ENDSOURCE
+        SOURCE #isNeeded
+          #// <GIN>
+          #public boolean isNeeded()
+          #{
+          #    return SysCountryRegionCode::isLegalEntityInCountryRegion([#isoIN]);
+          #}
+          #// </GIN>
+        ENDSOURCE
+        SOURCE #init
+          #// <GIN>
+          #public void init()
+          #{
+          #    if (this.isNeeded())
+          #    {
+          #        this.linkType(FormLinkType::InnerJoin);
+          #    }
+          #    super();
+          #}
+          #// </GIN>
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #WF_InventJournalTable
+          Table               #InventJournalTable
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #createWFDatasource
+          #public void createWFDatasource(InventJournalId _journalId){
+          #
+          #   QueryBuildDataSource qbds;
+          #   QueryBuildRange range;
+          #
+          #   qbds = this.query().dataSourceName(this.name());
+          #
+          #   range  = qbds.addRange(fieldNum(InventJournalTable,JournalId));
+          #   range.value(queryValue(_journalId));
+          #
+          #   this.executeQuery();
+          #
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #LogisticsPostalAddress
+          Table               #LogisticsPostalAddress
+          JoinSource          #InventJournalTrans
+          JoinRelation        #PostalAddress
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+    InventDim InventJournalTrans
+    TaxInformationIN InventJournalTransTaxExtensionIN
+    InventJournalTransTaxExtensionIN InventJournalTrans
+    LogisticsPostalAddress InventJournalTrans
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      Caption             #@SYS24048
+      TitleDatasource     #InventJournalTrans
+      HideIfEmpty         #No
+      WorkflowEnabled     #Yes
+      WorkflowDatasource  #WF_InventJournalTable
+      WorkflowType        #Scc_IJTEntryType
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane
+          ElementPosition     #715827882
+          Style               #Strip
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup
+          ElementPosition     #1610612733
+          HierarchyParent     #ActionPaneTab
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #NewDeleteGroup
+          ElementPosition     #1073741822
+          HierarchyParent     #ActionPaneTab
+          DataSource          #InventJournalTrans
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          HierarchyParent     #Overview
+          DataSource          #InventJournalTrans
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Excise_IN
+          AutoDeclaration     #Yes
+          ElementPosition     #1252698793
+          HierarchyParent     #TaxInformation_IN
+          Caption             #@GLS5005
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Identification
+          ElementPosition     #613566756
+          HierarchyParent     #General
+          DataSource          #InventJournalTrans
+          DataGroup           #Identification
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Inventory
+          ElementPosition     #1227133512
+          HierarchyParent     #General
+          DataSource          #InventJournalTrans
+          DataGroup           #Inventory
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #InventoryDimensions
+          ElementPosition     #1431655764
+          HierarchyParent     #InventoryDimensionsTab
+          DataSource          #InventDim
+          DataGroup           #InventoryDimensions
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #InventoryDimensionsGrid
+          Visible             #No
+          ElementPosition     #959164468
+          HierarchyParent     #Grid
+          BackgroundColor     #Window background
+          DataSource          #InventDim
+          DataGroup           #InventoryDimensions
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #JournalLine
+          ElementPosition     #920350134
+          HierarchyParent     #General
+          DataSource          #InventJournalTrans
+          DataGroup           #JournalLine
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Ledger
+          ElementPosition     #1840700268
+          HierarchyParent     #General
+          Caption             #@SYS13356
+          DataSource          #InventJournalTrans
+          DataGroup           #LedgerPosting
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #OriginalLot_RU
+          ElementPosition     #2046820350
+          HierarchyParent     #General
+          DataSource          #InventJournalTrans
+          DataGroup           #OriginalLot_RU
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #ReturnLot
+          ElementPosition     #1533916890
+          HierarchyParent     #General
+          Caption             #@SYS21678
+          DataSource          #InventJournalTrans
+          DataGroup           #ReturnLot
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #ScrapReasonRU
+          ElementPosition     #2113929214
+          HierarchyParent     #General
+          DataSource          #InventJournalTrans
+          DataGroup           #ScrapReason_RU
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUBUTTON
+        PROPERTIES
+          Name                #Functions
+          HelpText            #@SYS69656
+          ElementPosition     #1840700268
+          HierarchyParent     #ButtonGroup
+          Text                #@SYS10340
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUBUTTON
+        PROPERTIES
+          Name                #InventoryButton
+          HelpText            #@SYS28780
+          ElementPosition     #1533916890
+          HierarchyParent     #ButtonGroup
+          Text                #@SYS981
+          SaveRecord          #No
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REFERENCEGROUP
+        PROPERTIES
+          Name                #Excise_IN_ExciseTariffCodes_IN
+          ElementPosition     #1049880892
+          HierarchyParent     #Excise_IN
+          DataSource          #InventJournalTrans
+          ReferenceField      #ExciseTariffCodes_IN
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REFERENCEGROUP
+        PROPERTIES
+          Name                #InventJournalTrans_PostalAddress_IN
+          ElementPosition     #238609294
+          HierarchyParent     #TaxInformation_IN
+          DataSource          #InventJournalTrans
+          ReferenceField      #PostalAddress_IN
+          ReplacementFieldGroup #LocationReference
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REFERENCEGROUP
+        PROPERTIES
+          Name                #InventJournalTransTaxExtensionIN_TaxInformation_IN
+          ElementPosition     #954437176
+          HierarchyParent     #TaxInformation_IN
+          DataSource          #InventJournalTransTaxExtensionIN
+          ReferenceField      #TaxInformation_IN
+          Label               #@SYS33652
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REFERENCEGROUP
+        PROPERTIES
+          Name                #TaxInformationIN_ECCNumber
+          AutoDeclaration     #Yes
+          ElementPosition     #906715316
+          HierarchyParent     #Excise_IN
+          DataSource          #TaxInformationIN
+          ReferenceField      #ECCNumber
+          Label               #@GLS5102
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REFERENCEGROUP
+        PROPERTIES
+          Name                #TaxInformationIN_ManECCRegistrationNumberTable
+          AutoDeclaration     #Yes
+          ElementPosition     #763549740
+          HierarchyParent     #Excise_IN
+          DataSource          #TaxInformationIN
+          ReferenceField      #ManECCRegistrationNumberTable
+          Label               #@GLS5102
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REFERENCEGROUP
+        PROPERTIES
+          Name                #TaxInformationIN_TraderECCRegistrationNumberTable
+          AutoDeclaration     #Yes
+          ElementPosition     #620384164
+          HierarchyParent     #Excise_IN
+          DataSource          #TaxInformationIN
+          ReferenceField      #TraderECCRegistrationNumberTable
+          Label               #@GLS5102
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TAB
+        PROPERTIES
+          Name                #Tab
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          Tabs                #5
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #FinancialDimensionsTab
+          AutoDeclaration     #Yes
+          NeededPermission    #Manual
+          ElementPosition     #1879048190
+          HierarchyParent     #Tab
+          Caption             #@SYS306622
+          Columns             #2
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+            ENDARRAY
+          HideIfEmpty         #No
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #pageActivated
+            #public void pageActivated()
+            #{
+            #    dimensionDefaultingController.pageActivated();
+            #
+            #    super();
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #General
+          ElementPosition     #1610612734
+          HierarchyParent     #Tab
+          Caption             #@SYS2952
+          Columns             #2
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #InventoryDimensionsTab
+          ElementPosition     #2013265918
+          HierarchyParent     #Tab
+          Caption             #@SYS53627
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #Overview
+          ElementPosition     #1073741823
+          HierarchyParent     #Tab
+          Caption             #@SYS9039
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #TaxInformation_IN
+          AutoDeclaration     #Yes
+          Visible             #No
+          ElementPosition     #2080374782
+          HierarchyParent     #Tab
+          Caption             #@SYS33550
+          DataSource          #InventJournalTrans
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTON
+        PROPERTIES
+          Name                #ShowInfoLog
+          AutoDeclaration     #Yes
+          HelpText            #@SYS85244
+          ElementPosition     #1227133512
+          HierarchyParent     #ButtonGroup
+          Text                #@SYS2515
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #clicked
+            #void clicked()
+            #{
+            #    super();
+            #
+            #    journalFormTrans.buttonClickedShowInfolog();
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL CHECKBOX
+        PROPERTIES
+          Name                #Excise_IN_DSA_IN
+          AutoDeclaration     #Yes
+          ElementPosition     #1908874352
+          HierarchyParent     #Excise_IN
+          DataSource          #InventJournalTrans
+          DataField           #DSA_IN
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMBOBOX
+        PROPERTIES
+          Name                #Excise_IN_ExciseType_IN
+          ElementPosition     #477218588
+          HierarchyParent     #Excise_IN
+          DataSource          #InventJournalTrans
+          DataField           #ExciseType_IN
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMBOBOX
+        PROPERTIES
+          Name                #ExciseManufacture
+          AutoDeclaration     #Yes
+          Visible             #No
+          ElementPosition     #1670265058
+          HierarchyParent     #Excise_IN
+          DataSource          #InventJournalTrans
+          DataMethod          #ExciseManufacture_IN
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #modified
+            #public boolean modified()
+            #{
+            #    boolean ret;
+            #
+            #    ret = super();
+            #
+            #    element.enableFieldsActive_IN();
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMBOBOX
+        PROPERTIES
+          Name                #ExciseNone
+          AutoDeclaration     #Yes
+          Visible             #No
+          ElementPosition     #1431655764
+          HierarchyParent     #Excise_IN
+          DataSource          #InventJournalTrans
+          DataMethod          #ExciseNone_IN
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #modified
+            #public boolean modified()
+            #{
+            #    boolean ret;
+            #
+            #    ret = super();
+            #
+            #    element.enableFieldsActive_IN();
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMBOBOX
+        PROPERTIES
+          Name                #ExciseTraders
+          AutoDeclaration     #Yes
+          Visible             #No
+          ElementPosition     #1193046470
+          HierarchyParent     #Excise_IN
+          DataSource          #InventJournalTrans
+          DataMethod          #ExciseTraders_IN
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #modified
+            #public boolean modified()
+            #{
+            #    boolean ret;
+            #
+            #    ret = super();
+            #
+            #    element.enableFieldsActive_IN();
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMBOBOX
+        PROPERTIES
+          Name                #PdsDispositionStatus
+          AutoDeclaration     #Yes
+          AllowEdit           #No
+          SecurityKey         #PdsDaily
+          ElementPosition     #2128309682
+          HierarchyParent     #Grid
+          LabelAlignment      #Right
+          DataSource          #InventJournalTrans
+          DataMethod          #PdsDispositionStatus
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMBOBOX
+        PROPERTIES
+          Name                #SCC_MovementType
+          AutoDeclaration     #Yes
+          ElementPosition     #2079625799
+          HierarchyParent     #Grid
+          Label               #Type
+          DataSource          #InventJournalTrans
+          DataField           #SCC_MovementType
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #modified
+            #public boolean modified()
+            #{
+            #    InventJournalTrans      vInventJournalTrans;
+            #    boolean                 ret;
+            #
+            #    ret = super();
+            #
+            #    journalFormTrans.setSign(this.valueStr());
+            #    journalFormTrans.fieldModifiedQtyPost();
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #DeleteButton
+          ElementPosition     #1610612733
+          HierarchyParent     #NewDeleteGroup
+          Text                #@sys14425
+          ButtonDisplay       #Text & Image left
+          NormalImage         #10121
+          ImageLocation       #EmbeddedResource
+          SaveRecord          #No
+          Primary             #Yes
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #NewButton
+          ElementPosition     #1073741822
+          HierarchyParent     #NewDeleteGroup
+          ButtonDisplay       #Text & Image left
+          NormalImage         #11045
+          ImageLocation       #EmbeddedResource
+          Primary             #Yes
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL DATEEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_TransDate
+          ElementPosition     #390451572
+          HierarchyParent     #Grid
+          DataSource          #InventJournalTrans
+          DataField           #TransDate
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL DATEEDIT
+        PROPERTIES
+          Name                #TransDate
+          ElementPosition     #1431655764
+          HierarchyParent     #Identification
+          DataSource          #InventJournalTrans
+          DataField           #TransDate
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #CheckJournal
+          AutoDeclaration     #Yes
+          ElementPosition     #613566756
+          HierarchyParent     #ButtonGroup
+          ButtonDisplay       #Text & Image left
+          NormalImage         #11340
+          ImageLocation       #EmbeddedResource
+          DataSource          #InventJournalTrans
+          MenuItemType        #Action
+          MenuItemName        #InventJournalCheck
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventDimParmFixed
+          ElementPosition     #2013265905
+          HierarchyParent     #InventoryButton
+          SaveRecord          #No
+          MenuItemName        #InventDimParmFixed
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventDimTracking
+          ElementPosition     #671088635
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #InventDimTracking
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventJournalDeleteTrans
+          AutoDeclaration     #Yes
+          ElementPosition     #1431655764
+          HierarchyParent     #Functions
+          MenuItemType        #Action
+          MenuItemName        #InventJournalDeleteTrans
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventLot
+          ElementPosition     #536870908
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #InventLot
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventMarking
+          ElementPosition     #1073741816
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #INventMarking
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventOnHand
+          ElementPosition     #402653181
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #InventOnhand
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventReserve
+          ElementPosition     #939524089
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #InventReserve
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #clicked
+            #void clicked()
+            #{
+            #    /*
+            #        validasi tambahan untuk memastikan workflow di entry movement selesai dilakukan,
+            #        sebelum selesai reserve tidak boleh dilakukan
+            #    */
+            #    if(!element.isEntry()){
+            #        error("proses Approval Entry movement belum selesai");
+            #        return;
+            #    }
+            #
+            #
+            #    super();
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventTrans
+          ElementPosition     #268435454
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #InventTrans
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventTransPick
+          ElementPosition     #1476394997
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #InventTransPick
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #clicked
+            #void clicked()
+            #{
+            #    if(!element.isReserve()){
+            #        error("proses reservasi belum selesai");
+            #        return;
+            #    }
+            #    super();
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventTransRegister
+          ElementPosition     #1342177270
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #InventTransRegister
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #PdsResetDispositionStatus
+          SecurityKey         #PdsDaily
+          ElementPosition     #1073741823
+          HierarchyParent     #Functions
+          MultiSelect         #Yes
+          DataSource          #InventJournalTrans
+          MenuItemType        #Action
+          MenuItemName        #pdsresetdispositionStatus
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #PostJournal
+          AutoDeclaration     #Yes
+          ElementPosition     #920350134
+          HierarchyParent     #ButtonGroup
+          DataSource          #InventJournalTrans
+          MenuItemType        #Action
+          MenuItemName        #InventJournalPostMovement
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #WMSOrderAllowCreate
+          ElementPosition     #1744830451
+          HierarchyParent     #InventoryButton
+          DataSource          #InventJournalTrans
+          MenuItemName        #WMSOrderAllowCreate
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #CostAmount
+          AutoDeclaration     #Yes
+          ElementPosition     #1840700268
+          HierarchyParent     #JournalLine
+          DataSource          #InventJournalTrans
+          DataField           #CostAmount
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #CostMarkup
+          ElementPosition     #1533916890
+          HierarchyParent     #JournalLine
+          DataSource          #InventJournalTrans
+          DataField           #CostMarkup
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #CostPrice
+          AutoDeclaration     #Yes
+          ElementPosition     #920350134
+          HierarchyParent     #JournalLine
+          DataSource          #InventJournalTrans
+          DataField           #CostPrice
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_CostAmount
+          AutoDeclaration     #Yes
+          ElementPosition     #2099548742
+          HierarchyParent     #Grid
+          DataSource          #InventJournalTrans
+          DataField           #CostAmount
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_CostPrice
+          AutoDeclaration     #Yes
+          ElementPosition     #2089961762
+          HierarchyParent     #Grid
+          DataSource          #InventJournalTrans
+          DataField           #CostPrice
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_PdsCWQty
+          Visible             #No
+          SecurityKey         #PdsDaily
+          ElementPosition     #1332651578
+          HierarchyParent     #Grid
+          LabelAlignment      #Right
+          DataSource          #InventJournalTrans
+          DataField           #PdsCWQty
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_Qty
+          AutoDeclaration     #Yes
+          Visible             #No
+          ElementPosition     #2086516441
+          HierarchyParent     #Grid
+          DataSource          #InventJournalTrans
+          DataField           #Qty
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #JournalLine_PdsCWQty
+          ElementPosition     #536870911
+          HierarchyParent     #JournalLine
+          DataSource          #InventJournalTrans
+          DataField           #PdsCWQty
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #LineNum
+          ElementPosition     #1073741823
+          HierarchyParent     #Identification
+          DataSource          #InventJournalTrans
+          DataField           #LineNum
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #PriceUnit
+          ElementPosition     #1227133512
+          HierarchyParent     #JournalLine
+          DataSource          #InventJournalTrans
+          DataField           #PriceUnit
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #Qty
+          ElementPosition     #613566756
+          HierarchyParent     #JournalLine
+          DataSource          #InventJournalTrans
+          DataField           #Qty
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL REALEDIT
+        PROPERTIES
+          Name                #SCC_Quantity
+          AutoDeclaration     #Yes
+          ElementPosition     #2083071120
+          HierarchyParent     #Grid
+          Label               #Quantity
+          DataSource          #InventJournalTrans
+          DataMethod          #absoluteQty
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEGMENTEDENTRY
+        PROPERTIES
+          Name                #InventJournalTrans_OffsetAccount
+          ElementPosition     #2109135722
+          HierarchyParent     #Grid
+          DataSource          #InventJournalTrans
+          ReferenceField      #LedgerDimension
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #jumpRef
+            #public void jumpRef()
+            #{
+            #    offsetLedgerDimensionAccountController.jumpRef();
+            #}
+          ENDSOURCE
+          SOURCE #loadAutoCompleteData
+            #public void loadAutoCompleteData(LoadAutoCompleteDataEventArgs _e)
+            #{
+            #    super(_e);
+            #
+            #    offsetLedgerDimensionAccountController.loadAutoCompleteData(_e);
+            #}
+          ENDSOURCE
+          SOURCE #loadSegments
+            #public void loadSegments()
+            #{
+            #    super();
+            #
+            #    offsetLedgerDimensionAccountController.parmControl(this);
+            #    offsetLedgerDimensionAccountController.loadSegments();
+            #}
+          ENDSOURCE
+          SOURCE #segmentValueChanged
+            #public void segmentValueChanged(SegmentValueChangedEventArgs _e)
+            #{
+            #    super(_e);
+            #
+            #    offsetLedgerDimensionAccountController.segmentValueChanged(_e);
+            #}
+          ENDSOURCE
+          SOURCE #validate
+            #public boolean validate()
+            #{
+            #    boolean ret;
+            #
+            #    ret = super();
+            #
+            #    ret = ret && offsetLedgerDimensionAccountController.validate();
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEGMENTEDENTRY
+        PROPERTIES
+          Name                #Ledger_OffsetLedgerDimension
+          AutoDeclaration     #Yes
+          ElementPosition     #1431655764
+          HierarchyParent     #Ledger
+          DataSource          #InventJournalTrans
+          ReferenceField      #LedgerDimension
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #jumpRef
+            #public void jumpRef()
+            #{
+            #    offsetLedgerDimensionAccountController.jumpRef();
+            #}
+          ENDSOURCE
+          SOURCE #loadAutoCompleteData
+            #public void loadAutoCompleteData(LoadAutoCompleteDataEventArgs _e)
+            #{
+            #    super(_e);
+            #
+            #    offsetLedgerDimensionAccountController.loadAutoCompleteData(_e);
+            #}
+          ENDSOURCE
+          SOURCE #loadSegments
+            #public void loadSegments()
+            #{
+            #    super();
+            #
+            #    offsetLedgerDimensionAccountController.parmControl(this);
+            #    offsetLedgerDimensionAccountController.loadSegments();
+            #}
+          ENDSOURCE
+          SOURCE #segmentValueChanged
+            #public void segmentValueChanged(SegmentValueChangedEventArgs _e)
+            #{
+            #    super(_e);
+            #
+            #    offsetLedgerDimensionAccountController.segmentValueChanged(_e);
+            #}
+          ENDSOURCE
+          SOURCE #validate
+            #public boolean validate()
+            #{
+            #    boolean ret;
+            #
+            #    ret = super();
+            #
+            #    ret = ret && offsetLedgerDimensionAccountController.validate();
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEPARATOR
+        PROPERTIES
+          Name                #Separator
+          Height              #100
+          ElementPosition     #805306362
+          HierarchyParent     #InventoryButton
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEPARATOR
+        PROPERTIES
+          Name                #Separator1
+          Height              #100
+          ElementPosition     #1610612724
+          HierarchyParent     #InventoryButton
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEPARATOR
+        PROPERTIES
+          Name                #Separator2
+          ElementPosition     #1879048178
+          HierarchyParent     #InventoryButton
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEPARATOR
+        PROPERTIES
+          Name                #Separator3
+          ElementPosition     #1207959543
+          HierarchyParent     #InventoryButton
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_ItemId
+          ElementPosition     #488064465
+          HierarchyParent     #Grid
+          DataSource          #InventJournalTrans
+          DataField           #ItemId
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #lookup
+            #/* inherited by Setiaji, 12 Sept 2013 */
+            #public void lookup()
+            #{
+            #    Query                   q;
+            #    QueryRun                qRun;
+            #    QueryBuildDataSource    qBDS;
+            #    QueryBuildRange         qBRange;
+            #    WCS_ItemGroupJournal    wcs_ItemGroupJournal;
+            #    SysTableLookup          sysTableLookup = SysTableLookup::newParameters(tableNum(wcs_ItemGroupJournal),this);
+            #    sysTableLookup.addLookupfield(fieldNum(wcs_ItemGroupJournal,ItemId));
+            #    sysTableLookup.addLookupfield(fieldNum(wcs_ItemGroupJournal,ItemName));
+            #
+            #    q       = new Query();
+            #    qBDS    = q.addDataSource(tableNum(wcs_ItemGroupJournal));
+            #    qBRange = qBDS.addRange(fieldNum(wcs_ItemGroupJournal,InventJournalNameId));
+            #    qBRange.value(InventJournalTable::find(InventJournalTrans.JournalId).JournalNameId);
+            #
+            #    sysTableLookup.parmQuery(q);
+            #    sysTableLookup.performFormLookup();
+            #
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_PdsCWUnitId
+          Visible             #No
+          AllowEdit           #No
+          Skip                #Yes
+          SecurityKey         #PdsDaily
+          ElementPosition     #1706138688
+          HierarchyParent     #Grid
+          LabelAlignment      #Right
+          DataSource          #InventJournalTrans
+          DataMethod          #PdsCWUnitId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventJournalTrans_Voucher
+          AutoDeclaration     #Yes
+          ElementPosition     #585677358
+          HierarchyParent     #Grid
+          DataSource          #InventJournalTrans
+          DataField           #Voucher
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventoryDimensionsGrid_inventBatchId
+          AutoDeclaration     #Yes
+          ElementPosition     #2113929214
+          HierarchyParent     #InventoryDimensionsGrid
+          DataSource          #InventDim
+          DataField           #inventBatchId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventTransIdReturn
+          AutoDeclaration     #Yes
+          ElementPosition     #1431655764
+          HierarchyParent     #ReturnLot
+          LookupButton        #Always
+          DataSource          #InventJournalTrans
+          DataField           #InventTransIdReturn
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #JournalId
+          ElementPosition     #715827882
+          HierarchyParent     #Identification
+          DataSource          #InventJournalTrans
+          DataField           #JournalId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #JournalLine_M_pdsCWUnitId
+          AllowEdit           #No
+          ElementPosition     #805306367
+          HierarchyParent     #JournalLine
+          DataSource          #InventJournalTrans
+          DataMethod          #pdsCWUnitId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #LogisticsPostalAddress_Address
+          ElementPosition     #357913941
+          HierarchyParent     #TaxInformation_IN
+          DataSource          #LogisticsPostalAddress
+          DataField           #Address
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #PdsDispositionCode
+          AutoDeclaration     #Yes
+          AllowEdit           #No
+          Height              #Column height
+          SecurityKey         #PdsDaily
+          ElementPosition     #2118722702
+          HierarchyParent     #Grid
+          LabelAlignment      #Right
+          DataSource          #InventJournalTrans
+          DataMethod          #PdsDispositionCode
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #Voucher
+          AutoDeclaration     #Yes
+          ElementPosition     #1789569705
+          HierarchyParent     #Identification
+          DataSource          #InventJournalTrans
+          DataField           #Voucher
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL WINDOW
+        PROPERTIES
+          Name                #lineLogImage
+          AutoDeclaration     #Yes
+          AllowEdit           #No
+          Width               #18
+          Height              #12
+          AlignControl        #No
+          ElementPosition     #2137896662
+          HierarchyParent     #Grid
+          Imagemode           #Size to fit
+          Label               #@SYS2515
+          DataSource          #InventJournalTrans
+          DataMethod          #lineLogImage
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+        CONTROL #FinancialDimensionsTab
+          PROPERTIES
+            Control             #FinancialDimensionsTab
+            EffectiveAccess     #Read
+            ManagedBy           #Manual
+          ENDPROPERTIES
+          
+        ENDCONTROL
+        
+    ENDFORM
+    
+  TABLES #Tables
+  ENDTABLES
+  
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+    CONTROL #FinancialDimensionsTab
+      PROPERTIES
+        Control             #FinancialDimensionsTab
+        EffectiveAccess     #Update
+        ManagedBy           #Manual
+      ENDPROPERTIES
+      
+    ENDCONTROL
+    
+ENDFORM
+
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+  ASSOCIATEDFORM #InventOnHandCheckReserve
+    PROPERTIES
+      Form                #InventOnHandCheckReserve
+      AccessLevel         #Delete
+      SystemManaged       #No
+      ManagedBy           #CodeAnalysis
+    ENDPROPERTIES
+    
+  ENDASSOCIATEDFORM
+  
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+    CONTROL #FinancialDimensionsTab
+      PROPERTIES
+        Control             #FinancialDimensionsTab
+        EffectiveAccess     #Update
+        ManagedBy           #Manual
+      ENDPROPERTIES
+      
+    ENDCONTROL
+    
+ENDFORM
+
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+  ASSOCIATEDFORM #InventOnHandCheckReserve
+    PROPERTIES
+      Form                #InventOnHandCheckReserve
+      AccessLevel         #Delete
+      SystemManaged       #No
+      ManagedBy           #CodeAnalysis
+    ENDPROPERTIES
+    
+  ENDASSOCIATEDFORM
+  
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+    CONTROL #FinancialDimensionsTab
+      PROPERTIES
+        Control             #FinancialDimensionsTab
+        EffectiveAccess     #Update
+        ManagedBy           #Manual
+      ENDPROPERTIES
+      
+    ENDCONTROL
+    
+ENDFORM
+
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+  ASSOCIATEDFORM #InventOnHandCheckReserve
+    PROPERTIES
+      Form                #InventOnHandCheckReserve
+      AccessLevel         #Delete
+      SystemManaged       #No
+      ManagedBy           #CodeAnalysis
+    ENDPROPERTIES
+    
+  ENDASSOCIATEDFORM
+  
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #WCS_InventJournalMapping02
+  PROPERTIES
+    Name                #WCS_InventJournalMapping02
+    Origin              #{715B53B5-B4C8-48AD-AEB3-0CB5E18AF8B1}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class FormRun extends ObjectRun
+      #{
+      #    SysFormSplitter_X   formSplitter;
+      #    ItemGroupId         itemGroupId;
+      #}
+    ENDSOURCE
+    SOURCE #run
+      #public void run()
+      #{
+      #    super();
+      #    formSplitter = new SysFormSplitter_X(vSplitter, gridHeader, element);
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal
+          Table               #WCS_ItemMappingJournal
+          Index               #TableIdIDX
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #WCS_ItemMappingJournalLine
+          Table               #WCS_ItemMappingJournalLine
+          JoinSource          #WCS_ItemMappingJournal
+          LinkType            #Active
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+    WCS_ItemMappingJournalLine WCS_ItemMappingJournal
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      UseCaptionFromMenuItem  #Yes
+      Style               #SimpleListDetails
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane
+          ElementPosition     #715827882
+          Style               #Strip
+          DataSource          #WCS_ItemMappingJournal
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane1
+          ElementPosition     #1073741822
+          HierarchyParent     #Line
+          Style               #Strip
+          DataSource          #WCS_ItemMappingJournalLine
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab1
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane1
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup1
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab1
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          AutoDeclaration     #Yes
+          AllowEdit           #No
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          HierarchyParent     #GridHeader
+          ShowRowLabels       #No
+          DataSource          #WCS_ItemMappingJournal
+          GridLinesStyle      #Vertical
+          AlternateRowShading #No
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid1
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1610612734
+          HierarchyParent     #Line
+          DataSource          #WCS_ItemMappingJournalLine
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #lostFocus
+            #public void lostFocus()
+            #{
+            #    //super();
+            #    WCS_ItemMappingJournalLine_ds.research();
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Body
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          Style               #MarginlessContainer
+          Columns             #3
+          Columnspace         #0
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+              #0
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #DetailHeader
+          ElementPosition     #1073741822
+          HierarchyParent     #GridLine
+          FrameType           #None
+          DataSource          #WCS_ItemMappingJournal
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridHeader
+          AutoDeclaration     #Yes
+          Width               #200
+          ElementPosition     #858993458
+          HierarchyParent     #Body
+          Style               #BorderlessGridContainer
+          RightMargin         #0
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridLine
+          ElementPosition     #1717986916
+          HierarchyParent     #Body
+          Style               #MarginlessContainer
+          TopMargin           #5
+          RightMargin         #5
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Line
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1610612733
+          HierarchyParent     #GridLine
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #VSplitter
+          AutoDeclaration     #Yes
+          ElementPosition     #1288490187
+          HierarchyParent     #Body
+          Style               #SplitterVerticalContainer
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #mouseDown
+            #public int mouseDown(int _x, int _y, int _button, boolean _Ctrl, boolean _Shift)
+            #{
+            #    int ret;
+            #
+            #    ret = formSplitter.mouseDown(_x, _y, _button, _Ctrl, _Shift);
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+          SOURCE #mouseMove
+            #public int mouseMove(int _x, int _y, int _button, boolean _Ctrl, boolean _Shift)
+            #{
+            #    int ret;
+            #
+            #    ret = formSplitter.mouseMove(_x, _y, _button, _Ctrl, _Shift);
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+          SOURCE #mouseUp
+            #public int mouseUp(int _x, int _y, int _button, boolean _Ctrl, boolean _Shift)
+            #{
+            #    int ret;
+            #
+            #    ret = formSplitter.mouseUp(_x, _y, _button, _Ctrl, _Shift);
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #AddButton
+          ElementPosition     #1073741822
+          HierarchyParent     #ButtonGroup1
+          Text                #Add
+          ButtonDisplay       #Text & Image right
+          NormalImage         #11421
+          ImageLocation       #EmbeddedResource
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #DeleteButton
+          ElementPosition     #1610612733
+          HierarchyParent     #ButtonGroup
+          Text                #Delete
+          ButtonDisplay       #Text & Image left
+          NormalImage         #10121
+          ImageLocation       #EmbeddedResource
+          SaveRecord          #No
+          Primary             #Yes
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #NewButton
+          ElementPosition     #1073741822
+          HierarchyParent     #ButtonGroup
+          Text                #New
+          ButtonDisplay       #Text & Image left
+          NormalImage         #11045
+          ImageLocation       #EmbeddedResource
+          Big                 #Yes
+          Primary             #Yes
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #RemoveButton
+          ElementPosition     #1610612733
+          HierarchyParent     #ButtonGroup1
+          Text                #Remove
+          ButtonDisplay       #Text & Image right
+          NormalImage         #11438
+          ImageLocation       #EmbeddedResource
+          SaveRecord          #No
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableDesc
+          ElementPosition     #1610612733
+          HierarchyParent     #Grid
+          Label               #Description
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableDesc
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableDesc1
+          ElementPosition     #1610612733
+          HierarchyParent     #DetailHeader
+          Label               #Description
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableDesc
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableId
+          ElementPosition     #1073741822
+          HierarchyParent     #Grid
+          Label               #Header
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableId1
+          ElementPosition     #1073741822
+          HierarchyParent     #DetailHeader
+          Label               #Header id
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournalLine_InventJournalNameId
+          ElementPosition     #1932735281
+          HierarchyParent     #Grid1
+          Label               #Journal name
+          DataSource          #WCS_ItemMappingJournalLine
+          DataField           #InventJournalNameId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournalLine_ItemGroupId
+          ElementPosition     #2040109463
+          HierarchyParent     #Grid1
+          Label               #Item group
+          DataSource          #WCS_ItemMappingJournalLine
+          DataField           #ItemGroupId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournalLine_MapLineDesc
+          ElementPosition     #1717986916
+          HierarchyParent     #Grid1
+          Label               #Description
+          DataSource          #WCS_ItemMappingJournalLine
+          DataField           #MapLineDesc
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournalLine_MapLineId
+          ElementPosition     #1288490187
+          HierarchyParent     #Grid1
+          Label               #Line
+          DataSource          #WCS_ItemMappingJournalLine
+          DataField           #MapLineId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournalLine_MapTableId
+          Visible             #No
+          ElementPosition     #858993458
+          HierarchyParent     #Grid1
+          Label               #Header
+          DataSource          #WCS_ItemMappingJournalLine
+          DataField           #MapTableId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+      ENDFORM
+      
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : WCS_ItemMappingJournal unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #WCS_ItemMappingJournal
+  PRIVATE
+  PROPERTIES
+    Name                #WCS_ItemMappingJournal
+    Origin              #{9E13DC43-D3DA-471F-AEFC-0A87B9CDB489}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    GROUP #Display
+      PROPERTIES
+        Name                #Display
+        ProjectGroupType    #Display
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 1
+        UTILOBJECTID 0
+        NODETYPE 296
+        NAME #WCS_InventJournalMapping02
+      ENDNODE
+      ENDGROUP
+      
+    GROUP #DataDictionary
+      PROPERTIES
+        Name                #DataDictionary
+        ProjectGroupType    #DataDictionary
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      GROUP #Tables
+        PROPERTIES
+          Name                #Tables
+          ProjectGroupType    #Tables
+          GroupMask           #
+          PreventEditProperties #No
+        ENDPROPERTIES
+        
+        BEGINNODE
+          FILETYPE 0
+          UTILTYPE 44
+          UTILOBJECTID 102300
+          NODETYPE 204
+          NAME #WCS_ItemMappingJournalLine
+        ENDNODE
+        BEGINNODE
+          FILETYPE 0
+          UTILTYPE 44
+          UTILOBJECTID 102298
+          NODETYPE 204
+          NAME #WCS_ItemMappingJournal
+        ENDNODE
+        ENDGROUP
+        
+      GROUP #ExtendedDataTypes
+        PROPERTIES
+          Name                #ExtendedDataTypes
+          ProjectGroupType    #ExtendedDataTypes
+          GroupMask           #
+          PreventEditProperties #No
+        ENDPROPERTIES
+        
+        BEGINNODE
+          FILETYPE 0
+          UTILTYPE 41
+          UTILOBJECTID 102475
+          NODETYPE 234
+          NAME #WCS_MapTableId
+        ENDNODE
+        ENDGROUP
+        
+      GROUP #Views
+        PROPERTIES
+          Name                #Views
+          ProjectGroupType    #Views
+          GroupMask           #
+          PreventEditProperties #No
+        ENDPROPERTIES
+        
+        BEGINNODE
+          FILETYPE 0
+          UTILTYPE 44
+          UTILOBJECTID 102301
+          NODETYPE 243
+          NAME #WCS_ItemGroupJournal
+        ENDNODE
+        ENDGROUP
+        
+      ENDGROUP
+      
+    GROUP #Forms
+      PROPERTIES
+        Name                #Forms
+        ProjectGroupType    #Forms
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #InventJournalMovement
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #WCS_InventJournalMapping02
+      ENDNODE
+      ENDGROUP
+      
+  ENDPROJECT
+  
+
+***Element: END

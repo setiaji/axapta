@@ -1,0 +1,159 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: WFL
+
+; Microsoft Dynamics AX WorkflowTemplate : Scc_IJTEntryType unloaded
+; --------------------------------------------------------------------------------
+  WORKFLOWTEMPLATEVERSION 2
+  
+  WORKFLOWTEMPLATE #Scc_IJTEntryType
+    PROPERTIES
+      Name                #Scc_IJTEntryType
+      Label               #Entry Movement Workflow Type
+      HelpText            #Entry Movement Workflow Type
+      Category            #Scc_MovementWF
+      Document            #Scc_IJTEntryTypeDocument
+      StartedEventHandler #Scc_IJTEntryTypeEventHandler
+      CompletedEventHandler #Scc_IJTEntryTypeEventHandler
+      CanceledEventHandler #Scc_IJTEntryTypeEventHandler
+      SubmitToWorkflowMenuItem    #Scc_IJTEntryTypeSubmitMenuItem
+      DocumentMenuItem    #InventJournalTransMovement
+      CancelMenuItem      #Scc_IJTEntryTypeCancelMenuItem
+      Origin              #{D49AA806-DAD1-4304-96CB-7D6642FBFF00}
+    ENDPROPERTIES
+    
+    ELEMENTS
+      ELEMENT #Scc_IJTEntryAppr
+        PROPERTIES
+          Name                #Scc_IJTEntryAppr
+          Type                #Approval
+        ENDPROPERTIES
+        
+      ENDELEMENT
+      
+    ENDELEMENTS
+    
+    LINEITEMWORKFLOWS
+    ENDLINEITEMWORKFLOWS
+    
+  ENDWORKFLOWTEMPLATE
+  
+
+***Element: WFL
+
+; Microsoft Dynamics AX WorkflowTemplate : Scc_ITReserveType unloaded
+; --------------------------------------------------------------------------------
+  WORKFLOWTEMPLATEVERSION 2
+  
+  WORKFLOWTEMPLATE #Scc_ITReserveType
+    PROPERTIES
+      Name                #Scc_ITReserveType
+      Label               #Workflow untuk approval reserve movment
+      HelpText            #Workflow untuk approval reserve movment
+      Category            #Scc_MovementWF
+      Document            #Scc_ITReserveTypeDocument
+      StartedEventHandler #Scc_ITReserveTypeEventHandler
+      CompletedEventHandler #Scc_ITReserveTypeEventHandler
+      CanceledEventHandler #Scc_ITReserveTypeEventHandler
+      SubmitToWorkflowMenuItem    #Scc_ITReserveTypeSubmitMenuItem
+      DocumentMenuItem    #InventReserve
+      CancelMenuItem      #Scc_ITReserveTypeCancelMenuItem
+      Origin              #{D2B055B5-0310-4418-A110-92C73C7B843D}
+    ENDPROPERTIES
+    
+    ELEMENTS
+      ELEMENT #Scc_ITReserveAppr
+        PROPERTIES
+          Name                #Scc_ITReserveAppr
+          Type                #Approval
+        ENDPROPERTIES
+        
+      ENDELEMENT
+      
+    ENDELEMENTS
+    
+    LINEITEMWORKFLOWS
+    ENDLINEITEMWORKFLOWS
+    
+  ENDWORKFLOWTEMPLATE
+  
+
+***Element: WFL
+
+; Microsoft Dynamics AX WorkflowTemplate : Scc_SpecifiedRoleTyp unloaded
+; --------------------------------------------------------------------------------
+  WORKFLOWTEMPLATEVERSION 2
+  
+  WORKFLOWTEMPLATE #Scc_SpecifiedRoleTyp
+    PROPERTIES
+      Name                #Scc_SpecifiedRoleTyp
+      Label               #Sales Order Approval
+      HelpText            #Sales Order Approval Workflow
+      Category            #Scc_SOWorkflow
+      Document            #Scc_SpecifiedRoleTypDocument
+      StartedEventHandler #Scc_SpecifiedRoleTypEventHandler
+      CompletedEventHandler #Scc_SpecifiedRoleTypEventHandler
+      CanceledEventHandler #Scc_SpecifiedRoleTypEventHandler
+      SubmitToWorkflowMenuItem    #Scc_SpecifiedRoleTypSubmitMenuItem
+      DocumentMenuItem    #SalesTable
+      CancelMenuItem      #Scc_SpecifiedRoleTypCancelMenuItem
+      Origin              #{77C090E2-0844-4BE4-AB59-2B8A0B28DA20}
+    ENDPROPERTIES
+    
+    ELEMENTS
+      ELEMENT #Scc_SOWfRoleAppr
+        PROPERTIES
+          Name                #Scc_SOWfRoleAppr
+          Type                #Approval
+        ENDPROPERTIES
+        
+      ENDELEMENT
+      
+    ENDELEMENTS
+    
+    LINEITEMWORKFLOWS
+    ENDLINEITEMWORKFLOWS
+    
+  ENDWORKFLOWTEMPLATE
+  
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : WCS_WFTypeObject unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #WCS_WFTypeObject
+  PRIVATE
+  PROPERTIES
+    Name                #WCS_WFTypeObject
+    Origin              #{72E5C438-CC0B-4F5C-BFCC-B003139C72C8}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 68
+      UTILOBJECTID 0
+      NODETYPE 1412
+      NAME #Scc_IJTEntryType
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 68
+      UTILOBJECTID 0
+      NODETYPE 1412
+      NAME #Scc_ITReserveType
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 68
+      UTILOBJECTID 0
+      NODETYPE 1412
+      NAME #Scc_SpecifiedRoleTyp
+    ENDNODE
+  ENDPROJECT
+  
+
+***Element: END

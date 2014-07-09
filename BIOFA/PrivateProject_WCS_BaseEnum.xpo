@@ -1,0 +1,88 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: DBE
+
+; Microsoft Dynamics AX Enumtype : Scc_MovementWFEnum unloaded
+; --------------------------------------------------------------------------------
+  ENUMTYPEVERSION 1
+  
+  ENUMTYPE #Scc_MovementWFEnum
+    PROPERTIES
+      Name                #Scc_MovementWFEnum
+      UseEnumValue        #Yes
+      Origin              #{07BA0F63-D4BE-40A0-AFC5-3D8DE27BE45A}
+    ENDPROPERTIES
+    
+    TYPEELEMENTS
+      #NOTSUBMIT
+      PROPERTIES
+        Name                #NOTSUBMIT
+        Label               #NOTSUBMIT
+        EnumValue           #0
+      ENDPROPERTIES
+      
+      #APPR_PROCESS
+      PROPERTIES
+        Name                #APPR_PROCESS
+        Label               #APPR_PROCESS
+        EnumValue           #1
+      ENDPROPERTIES
+      
+      #CANCEL
+      PROPERTIES
+        Name                #CANCEL
+        Label               #CANCEL
+        EnumValue           #2
+      ENDPROPERTIES
+      
+      #COMPLETE
+      PROPERTIES
+        Name                #COMPLETE
+        Label               #COMPLETE
+        EnumValue           #3
+      ENDPROPERTIES
+      
+      #REJECT
+      PROPERTIES
+        Name                #REJECT
+        Label               #REJECT
+        EnumValue           #4
+      ENDPROPERTIES
+      
+      #RESUBMIT
+      PROPERTIES
+        Name                #RESUBMIT
+        Label               #RESUBMIT
+        EnumValue           #5
+      ENDPROPERTIES
+      
+    ENDTYPEELEMENTS
+  ENDENUMTYPE
+  
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : WCS_BaseEnum unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #WCS_BaseEnum
+  PRIVATE
+  PROPERTIES
+    Name                #WCS_BaseEnum
+    Origin              #{491DE86F-8CB3-4192-A60C-2FD345E93D38}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 40
+      UTILOBJECTID 100785
+      NODETYPE 209
+      NAME #Scc_MovementWFEnum
+    ENDNODE
+  ENDPROJECT
+  
+
+***Element: END

@@ -1,0 +1,2846 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: SVG
+
+; Microsoft Dynamics AX SERVICEGROUP : FindOnHandWebServicesGroups unloaded
+; --------------------------------------------------------------------------------
+  VERSION 1
+  
+  SERVICEGROUP #FindOnHandWebServicesGroups
+    PROPERTIES
+      Name                #FindOnHandWebServicesGroups
+      Origin              #{F4006DFF-60E1-48D6-8256-A2E6C6CB9446}
+    ENDPROPERTIES
+    
+    SERVICENODEREFERENCE #FindOnHandWebServices
+      PROPERTIES
+        Name                #FindOnHandWebServices
+        Service             #FindOnHandWebServices
+      ENDPROPERTIES
+      
+    ENDSERVICENODEREFERENCE
+    
+ENDSERVICEGROUP
+
+
+***Element: SVC
+
+; Microsoft Dynamics AX SERVICE : FindOnHandWebServices unloaded
+; --------------------------------------------------------------------------------
+  VERSION 1
+  
+  SERVICE #FindOnHandWebServices
+    PROPERTIES
+      Name                #FindOnHandWebServices
+      ExternalName        #FindOnHandWebServices
+      Class               #WCS_getOnHand
+      Origin              #{85F8419A-8FFD-44E5-84C6-5BD59214DC6B}
+    ENDPROPERTIES
+    
+    OPERATIONS
+      OPERATION #getOnHand
+        PROPERTIES
+          Name                #getOnHand
+          Method              #getOnHand
+        ENDPROPERTIES
+        
+        PERMISSIONSET #Permissions
+          PROPERTIES
+          ENDPROPERTIES
+          
+          TABLES #Tables
+          ENDTABLES
+          
+        SERVERMETHODS #Server Methods
+        ENDSERVERMETHODS
+        
+      ASSOCIATEDCODEPERMISSIONS #Associated Code Permissions
+      ENDASSOCIATEDCODEPERMISSIONS
+      
+  ENDPERMISSIONSET
+  
+ENDOPERATION
+
+ENDOPERATIONS
+
+ENDSERVICE
+
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: WCS_pojoOnHand unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #WCS_pojoOnHand
+    PROPERTIES
+      Name                #WCS_pojoOnHand
+      Origin              #{DC5CD144-6253-4911-B4C0-35926CC57558}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #classDeclaration
+        #[DataContractAttribute]
+        #class WCS_pojoOnHand
+        #{
+        #    Qty                 postedQty;
+        #    Qty                 deductedQty;
+        #    Qty                 receivedQty;
+        #    ItemId              itemid;
+        #    InventLocationId    inventLocationId;
+        #
+        #}
+      ENDSOURCE
+      SOURCE #parmDeductedQty
+        #[DataMemberAttribute('DeductedQty')]
+        #public Qty parmDeductedQty(Qty _deductedQty = deductedQty)
+        #{
+        #    deductedQty = _deductedQty;
+        #    return deductedQty;
+        #}
+      ENDSOURCE
+      SOURCE #parmItemId
+        #[DataMemberAttribute('ItemId')]
+        #public ItemId parmItemId(ItemId _itemId = itemid)
+        #{
+        #    itemid = _itemId;
+        #    return itemid;
+        #}
+      ENDSOURCE
+      SOURCE #parmPostedQty
+        #[DataMemberAttribute('PostedQty')]
+        #public qty parmPostedQty(qty _postedQty = postedQty)
+        #{
+        #    postedQty = _postedQty;
+        #    return postedQty;
+        #}
+      ENDSOURCE
+      SOURCE #parmReceivedQty
+        #[DataMemberAttribute('ReceivedQty')]
+        #public Qty parmReceivedQty(Qty _receivedQty = receivedQty)
+        #{
+        #    receivedQty = _receivedQty;
+        #    return receivedQty;
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: WCS_getOnHand unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #WCS_getOnHand
+    PROPERTIES
+      Name                #WCS_getOnHand
+      Extends             #AifDocumentService
+      RunOn               #Server
+      Origin              #{6A401E58-C8C2-4E4F-B6E8-8563915770B3}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #classDeclaration
+        #/*
+        #Created for finding inventory on hand at specific location and date.
+        #Setiaji, 23 Okt 2013
+        #*/
+        #class WCS_getOnHand extends AifDocumentService
+        #{
+        #
+        #}
+      ENDSOURCE
+      SOURCE #getOnHand
+        #[AifCollectionTypeAttribute("return", Types::Class, classStr(WCS_pojoOnHand)), SysEntryPointAttribute(true)]
+        #public List getOnHand(TransDate dateOnHand, InventLocationId itemLocation)
+        #{
+        #    List onHandList     = new List(Types::Class);
+        #    InventDim           inventDim;
+        #    InventDimParm       inventDimParm;
+        #    Itemid              itemid;
+        #    InventOnhand        inventOnHand = InventOnhand::construct();
+        #    InventSumDateDim    inventSumDateDim;
+        #    TransDate           transDate;
+        #    InventTable         inventtable;
+        #    WCS_pojoOnHand      pojoOnHand;
+        #    ;
+        #
+        #    while select itemid from inventtable
+        #    {
+        #        // take a sample item for testing
+        #        itemid = inventtable.ItemId;
+        #        transDate = dateOnHand;
+        #
+        #        // take a combination of dimension , against which you want to find the stock
+        #        inventDim.InventLocationId = itemLocation;
+        #
+        #        //Set the flag for the selected dimensions as active.
+        #        inventDimParm.initFromInventDim(inventDim);
+        #
+        #        //initialize the inventSumDateDim with Date,item,dimension and dim paramter
+        #        inventSumDateDim = InventSumDateDim::newParameters(transDate,
+        #                                                        itemid,
+        #                                                        inventDim,
+        #                                                        inventDimParm);
+        #
+        #        //insert to pojo
+        #        pojoOnHand = new WCS_pojoOnHand();
+        #        pojoOnHand.parmItemId(itemid);
+        #        pojoOnHand.parmReceivedQty(inventSumDateDim.receivedQty());
+        #        pojoOnHand.parmPostedQty(inventSumDateDim.postedQty());
+        #        pojoOnHand.parmDeductedQty(inventSumDateDim.deductedQty());
+        #
+        #        //insert to list
+        #        onHandlist.addEnd(pojoOnHand);
+        #
+        #    }
+        #
+        #    //test display element list
+        #    //print onHandList.definitionString();
+        #    //print onHandList.elements();
+        #    //pause;
+        #
+        #
+        #    return onHandList;
+        #
+        #}
+      ENDSOURCE
+      SOURCE #new
+        #protected void new()
+        #{
+        #    super();
+        #}
+      ENDSOURCE
+      SOURCE #construct
+        #public static WCS_getOnHand construct()
+        #{
+        #    return new WCS_getOnHand();
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: InventOnHandQty unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #InventOnHandQty
+    PROPERTIES
+      Name                #InventOnHandQty
+      Origin              #{AF95D4AF-10BF-41B3-8CE5-CBAF2B33F8F6}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #addDepreciateOrderedCheck
+        #/// <summary>
+        #/// Ensures that inventory on hand is checked for deprecated ordered quantity during final commit.
+        #/// </summary>
+        #/// <param name="_negativePhysical">
+        #/// NoYes::Yes if negative physical inventory is allowed; otherwise NoYes::No
+        #/// </param>
+        #
+        #public void addDepreciateOrderedCheck(NoYes _negativePhysical)
+        #{
+        #    if (_negativePhysical)
+        #    {
+        #        return;
+        #    }
+        #
+        #    if (!appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #    {
+        #        appl.inventUpdateOnhandGlobal().inventUpdateOnhand().addDepreciateOrderedCheck(itemId,inventDimCriteria,inventDimParm);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #addInventSumDelta
+        #/// <summary>
+        #/// Adds values from <c>InventSumDelta</c> to the current <c>InventSum</c> record.
+        #/// </summary>
+        #
+        #void addInventSumDelta()
+        #{
+        #    InventSumDelta  inventSumDelta;
+        #    if (!itemId || InventUpdateOnhandGlobal::mustAddInventSumDeltaOnhand(itemId))
+        #    {
+        #        inventSumDelta = this.findSumJoinDelta();
+        #        inventSum.addInventSumDeltaQty(inventSumDelta);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #addReservationCheck
+        #/// <summary>
+        #/// Ensures that inventory on hand is checked for reserved quantity during final commit.
+        #/// </summary>
+        #/// <param name="_negativePhysical">
+        #/// NoYes::Yes if negative physical inventory is allowed; otherwise NoYes::No
+        #/// </param>
+        #
+        #public void addReservationCheck(NoYes _negativePhysical)
+        #{
+        #    if (_negativePhysical)
+        #    {
+        #        return;
+        #    }
+        #
+        #    if (!appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #    {
+        #        appl.inventUpdateOnhandGlobal().inventUpdateOnhand().addReservationCheck(itemId,inventDimCriteria,inventDimParm);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #arrived
+        #/// <summary>
+        #/// Retrieves the value of the <c>Arrived</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>Arrived</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>Arrived field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  arrived()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.Arrived;
+        #}
+      ENDSOURCE
+      SOURCE #availECP
+        #/// <summary>
+        #/// Retrieves the ECP available quantity.
+        #/// </summary>
+        #/// <returns>
+        #/// A quantity in the inventory unit.
+        #/// </returns>
+        #
+        #public InventQtyAvailOrdered availECP()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.availECP();
+        #}
+      ENDSOURCE
+      SOURCE #availFinancial
+        #/// <summary>
+        #/// Retrieves the financially available quantity.
+        #/// </summary>
+        #/// <returns>
+        #/// A quantity in the inventory unit.
+        #/// </returns>
+        #
+        #public InventQty   availFinancial()
+        #{
+        #    return this.postedQty();
+        #}
+      ENDSOURCE
+      SOURCE #availOrdered
+        #/// <summary>
+        #/// Retrieves the financially available quantity.
+        #/// </summary>
+        #/// <param name="_inclAvailPhysical">
+        #/// Whether the available physical inventory must be included in the ordered quantity.
+        #/// </param>
+        #/// <returns>
+        #/// A quantity in the inventory unit.
+        #/// </returns>
+        #
+        #public InventQty   availOrdered(boolean _inclAvailPhysical = true)
+        #{
+        #    return (_inclAvailPhysical ? this.availPhysical() : 0) + this.ordered() + this.arrived() - this.reservOrdered();
+        #}
+      ENDSOURCE
+      SOURCE #availPhysical
+        #/// <summary>
+        #/// Retrieves the physically available quantity.
+        #/// </summary>
+        #/// <returns>
+        #/// A quantity in the inventory unit.
+        #/// </returns>
+        #
+        #public InventQty   availPhysical()
+        #{
+        #    return (this.physicalInvent() - this.reservPhysical());
+        #}
+      ENDSOURCE
+      SOURCE #availReservation
+        #/// <summary>
+        #/// Retrieves the quantity available for reservation.
+        #/// </summary>
+        #/// <param name="_reserveOnOrdered">
+        #/// True if on order quantity should be included in result; otherwise, false.
+        #/// </param>
+        #/// <returns>
+        #/// A quantity in the inventory unit.
+        #/// </returns>
+        #
+        #public InventQty availReservation(NoYes _reserveOnOrdered)
+        #{
+        #    if (_reserveOnOrdered)
+        #    {
+        #        return this.availOrdered();
+        #    }
+        #    return this.availPhysical();
+        #}
+      ENDSOURCE
+      SOURCE #checkDepreciateOrdered
+        #/// <summary>
+        #/// Checks if the specified quantites can be subtracted from ordered quantities without violating reservations.
+        #/// </summary>
+        #/// <param name="_inventQty">
+        #/// The quantity known to be present after update.
+        #/// </param>
+        #/// <param name="_negativePhysical">
+        #/// NoYes::Yes if negative physical inventory is allowed; otherwise NoYes::No
+        #/// </param>
+        #/// <param name="_estimated">
+        #/// The quantity expected to be present after update
+        #/// </param>
+        #/// <param name="_cwQty">
+        #/// The catch weight quantity known to be present after update.
+        #/// </param>
+        #/// <param name="_cwEstimated">
+        #/// The catch weight quantity expected to be present after update
+        #/// </param>
+        #/// <returns>
+        #/// true if validation succeeded; otherwise false.
+        #/// </returns>
+        #
+        #public boolean  checkDepreciateOrdered(
+        #    InventQty               _inventQty,
+        #    InventNegativePhysical  _negativePhysical,
+        #    InventQty               _estimated      = _inventQty,
+        #    PdsCWInventQty          _cwQty          = 0,
+        #    PdsCWInventQty          _cwEstimated    = _cwQty
+        #    )
+        #{
+        #    InventSumDelta  inventSumDelta;
+        #    InventQty       availOrderedDelta;
+        #    InventQty       availOrderedPost;
+        #
+        #    PdsCWInventQty  cwAvailOrderedDelta;
+        #    PdsCWInventQty  cwAvailOrderedPost;
+        #
+        #    #PmfHelp
+        #
+        #    str             inventDimCriteriaPrefix;
+        #
+        #    if (! _negativePhysical)
+        #    {
+        #        availOrderedPost = this.availOrdered();
+        #
+        #        if (cwItem)
+        #        {
+        #            cwAvailOrderedPost = this.pdsCWAvailOrdered();
+        #        }
+        #
+        #        if (availOrderedPost < -_inventQty
+        #        || (cwItem && cwAvailOrderedPost < -_cwQty))
+        #        {
+        #            setPrefix("@SYS53920");
+        #            inventDimCriteriaPrefix = inventDimCriteria.preFix();
+        #
+        #            if (inventDimCriteriaPrefix)
+        #            {
+        #                setPrefix(inventDimCriteriaPrefix);
+        #            }
+        #
+        #            if (!appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #            {
+        #                if (cwItem)
+        #                {
+        #                    return checkFailed(strFmt("@PDS89", -_cwEstimated), #InventOnHandItemHelp);
+        #                }
+        #
+        #                return checkFailed(strFmt("@SYS12934", -_estimated), 'appldoc://Forms/InventOnhandItem');
+        #            }
+        #            else
+        #            {
+        #                inventSumDelta  = this.findSumJoinDelta();
+        #                inventSum.clear();
+        #                inventSum.addInventSumDeltaQty(inventSumDelta);
+        #                availOrderedDelta  = this.availOrdered();
+        #
+        #                if (cwItem)
+        #                {
+        #                    cwAvailOrderedDelta  = this.pdsCWAvailOrdered();
+        #                    return checkFailed(strFmt("@PDS89", -cwAvailOrderedDelta), #InventOnHandItemHelp);
+        #                }
+        #
+        #                return checkFailed(strFmt("@SYS12934", -availOrderedDelta), 'appldoc://Forms/InventOnhandItem');
+        #            }
+        #        }
+        #    }
+        #
+        #    return true;
+        #}
+      ENDSOURCE
+      SOURCE #checkItemDraw
+        #/// <summary>
+        #///     Checks if given quantity can be picked.
+        #/// </summary>
+        #/// <param name="_inventQty">
+        #///     Requested quantity.
+        #/// </param>
+        #/// <param name="_negativePhysical">
+        #///     NoYes::Yes if negative physical inventory is allowed; otherwise NoYes::No.
+        #/// </param>
+        #/// <param name="_addInfo">
+        #///     Set to true to add info to infolog.
+        #/// </param>
+        #/// <param name="_cwQty">
+        #///     Requested catch weight quantity.
+        #/// </param>
+        #/// <returns>
+        #///     True if it is possible to pick.
+        #/// </returns>
+        #public boolean  checkItemDraw(
+        #    InventQty       _inventQty,
+        #    NoYes           _negativePhysical,
+        #    boolean         _addInfo = true,
+        #    PdsCWInventQty  _cwQty = 0
+        #    )
+        #{
+        #    InventSumDelta  inventSumDelta;
+        #    InventQty       availPhysPost;
+        #    InventQty       availPhysDelta;
+        #    str             inventDimCriteriaPrefix;
+        #
+        #    PdsCWInventQty  cwAvailPhysPost;
+        #    PdsCWInventQty  cwAvailPhysDelta;
+        #
+        #    if (! _negativePhysical)
+        #    {
+        #        if
+        #            (!cwItem && (this.availPhysical() < (-_inventQty))
+        #          || (cwItem && (this.pdsCWAvailPhysical() < -_cwQty)))
+        #        {
+        #            if (! _addInfo)
+        #            {
+        #                return false;
+        #            }
+        #
+        #            setPrefix("@SYS70390");
+        #            inventDimCriteriaPrefix = inventDimCriteria.preFix();
+        #
+        #            if (inventDimCriteriaPrefix)
+        #            {
+        #                setPrefix(inventDimCriteriaPrefix);
+        #            }
+        #
+        #            if (!appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #            {
+        #                if (cwItem)
+        #                {
+        #                    return checkFailed(strFmt("@PDS87", -_cwQty, this.pdsCWAvailPhysical()));
+        #                }
+        #                return checkFailed(strFmt("@SYS2176", -_inventQty,this.availPhysical()));
+        #            }
+        #            else
+        #            {
+        #                availPhysPost   = this.availPhysical();
+        #
+        #                if (cwItem)
+        #                {
+        #                    cwAvailPhysPost   = this.pdsCWAvailPhysical();
+        #                }
+        #
+        #                inventSumDelta  = this.findSumJoinDelta();
+        #                inventSum.clear();
+        #                inventSum.addInventSumDeltaQty(inventSumDelta);
+        #                inventSum.addInventSumDeltaValues(inventSumDelta);
+        #                availPhysDelta  = this.availPhysical();
+        #
+        #                if (cwItem)
+        #                {
+        #                    cwAvailPhysDelta  = this.pdsCWAvailPhysical();
+        #                    return checkFailed(strFmt("@PDS87", -cwAvailPhysDelta, cwAvailPhysPost-cwAvailPhysDelta));
+        #                }
+        #
+        #                return checkFailed(strFmt("@SYS2176",-availPhysDelta,availPhysPost-availPhysDelta));
+        #            }
+        #        }
+        #    }
+        #    return true;
+        #}
+      ENDSOURCE
+      SOURCE #checkReservation
+        #/// <summary>
+        #///     Checks whether it is possible to reserve given quantity.
+        #/// </summary>
+        #/// <param name="_inventQty">
+        #///     Requested quantity.
+        #/// </param>
+        #/// <param name="_negativePhysical">
+        #///     NoYes::Yes if negative physical inventory is allowed; otherwise NoYes::No.
+        #/// </param>
+        #/// <param name="_reserveOnOrdered">
+        #///     NoYes::Yes if reserving on ordered is allowed; otherwise NoYes::No.
+        #/// </param>
+        #/// <param name="_addOnhandQty">
+        #///     Additional on hand quantity.
+        #/// </param>
+        #/// <param name="_cwQty">
+        #///     Requested catch weight quantity.
+        #/// </param>
+        #/// <param name="_cwAddonHandQty">
+        #///     Additinal on hand catch weight quantity.
+        #/// </param>
+        #/// <returns>
+        #///     True if it is possible to reserve.
+        #/// </returns>
+        #public boolean  checkReservation(
+        #    InventQty           _inventQty,         // Negative value
+        #    NoYes               _negativePhysical,
+        #    NoYes               _reserveOnOrdered,
+        #    InventQty           _addOnhandQty   = 0,
+        #    PdsCWInventQty      _cwQty          = 0,
+        #    PdsCWInventQty      _cwAddonHandQty = 0
+        #    )
+        #{
+        #    InventSumDelta  inventSumDelta;
+        #    InventQty       availReservationPost;
+        #    InventQty       availReservationDelta;
+        #    str             inventDimCriteriaPrefix;
+        #    InventQty       cwAvailReservationPost;
+        #    InventQty       cwAvailReservationDelta;
+        #    boolean         canReserveByInventQty;
+        #    boolean         canReserveByCwQty;
+        #
+        #    if (! _negativePhysical)
+        #    {
+        #        availReservationPost = this.availReservation(_reserveOnOrdered);
+        #
+        #        if (cwItem)
+        #        {
+        #            cwAvailReservationPost = this.pdsCWAvailReservation(_reserveOnOrdered);
+        #        }
+        #
+        #        canReserveByInventQty   =   (availReservationPost + _addOnhandQty < -_inventQty);
+        #        canReserveByCwQty       =   (cwAvailReservationPost + _cwAddonHandQty < -_cwQty);
+        #
+        #        if (    (!cwItem && canReserveByInventQty)
+        #            ||  ( cwItem && canReserveByInventQty && canReserveByCwQty))
+        #        {
+        #            setPrefix("@SYS7120");
+        #            inventDimCriteriaPrefix = inventDimCriteria.preFix();
+        #
+        #            if (inventDimCriteriaPrefix)
+        #            {
+        #                setPrefix(inventDimCriteriaPrefix);
+        #            }
+        #
+        #            if (!appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #            {
+        #                if (cwItem)
+        #                {
+        #                    checkFailed(strFmt("@PDS90", -_cwQty, cwAvailReservationPost + _cwAddonHandQty));
+        #                }
+        #                else
+        #                {
+        #                    checkFailed(strFmt("@SYS54812",-_inventQty,availReservationPost+_addOnhandQty));
+        #                }
+        #            }
+        #            else
+        #            {
+        #                inventSumDelta  = this.findSumJoinDelta();
+        #                inventSum.clear();
+        #                inventSum.addInventSumDeltaQty(inventSumDelta);
+        #                inventSum.addInventSumDeltaValues(inventSumDelta);
+        #                availReservationDelta = this.availReservation(_reserveOnOrdered);
+        #
+        #                if (cwItem)
+        #                {
+        #                    cwAvailReservationDelta = this.pdsCWAvailReservation(_reserveOnOrdered);
+        #                    checkFailed(strFmt("@PDS90", -cwAvailReservationDelta, cwAvailReservationPost - cwAvailReservationDelta));
+        #                }
+        #                else
+        #                {
+        #                    checkFailed(strFmt("@SYS54812",-availReservationDelta,availReservationPost-availReservationDelta));
+        #                }
+        #            }
+        #            return false;
+        #        }
+        #    }
+        #    return true;
+        #}
+      ENDSOURCE
+      SOURCE #classDeclaration
+        #/// <summary>
+        #/// Use this class if only interested in quantities as it is often faster than InventOnHand
+        #/// </summary>
+        #
+        #class InventOnHandQty
+        #{
+        #    ItemId              itemId;
+        #    InventDimId         inventDimId;
+        #
+        #    InventSum           inventSum;
+        #
+        #    InventDim           inventDimCriteria;
+        #    InventDimParm       inventDimParm;
+        #
+        #    boolean             sumRead;
+        #    boolean             cwItem;
+        #}
+      ENDSOURCE
+      SOURCE #deducted
+        #/// <summary>
+        #/// Retrieves the value of the <c>Deducted</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>Deducted</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>Deducted field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  deducted()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.Deducted;
+        #}
+      ENDSOURCE
+      SOURCE #findSumJoin
+        #/// <summary>
+        #/// Sets the internal on hand buffer based on parameters specified earlier.
+        #/// </summary>
+        #
+        #void findSumJoin()
+        #{
+        #    InventDim   inventDim;
+        #
+        #    if (inventDimId)
+        #    {
+        #        inventSum = InventSum::find(itemId,inventDimId);
+        #    }
+        #    else if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSum = InventSum::findSumQty(itemId,inventDimCriteria,inventDimParm);
+        #    }
+        #    else if (!inventDimParm.ItemIdFlag
+        #          && !inventDimParm.anyProductDimensionFlagSet()
+        #          &&  inventDimParm.wmsPalletIdFlag
+        #          && !inventDimParm.InventBatchIdFlag
+        #          && !inventDimParm.InventSerialIdFlag)
+        #    {
+        #        #inventDimSelect(inventDim,inventDimCriteria,inventDimParm,forcePlaceholders tableId from,palletIdIdx)
+        #        join #inventSumQtyFields from inventSum
+        #            where inventSum.InventDimId == inventDim.InventDimId
+        #               && inventSum.Closed      == NoYes::No
+        #               && inventSum.ClosedQty   == NoYes::No;
+        #    }
+        #    else
+        #    {
+        #        select
+        #            #inventSumQtyFields
+        #            from inventSum
+        #            where (inventSum.ItemId             == itemId           || !inventDimParm.ItemIdFlag)
+        #                && inventSum.Closed             == NoYes::No
+        #                && inventSum.ClosedQty          == NoYes::No
+        #            #InventDimExistsJoin(InventSum.inventDimId,InventDim,InventDimCriteria,InventDimParm);
+        #    }
+        #
+        #    if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSum.ItemId = itemId;
+        #    }
+        #
+        #    this.addInventSumDelta();
+        #}
+      ENDSOURCE
+      SOURCE #findSumJoinDelta
+        #/// <summary>
+        #/// Retrieves summarized on hand for uncommited changes.
+        #/// </summary>
+        #/// <returns>
+        #/// An <c>InventSumDelta</c> record.
+        #/// </returns>
+        #
+        #InventSumDelta findSumJoinDelta()
+        #{
+        #    InventDim       inventDim;
+        #    InventSumDelta  inventSumDelta;
+        #    if (inventDimId)
+        #    {
+        #        inventSumDelta = InventSumDelta::findSumDeltaDimId(itemId,inventDimId,InventSumFields::All);
+        #    }
+        #    else if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSumDelta = InventSumDelta::findSumDelta(itemId,inventDimCriteria,inventDimParm,InventSumFields::All);
+        #    }
+        #    else if (!inventDimParm.ItemIdFlag
+        #          && !inventDimParm.anyProductDimensionFlagSet()
+        #          &&  inventDimParm.wmsPalletIdFlag
+        #          && !inventDimParm.InventBatchIdFlag
+        #          && !inventDimParm.InventSerialIdFlag)
+        #    {
+        #        #inventDimSelect(inventDim,inventDimCriteria,inventDimParm,forcePlaceholders tableId from,palletIdIdx)
+        #        join #inventSumQtyFields from inventSumDelta
+        #            where inventSumDelta.InventDimId    == inventDim.InventDimId
+        #               && inventSumDelta.IsAggregated   == NoYes::No
+        #               && inventSumDelta.ttsId          == appl.inventUpdateOnhandGlobal().inventUpdateOnhand().ttsId();
+        #    }
+        #    else
+        #    {
+        #        select
+        #            #inventSumQtyFields
+        #            from inventSumDelta
+        #            where (inventSumDelta.ItemId        == itemId || !inventDimParm.ItemIdFlag)
+        #                && inventSumDelta.IsAggregated  == NoYes::No
+        #                && inventSumDelta.ttsId         == appl.inventUpdateOnhandGlobal().inventUpdateOnhand().ttsId()
+        #            #InventDimExistsJoin(InventSumDelta.inventDimId,InventDim,InventDimCriteria,InventDimParm);
+        #    }
+        #    if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSumDelta.ItemId = itemId;
+        #    }
+        #
+        #    return inventSumDelta;
+        #}
+      ENDSOURCE
+      SOURCE #inventSum
+        #/// <summary>
+        #/// Retrieves an <c>InventSum</c> buffer with the on-hand inventory values.
+        #/// </summary>
+        #/// <param name="setKey">
+        #/// Set to true to initialize the key, ItemId and InventDimId, in the returned <c>InventSum</c> buffer.
+        #/// </param>
+        #/// <returns>
+        #/// An <c>InventSum</c> buffer with the on-hand inventory values.
+        #/// </returns>
+        #
+        #public InventSum   inventSum(boolean setKey = false)
+        #{
+        #    this.setInventSum();
+        #    if (setKey)
+        #    {
+        #        this.setInventSumKey();
+        #    }
+        #    return inventSum;
+        #}
+      ENDSOURCE
+      SOURCE #mustCheckFinancialOnhand
+        #/// <summary>
+        #/// Checks if financial on hand must be checked during final commit.
+        #/// </summary>
+        #/// <returns>
+        #/// true if a final check must be made; otherwise false.
+        #/// </returns>
+        #
+        #public boolean mustCheckFinancialOnhand()
+        #{
+        #    return this.availFinancial() < 0 ? true : false;
+        #}
+      ENDSOURCE
+      SOURCE #mustCheckPhysicalOnhand
+        #/// <summary>
+        #/// Checks if physical on hand must be checked during final commit.
+        #/// </summary>
+        #/// <returns>
+        #/// true if a final check must be made; otherwise false.
+        #/// </returns>
+        #
+        #public boolean mustCheckPhysicalOnhand()
+        #{
+        #    return this.availPhysical() < 0 ? true : false;
+        #}
+      ENDSOURCE
+      SOURCE #new
+        #protected void new()
+        #{
+        #}
+      ENDSOURCE
+      SOURCE #onOrder
+        #/// <summary>
+        #/// Retrieves the value of the <c>OnOrder</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>OnOrder</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>OnOrder field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  onOrder()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.OnOrder;
+        #}
+      ENDSOURCE
+      SOURCE #ordered
+        #/// <summary>
+        #/// Retrieves the value of the <c>Ordered</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>Ordered</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>Ordered field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  ordered()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.Ordered;
+        #}
+      ENDSOURCE
+      SOURCE #parmBatchId
+        #/// <summary>
+        #/// Adds the specified batch ID to the criterias used.
+        #/// </summary>
+        #/// <param name="_inventBatchId">
+        #/// The batch ID.
+        #/// </param>
+        #
+        #void parmBatchId(InventBatchId _inventBatchId)
+        #{
+        #    inventDimCriteria.InventBatchId = _inventBatchId;
+        #    inventDimParm.InventBatchIdFlag = true;
+        #}
+      ENDSOURCE
+      SOURCE #parmInventDim
+        #/// <summary>
+        #/// Sets the inventory dimensions to be used as criterias when selecting.
+        #/// </summary>
+        #/// <param name="_inventDimCriteria">
+        #/// The <c>InventDim</c> record holding the dimensions values.
+        #/// </param>
+        #
+        #public void parmInventDim(InventDim _inventDimCriteria)
+        #{
+        #    inventDimCriteria = _inventDimCriteria;
+        #}
+      ENDSOURCE
+      SOURCE #parmInventDimId
+        #/// <summary>
+        #/// Sets the inventory dimension ID to be used as criteria when selecting.
+        #/// </summary>
+        #/// <param name="_inventDimId">
+        #/// The dimension ID to be used.
+        #/// </param>
+        #
+        #void parmInventDimId(InventDimId _inventDimId)
+        #{
+        #    inventDimId = _inventDimId;
+        #}
+      ENDSOURCE
+      SOURCE #parmInventDimParm
+        #public InventDimParm parmInventDimParm(InventDimParm _inventDimParm = inventDimParm)
+        #{
+        #    inventDimParm = _inventDimParm;
+        #
+        #    return inventDimParm;
+        #}
+      ENDSOURCE
+      SOURCE #parmInventLocationId
+        #/// <summary>
+        #/// Adds the specified warehouse to the criterias used.
+        #/// </summary>
+        #/// <param name="_inventLocationId">
+        #/// The warehouse.
+        #/// </param>
+        #
+        #void parmInventLocationId(InventLocationId _inventLocationId)
+        #{
+        #    inventDimCriteria.InventLocationId = _inventLocationId;
+        #    inventDimParm.InventLocationIdFlag = true;
+        #}
+      ENDSOURCE
+      SOURCE #parmInventSum
+        #public InventSum parmInventSum(InventSum _inventSum = inventSum)
+        #{
+        #    inventSum = _inventSum;
+        #
+        #    sumRead = true;
+        #
+        #    return inventSum;
+        #}
+      ENDSOURCE
+      SOURCE #parmItemId
+        #/// <summary>
+        #/// Sets the item to be used as a range when selecting.
+        #/// </summary>
+        #/// <param name="_itemId">
+        #/// The item ID to be used.
+        #/// </param>
+        #
+        #public void parmItemId(ItemId _itemId)
+        #{
+        #    itemId = _itemId;
+        #    inventDimParm.ItemIdFlag = true;
+        #
+        #    cwItem = pdsIsCWItem(itemId);
+        #}
+      ENDSOURCE
+      SOURCE #parmLocationId
+        #/// <summary>
+        #/// Adds the specified warehouse location to the criterias used.
+        #/// </summary>
+        #/// <param name="_wmsLocationId">
+        #/// The warehouse location.
+        #/// </param>
+        #
+        #void parmLocationId(WMSLocationId _wmsLocationId)
+        #{
+        #    inventDimCriteria.wmsLocationId = _wmsLocationId;
+        #    inventDimParm.wmsLocationIdFlag = true;
+        #}
+      ENDSOURCE
+      SOURCE #parmPalletId
+        #/// <summary>
+        #/// Adds the specified pallet ID to the criterias used.
+        #/// </summary>
+        #/// <param name="_wmsPalletId">
+        #/// The pallet ID.
+        #/// </param>
+        #
+        #void parmPalletId(WMSPalletId _wmsPalletId)
+        #{
+        #    inventDimCriteria.wmsPalletId = _wmsPalletId;
+        #    inventDimParm.wmsPalletIdFlag = true;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWArrived
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWArrived</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWArrived</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWArrived field</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty pdsCWArrived()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWArrived;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWAvailFinancial
+        #/// <summary>
+        #/// Retrieves value of the <c>PdsCWPostedQty</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWPostedQty</c> field.
+        #/// </returns>
+        #
+        #public display PdsCWInventQty pdsCWAvailFinancial()
+        #{
+        #    return this.pdsCWPostedQty();
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWAvailOrdered
+        #/// <summary>
+        #/// Retrieves the catch weight ordered quantity available for order.
+        #/// </summary>
+        #/// <param name="_inclAvailPhysical">
+        #/// Whether the available physical inventory must be included in the ordered quantity.
+        #/// </param>
+        #/// <returns type="PdsCWInventQty">
+        #/// The catch weight quantity of available ordered inventory.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method looks to see if to include available physical inventory and if yes,
+        #/// the available ordered quantity is computed.
+        #/// </remarks>
+        #
+        #public display PdsCWInventQty pdsCWAvailOrdered(boolean _inclAvailPhysical = true)
+        #{
+        #    return (_inclAvailPhysical ? this.pdsCWAvailPhysical() : 0) + this.pdsCWOrdered() + this.pdsCWArrived() - this.pdsCWReservOrdered();
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWAvailPhysical
+        #/// <summary>
+        #/// Retrieves the catch weight physical quantity available.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of catch weight quantity physically available.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method computes the physical available quantity from the physical
+        #/// inventory minus the physical reserved.
+        #/// </remarks>
+        #
+        #public display PdsCWInventQty pdsCWAvailPhysical()
+        #{
+        #    return (this.pdsCWPhysicalInvent() - this.pdsCWReservPhysical());
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWAvailReservation
+        #/// <summary>
+        #/// Retrieves the catch weight physical quantity available.
+        #/// </summary>
+        #/// <param name="_reserveOnOrdered">
+        #/// A <c>NoYes</c> parameter that specifies if reservation against ordered items should be allowed; optional.
+        #/// </param>
+        #/// <returns>
+        #/// The value of catch weight quantity physically available.
+        #/// </returns>
+        #public PdsCWInventQty pdsCWAvailReservation(NoYes _reserveOnOrdered = NoYes::No)
+        #{
+        #    if (_reserveOnOrdered)
+        #    {
+        #        return this.pdsCWAvailOrdered();
+        #    }
+        #    return this.pdsCWAvailPhysical();
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWCheckAutoAdjust
+        #/// <summary>
+        #/// Retrieves the quantity of the inventory.
+        #/// </summary>
+        #/// <returns>
+        #/// The current inventory quantity when no catch weight inventory quantity exists.
+        #/// </returns>
+        #/// <remarks>
+        #/// This method will look at the inventory quantity and return the value based
+        #/// quantity in the cw unit.
+        #/// </remarks>
+        #
+        #public InventQty pdsCWCheckAutoAdjust()
+        #{
+        #    if (this.pdsCWPhysicalInvent() != 0)
+        #    {
+        #        return 0;
+        #    }
+        #
+        #    return this.physicalInvent();
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWDeducted
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWDeducted</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWDeducted</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWDeducted</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty pdsCWDeducted()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWDeducted;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWOnOrder
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWOnOrder</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWOnOrder</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWOnOrder</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty pdsCWOnOrder()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWOnOrder;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWOrdered
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWOrdered</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWOrdered</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWOrdered</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty pdsCWOrdered()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWOrdered;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWPhysicalInvent
+        #/// <summary>
+        #/// Retrieves the catch weight physical inventory quantity.
+        #/// </summary>
+        #/// <returns>
+        #/// The catch weight physical inventory quantity.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method computes catch weight physical inventory quantity from the
+        #/// pdsCWPostedQty, pdsCWReceived, pdsCWDeducted, pdsCWRegistered and pdsCWPicked methods.
+        #/// </remarks>
+        #
+        #public display PdsCWInventQty  pdsCWPhysicalInvent()
+        #{
+        #    return this.pdsCWPostedQty() + this.pdsCWReceived() - this.pdsCWDeducted() + this.pdsCWRegistered() - this.pdsCWPicked();
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWPicked
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWPicked</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWPicked</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWPicked</c> field.
+        #/// </remarks>
+        #
+        #public display PdsCWInventQty pdsCWPicked()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWPicked;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWPostedQty
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWPostedQty</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWPostedQty</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWPostedQty</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty  pdsCWPostedQty()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWPostedQty;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWQuotationIssue
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWQuotationIssue</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWQuotationIssue</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWQuotationIssue</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty pdsCWQuotationIssue()
+        #{
+        #    if (!sumRead)
+        #    {
+        #        this.setInventSum();
+        #    }
+        #
+        #    return inventSum.PdsCWQuotationIssue;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWQuotationReceipt
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWQuotationReceipt</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWQuotationReceipt</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWQuotationReceipt</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty  pdsCWQuotationReceipt()
+        #{
+        #    if (!sumRead)
+        #    {
+        #        this.setInventSum();
+        #    }
+        #
+        #    return inventSum.PdsCWQuotationReceipt;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWReceived
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWReceived</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWReceived</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWReceived</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty  pdsCWReceived()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWReceived;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWRegistered
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWRegistered</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWRegistered</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWRegistered</c> field.
+        #/// </remarks>
+        #
+        #public display PdsCWInventQty pdsCWRegistered()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWRegistered;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWReservOrdered
+        #/// <summary>
+        #/// Retrieves the reserved against orderd inventory quantity in catch weight unit.
+        #/// </summary>
+        #/// <returns>
+        #/// The reserved against orderd inventory quantity in catch weight unit.
+        #/// </returns>
+        #
+        #public PdsCWInventQty pdsCWReservOrdered()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWReservOrdered;
+        #}
+      ENDSOURCE
+      SOURCE #pdsCWReservPhysical
+        #/// <summary>
+        #/// Retrieves the value of the <c>PdsCWReservPhysical</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PdsCWReservPhysical</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PdsCWReservPhysical</c> field.
+        #/// </remarks>
+        #
+        #public PdsCWInventQty pdsCWReservPhysical()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PdsCWReservPhysical;
+        #}
+      ENDSOURCE
+      SOURCE #pdsParmCWItem
+        #/// <summary>
+        #///     Specifies whether this is a catch weight item.
+        #/// </summary>
+        #/// <param name="_cwItem">
+        #///     True if it is a catch weight item; false otherwise.
+        #/// </param>
+        #/// <returns>
+        #///     True if it is a catch weight item; false otherwise.
+        #/// </returns>
+        #protected boolean pdsParmCWItem(boolean _cwItem = cwItem)
+        #{
+        #    cwItem = _cwItem;
+        #    return cwItem;
+        #}
+      ENDSOURCE
+      SOURCE #physicalInvent
+        #/// <summary>
+        #/// Retrieves the physical inventory quantity.
+        #/// </summary>
+        #/// <returns>
+        #/// The physical inventory quantity.
+        #/// </returns>
+        #
+        #public InventQty   physicalInvent()
+        #{
+        #    return this.postedQty() + this.received() - this.deducted() + this.registered() - this.picked();
+        #}
+      ENDSOURCE
+      SOURCE #picked
+        #/// <summary>
+        #/// Retrieves the value of the <c>Picked</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>Picked</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>Picked field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  picked()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.Picked;
+        #}
+      ENDSOURCE
+      SOURCE #postedQty
+        #/// <summary>
+        #/// Retrieves the value of the <c>PostedQty</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>PostedQty</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>PostedQty field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  postedQty()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PostedQty;
+        #}
+      ENDSOURCE
+      SOURCE #received
+        #/// <summary>
+        #/// Retrieves the value of the <c>Received</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>Received</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>Received field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  received()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.Received;
+        #}
+      ENDSOURCE
+      SOURCE #registered
+        #/// <summary>
+        #/// Retrieves the value of the <c>Registered</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>Registered</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>Registered field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  registered()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.Registered;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #reservOrdered
+        #/// <summary>
+        #/// Retrieves the value of the <c>ReservOrdered</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>ReservOrdered</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>ReservOrdered field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  reservOrdered()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.ReservOrdered;
+        #}
+      ENDSOURCE
+      SOURCE #reservPhysical
+        #/// <summary>
+        #/// Retrieves the value of the <c>ReservPhysical</c> field.
+        #/// </summary>
+        #/// <returns>
+        #/// The value of the <c>ReservPhysical</c> field.
+        #/// </returns>
+        #/// <remarks>
+        #/// The method first retrieves an <c>InventSum</c> record and then returns
+        #/// the value of the <c>ReservPhysical field</c> field.
+        #/// </remarks>
+        #
+        #public InventQty  reservPhysical()
+        #{
+        #     this.setInventSum();
+        #
+        #    return inventSum.ReservPhysical;
+        #}
+      ENDSOURCE
+      SOURCE #setInventSum
+        #/// <summary>
+        #/// Sets the internal on hand buffer based on parameters specified earlier.
+        #/// </summary>
+        #protected void setInventSum()
+        #{
+        #    if (sumRead)
+        #    {
+        #        return;
+        #    }
+        #
+        #    this.findSumJoin();
+        #
+        #    sumRead = true;
+        #}
+      ENDSOURCE
+      SOURCE #setInventSumKey
+        #/// <summary>
+        #/// Set the key fields, ItemId and InventDimId in the <c>inventSum</c> buffer.
+        #/// </summary>
+        #protected void setInventSumKey()
+        #{
+        #    InventDim   inventDimTmp;
+        #
+        #    // Fields might not have been selected on the specified buffers, or might have been updated since selection
+        #    inventSum.checkInvalidFieldAccess(false);
+        #
+        #    inventSum.ItemId = itemId;
+        #
+        #    if (!inventSum.InventDimId && inventDimId)
+        #    {
+        #        inventSum.InventDimId = inventDimId;
+        #    }
+        #
+        #    if (!inventSum.InventDimId && inventDimCriteria.InventDimId && inventDimParm.isInventDimEqualInventDimParm(inventDimCriteria))
+        #    {
+        #        inventSum.InventDimId = inventDimCriteria.InventDimId;
+        #    }
+        #
+        #    if (!inventSum.InventDimId)
+        #    {
+        #        inventDimTmp.data(inventDimCriteria);
+        #        inventDimTmp.clearNotSelectedDim(inventDimParm);
+        #        inventSum.InventDimId = InventDim::findOrCreate(inventDimTmp).InventDimId;
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #availReservationDimensions
+        #/// <summary>
+        #/// Gets on hand quantities available for reservation
+        #/// </summary>
+        #/// <param name="_itemId">
+        #/// The item for which quantities are calculated.
+        #/// </param>
+        #/// <param name="_inventDimPacked">
+        #/// The inventory dimensions used as ranges.
+        #/// </param>
+        #/// <param name="_reserveOnOrdered">
+        #/// NoYes::Yes if reservation against <c>OnOrdered</c> on hands are allowed; otherwise, NoYes::No.
+        #/// </param>
+        #/// <param name="_isTransfer">
+        #/// NoYes::Yes if the reservation is for a transfer; otherwise, NoYes::No.
+        #/// </param>
+        #/// <returns>
+        #/// A container with quantities in inventory unit and catch weight unit.
+        #/// </returns>
+        #/// <exception cref="Exception::Error">
+        #/// Wrong use of this method as item must be specified.
+        #/// </exception>
+        #
+        #static server public container availReservationDimensions(
+        #    ItemId          _itemId,
+        #    container       _inventDimPacked, // InventDim passed in as container to avoid a call back to client to release reference.
+        #    NoYes           _reserveOnOrdered,
+        #    NoYes           _isTransfer)
+        #{
+        #    InventDim       inventDimCriteria;
+        #    InventDimParm   inventDimParmPhysicalInvent;
+        #    InventOnhand    inventOnhand;
+        #
+        #    if (!_itemId)
+        #    {
+        #        throw error(Error::wrongUseOfFunction(funcName()));
+        #    }
+        #
+        #    [inventDimCriteria] = _inventDimPacked;
+        #
+        #    //only take the physical dimensions that have been specified into consideration when looking for on-hand
+        #    inventDimParmPhysicalInvent.initPhysicalDimensionsFromInventDim(InventDimGroupSetup::newItemId(_itemId), inventDimCriteria);
+        #
+        #    // Transfers need to enforce warehouse for the reservation even when they may have not
+        #    // have it set as physical inventory. Otherwise circular reservations may occur.
+        #    if (   inventDimCriteria.InventLocationId != ''
+        #        && _isTransfer)
+        #    {
+        #        inventDimParmPhysicalInvent.InventLocationIdFlag = NoYes::Yes;
+        #    }
+        #
+        #    inventOnhand = InventOnHandQty::newParameters(_itemId,inventDimCriteria,inventDimParmPhysicalInvent);
+        #
+        #    return [inventOnhand.availReservation(_reserveOnOrdered), inventOnhand.pdsCWAvailReservation(_reserveOnOrdered)];
+        #}
+      ENDSOURCE
+      SOURCE #construct
+        #public static InventOnHandQty construct()
+        #{
+        #    return new InventOnHandQty();
+        #}
+      ENDSOURCE
+      SOURCE #newBOMReportFinish
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified BOM journal line.
+        #/// </summary>
+        #/// <param name="_inventJournalTrans">
+        #/// The BOM journal line for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newBOMReportFinish(InventJournalTrans _inventJournalTrans)
+        #{
+        #    InventDim       inventDim;
+        #    InventDimParm   inventDimParm;
+        #
+        #    inventDim = InventDim::find(_inventJournalTrans.InventDimId);
+        #    inventDimParm.initFromInventDim(inventDim);
+        #
+        #    return InventOnHandQty::newParameters(_inventJournalTrans.ItemId, inventDim, inventDimParm);
+        #}
+      ENDSOURCE
+      SOURCE #newEstimatedUpdate
+        #/// <summary>
+        #///    Retrieves an instance of the <c>InventOnHandQty</c> class.
+        #/// </summary>
+        #/// <param name="_movement">
+        #///    An instance of the <c>InventMovement</c> class.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #///    An <c>InventDim</c> record that is used by the <c>InventOnHand</c> class.
+        #/// </param>
+        #/// <param name="_inventDimFixed">
+        #///    An <c>InventDimFixed</c> value.
+        #/// </param>
+        #/// <returns>
+        #///    An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #/// <remarks>
+        #///    If the <paramref name="_InventdimFixed" /> parameter is specified then the fixed dimensions will be
+        #///    included by the <c>InventOnHandQty</c> class.
+        #/// </remarks>
+        #
+        #static public InventOnHandQty newEstimatedUpdate(
+        #    InventMovement  _movement,
+        #    InventDim       _inventDim,
+        #    InventDimFixed  _inventDimFixed = 0)
+        #{
+        #    InventDimParm   inventDimParm;
+        #    InventDimParm   inventDimParmFixedDimensions;
+        #
+        #    inventDimParm.initPhysicalDimensionsFromInventDim(_movement.inventDimGroupSetup(),_inventDim);
+        #
+        #    // if fixed dimensions were passed the inventDimParm also needs to include these
+        #    if (_inventDimFixed)
+        #    {
+        #        inventDimParmFixedDimensions.initFromInventDimFixed(_inventDimFixed);
+        #        inventDimParm = InventDimParm::orParms(inventDimParm,inventDimParmFixedDimensions);
+        #    }
+        #
+        #    return InventOnHandQty::newParameters(_movement.itemId(), _inventDim, inventDimParm);
+        #}
+      ENDSOURCE
+      SOURCE #newInventBatch
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified batch.
+        #/// </summary>
+        #/// <param name="_inventBatch">
+        #/// The batch for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newInventBatch(InventBatch _inventBatch)
+        #{
+        #    InventOnHandQty     inventOnHandQty = InventOnHandQty::construct();
+        #
+        #    inventOnHandQty.parmItemId(_inventBatch.ItemId);
+        #    inventOnHandQty.parmBatchId(_inventBatch.InventBatchId);
+        #
+        #    return inventOnHandQty;
+        #}
+      ENDSOURCE
+      SOURCE #newItemDim
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified parameters.
+        #/// </summary>
+        #/// <param name="_itemId">
+        #/// The item for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #/// The inventory dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDimParm">
+        #/// The identification of dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newItemDim(
+        #    ItemId             _itemId,
+        #    InventDim          _inventDim,
+        #    InventDimParm      _inventDimParm)
+        #{
+        #    return InventOnHandQty::newParameters(_itemId, _inventDim, _inventDimParm);
+        #}
+      ENDSOURCE
+      SOURCE #newItemId
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified parameters.
+        #/// </summary>
+        #/// <param name="_itemId">
+        #/// The item for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newItemId(ItemId _itemId)
+        #{
+        #    InventOnHandQty     inventOnHandQty = InventOnHandQty::construct();
+        #
+        #    inventOnHandQty.parmItemId(_itemId);
+        #
+        #    return inventOnHandQty;
+        #}
+      ENDSOURCE
+      SOURCE #newParameters
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified parameters.
+        #/// </summary>
+        #/// <param name="_itemId">
+        #/// The item for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #/// The inventory dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDimParm">
+        #/// The identification of dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newParameters(
+        #    ItemId             _itemId,
+        #    InventDim          _inventDim,
+        #    InventDimParm      _inventDimParm)
+        #{
+        #    InventOnHandQty     inventOnHandQty = InventOnHandQty::construct();
+        #
+        #    inventOnHandQty.parmInventDim(_inventDim);
+        #    inventOnHandQty.parmInventDimParm(_inventDimParm);
+        #    //this will set the itemId flag on inventDimParm
+        #    inventOnHandQty.parmItemId(_itemId);
+        #
+        #    return inventOnHandQty;
+        #}
+      ENDSOURCE
+      SOURCE #newParametersActive
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified parameters.
+        #/// </summary>
+        #/// <param name="_itemId">
+        #/// The item for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #/// The inventory dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDimParm">
+        #/// The identification of dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDimParmActive">
+        #/// The identification of active dimensions which are compared to the <c>_inventDimParm</c> parameter.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnhand newParametersActive(
+        #    ItemId             _itemId,
+        #    InventDim          _inventDim,
+        #    InventDimParm      _inventDimParm,
+        #    InventDimParm      _inventDimParmActive)
+        #{
+        #    InventOnHandQty inventOnHandQty = InventOnHandQty::newParameters(_itemId,_inventDim,_inventDimParm);
+        #
+        #    if (_inventDim.InventDimId)
+        #    {
+        #        if (InventDimParm::isInventDimParmEqual(_inventDimParm,_inventDimParmActive))
+        #        {
+        #            inventOnHandQty.parmInventDimId(_inventDim.InventDimId);
+        #        }
+        #    }
+        #
+        #    return inventOnHandQty;
+        #}
+      ENDSOURCE
+      SOURCE #newPhysicalInvent
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified parameters.
+        #/// </summary>
+        #/// <param name="_movement">
+        #/// The inventory movement for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #/// The inventory dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newPhysicalInvent(
+        #    InventMovement  _movement,
+        #    InventDim       _inventDim)
+        #{
+        #    return InventOnHandQty::newPhysicalUpdate(_movement,_inventDim);
+        #}
+      ENDSOURCE
+      SOURCE #newPhysicalUpdate
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified parameters.
+        #/// </summary>
+        #/// <param name="_movement">
+        #/// The inventory movement for which on hand is to be retrieved.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #/// The inventory dimensions for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newPhysicalUpdate(
+        #    InventMovement  _movement,
+        #    InventDim       _inventDim)
+        #{
+        #    InventDimParm       inventDimParmActivePhyscicalInvent;
+        #    InventDimParm       inventDimParmActive;
+        #    InventOnHandQty     inventOnHandQty;
+        #
+        #    // Fields might not have been selected on the specified buffers, or might have been updated since selection
+        #    _inventDim.checkInvalidFieldAccess(false);
+        #
+        #    _movement.inventDimGroupSetup().inventDimParmActivePhysicalInventory(inventDimParmActivePhyscicalInvent);
+        #    inventDimParmActivePhyscicalInvent.setAllProductDimensions(); // All updates must match all product dimensions
+        #
+        #    inventOnHandQty = InventOnHandQty::newParameters(_movement.itemId(), _inventDim, inventDimParmActivePhyscicalInvent);
+        #
+        #    if (_inventDim.InventDimId)
+        #    {
+        #        _movement.inventDimGroupSetup().inventDimParmActive(inventDimParmActive);
+        #
+        #        if (InventDimParm::isInventDimParmEqual(inventDimParmActivePhyscicalInvent,inventDimParmActive))
+        #        {
+        #            inventOnHandQty.parmInventDimId(_inventDim.InventDimId);
+        #        }
+        #    }
+        #
+        #    return inventOnHandQty;
+        #}
+      ENDSOURCE
+      SOURCE #newWMSPallet
+        #/// <summary>
+        #/// Creates a new instance of the <c>InventOnHandQty</c> class based on the specified pallet.
+        #/// </summary>
+        #/// <param name="wmsPallet">
+        #/// The pallet for which on hand is to be retrieved.
+        #/// </param>
+        #/// <returns>
+        #/// An instance of the <c>InventOnHandQty</c> class.
+        #/// </returns>
+        #
+        #static public InventOnHandQty newWMSPallet(WMSPallet wmsPallet)
+        #{
+        #    InventOnHandQty     inventOnHandQty = InventOnHandQty::construct();
+        #
+        #    inventOnHandQty.pdsParmCWItem(wmsPallet.pdsContainsCWItems());
+        #    inventOnHandQty.parmPalletId(wmsPallet.wmsPalletId);
+        #    inventOnHandQty.parmInventLocationId(wmsPallet.InventLocationId);
+        #    inventOnHandQty.parmLocationId(wmsPallet.wmsLocationId);
+        #
+        #    return inventOnHandQty;
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: InventOnhand unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #InventOnhand
+    PROPERTIES
+      Name                #InventOnhand
+      Extends             #InventOnHandQty
+      Origin              #{2D0C00D5-0000-1000-418C-F1CDC5834F6E}
+      LegacyId            #213
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #addInventSumDelta
+        #void addInventSumDelta()
+        #{
+        #    InventSumDelta  inventSumDelta;
+        #    if (!itemId || InventUpdateOnhandGlobal::mustAddInventSumDeltaOnhand(itemId))
+        #    {
+        #        inventSumDelta = this.findSumJoinDelta();
+        #        inventSum.addInventSumDeltaQty(inventSumDelta);
+        #        inventSum.addInventSumDeltaValues(inventSumDelta);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #checkInventModel
+        #/// <summary>
+        #/// Indicates whether the inventory model must perform an on hand validation when the invent sum is
+        #/// updated.
+        #/// </summary>
+        #/// <param name="_checkOnly">
+        #/// A Boolean value that indicates whether an exception will be thrown.
+        #/// </param>
+        #/// <returns>
+        #/// true if the inventory model must perform an on hand validation when the invent sum is updated;
+        #/// otherwise, false.
+        #/// </returns>
+        #public boolean checkInventModel(boolean _checkOnly = false)
+        #{
+        #    if (_checkOnly || appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #    {
+        #        return InventTable::find(itemId).modelGroup().inventModelType().checkInventOnHand(this, _checkOnly);
+        #    }
+        #    else
+        #    {
+        #        return true;
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #checkItemDrawFinancial
+        #public boolean  checkItemDrawFinancial(
+        #    InventQty    _inventQty,
+        #    NoYes        _negativeFinancial,
+        #    boolean      _addInfo = true
+        #    , PdsCWInventQty    _cwQty = 0
+        #    )
+        #{
+        #    InventQty       availFinancialPost;
+        #    InventQty       availFinancialDelta;
+        #    InventSumDelta  inventSumDelta;
+        #
+        #    PdsCWInventQty  cwAvailFinancialPost;
+        #    PdsCWInventQty  cwAvailFinancialDelta;
+        #
+        #    str             inventDimCriteriaPrefix;
+        #
+        #    if (! _negativeFinancial)
+        #    {
+        #        availFinancialPost = this.availFinancial();
+        #
+        #        if (cwItem)
+        #        {
+        #            cwAvailFinancialPost = this.pdsCWAvailFinancial();
+        #        }
+        #
+        #        if (availFinancialPost < (-_inventQty)
+        #            || (cwItem && cwAvailFinancialPost < (-_cwQty))
+        #            )
+        #        {
+        #            if (! _addInfo)
+        #            {
+        #                return false;
+        #            }
+        #
+        #            setPrefix("@SYS54048");
+        #            inventDimCriteriaPrefix = inventDimCriteria.preFix();
+        #
+        #            if (inventDimCriteriaPrefix)
+        #            {
+        #                setPrefix(inventDimCriteria.preFix());
+        #            }
+        #
+        #            if (!appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #            {
+        #                if (cwItem)
+        #                {
+        #                    return checkFailed(strFmt("@PDS88", -_cwQty, cwAvailFinancialPost));
+        #                }
+        #                return checkFailed(strFmt("@SYS54047", -_inventQty, availFinancialPost));
+        #            }
+        #            else
+        #            {
+        #                inventSumDelta  = this.findSumJoinDelta();
+        #                inventSum.clear();
+        #                inventSum.addInventSumDeltaQty(inventSumDelta);
+        #                inventSum.addInventSumDeltaValues(inventSumDelta);
+        #                availFinancialDelta  = this.availFinancial();
+        #
+        #                if (cwItem)
+        #                {
+        #                    cwAvailFinancialDelta  = this.pdsCWAvailFinancial();
+        #                    return checkFailed(strFmt("@PDS88", -cwAvailFinancialDelta, cwAvailFinancialPost - cwAvailFinancialDelta));
+        #                }
+        #
+        #                return checkFailed(strFmt("@SYS54047", -availFinancialDelta, availFinancialPost-availFinancialDelta));
+        #            }
+        #        }
+        #    }
+        #    return true;
+        #}
+        #
+      ENDSOURCE
+      SOURCE #checkItemStdCost
+        #[SysObsoleteAttribute('Use checkInventModel instead.', true)]
+        #boolean  checkItemStdCost(boolean _checkOnly = false)
+        #{
+        #    throw error(strFmt("@SYS22828",funcName()));
+        #}
+      ENDSOURCE
+      SOURCE #checkItemStdCostSecCur_RU
+        #public boolean  checkItemStdCostSecCur_RU(boolean _checkOnly = false)
+        #{
+        #    if (_checkOnly || appl.inventUpdateOnhandGlobal().inventUpdateOnhand().isFinalCommit())
+        #    {
+        #        if (this.postedQty())
+        #        {
+        #            try
+        #            {
+        #                if (this.postedValueSecCur_RU() != Currency::amount(this.postedQty() * this.costPriceSecPcs_RU(false)))
+        #                {
+        #                    if (_checkOnly)
+        #                    {
+        #                        return false;
+        #                    }
+        #                    // BP Deviation documented - no better method exist for the UpdateConflict exception
+        #                    infolog.add(Exception::UpdateConflict, strFmt("@SYS104357", this.postedValueSecCur_RU(), this.postedQty(), this.costPriceSecPcs_RU(false)));
+        #                    throw Exception::UpdateConflict;
+        #                }
+        #            }
+        #            catch (Exception::Error)
+        #            {
+        #                if (_checkOnly)
+        #                {
+        #                    return false;
+        #                }
+        #                throw Exception::Error;
+        #            }
+        #        }
+        #        else if (this.postedValueSecCur_RU())
+        #        {
+        #            if (_checkOnly)
+        #            {
+        #                return false;
+        #            }
+        #            // BP Deviation documented - no better method exist for the UpdateConflict exception
+        #            infolog.add(Exception::UpdateConflict, strFmt("@SYS104357", this.postedValueSecCur_RU(), this.postedQty(), this.costPriceSecPcs_RU(false)));
+        #            throw Exception::UpdateConflict;
+        #        }
+        #    }
+        #
+        #    return true;
+        #}
+      ENDSOURCE
+      SOURCE #classDeclaration
+        #class InventOnHand extends InventOnHandQty
+        #{
+        #}
+      ENDSOURCE
+      SOURCE #costPricePcs
+        #public CostPrice costPricePcs(
+        #    boolean      _onHandOnly = false,
+        #    PriceDate    _priceDate = systemDateGet())
+        #{
+        #    if (_onHandOnly
+        #    ||  !itemId
+        #    ||  !InventTable::modelGroupByItemId(itemId).StandardCost)
+        #    {
+        #        this.setInventSum();
+        #    }
+        #
+        #    this.setInventSumKey();
+        #    return inventSum.costPricePcs(_onHandOnly, _priceDate);
+        #}
+      ENDSOURCE
+      SOURCE #costPriceSecPcs_RU
+        #public CostPrice costPriceSecPcs_RU(boolean _onHandOnly = false)
+        #{
+        #    InventDim inventDimTmp;
+        #
+        #    if (_onHandOnly || !itemId || !InventTable::modelGroupByItemId(itemId).StandardCost)
+        #    {
+        #        this.setInventSum();
+        #    }
+        #
+        #    inventSum.ItemId = itemId;
+        #
+        #    if (! inventSum.InventDimId && inventDimId)
+        #    {
+        #        inventSum.InventDimId = inventDimId;
+        #    }
+        #
+        #    if (! inventSum.InventDimId && inventDimCriteria.InventDimId && inventDimParm.isInventDimEqualInventDimParm(inventDimCriteria))
+        #    {
+        #        inventSum.InventDimId = inventDimCriteria.InventDimId;
+        #    }
+        #
+        #    if (! inventSum.InventDimId)
+        #    {
+        #        inventDimTmp.data(inventDimCriteria);
+        #        inventDimTmp.clearNotSelectedDim(inventDimParm);
+        #        inventSum.InventDimId = InventDim::findOrCreate(inventDimTmp).InventDimId;
+        #    }
+        #
+        #    return inventSum.costPriceSecCurPcs_RU(_onHandOnly);
+        #}
+      ENDSOURCE
+      SOURCE #findSumJoin
+        #void findSumJoin()
+        #{
+        #    InventDim   inventDim;
+        #
+        #    if (inventDimId)
+        #    {
+        #        inventSum = InventSum::find(itemId,inventDimId);
+        #    }
+        #    else if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSum = InventSum::findSum(itemId,inventDimCriteria,inventDimParm,InventSumFields::All);
+        #    }
+        #    else if (!inventDimParm.ItemIdFlag           &&
+        #             !inventDimParm.anyProductDimensionFlagSet()    &&
+        #              inventDimParm.wmsPalletIdFlag      &&
+        #             !inventDimParm.InventBatchIdFlag    &&
+        #             !inventDimParm.InventSerialIdFlag
+        #            )
+        #    {
+        #        #inventDimSelect(inventDim,inventDimCriteria,inventDimParm,forcePlaceholders tableId from,palletIdIdx)
+        #        join #inventSumFields from inventSum
+        #            index hint DimIdIdx
+        #            where inventSum.InventDimId == inventDim.InventDimId     &&
+        #                    inventSum.Closed      == NoYes::No;
+        #    }
+        #    else
+        #    {
+        #        select
+        #            #inventSumFields
+        #            from inventSum
+        #            where (inventSum.ItemId              == itemId           || !inventDimParm.ItemIdFlag)            &&
+        #                    inventSum.Closed              == NoYes::No
+        #            #InventDimExistsJoin(InventSum.inventDimId,InventDim,InventDimCriteria,InventDimParm);
+        #    }
+        #
+        #    if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSum.ItemId = itemId;
+        #    }
+        #
+        #    this.addInventSumDelta();
+        #}
+      ENDSOURCE
+      SOURCE #findSumJoinDelta
+        #InventSumDelta findSumJoinDelta()
+        #{
+        #    InventDim       inventDim;
+        #    InventSumDelta  inventSumDelta;
+        #    if (inventDimId)
+        #    {
+        #        inventSumDelta = InventSumDelta::findSumDeltaDimId(itemId,inventDimId,InventSumFields::All);
+        #    }
+        #    else if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSumDelta = InventSumDelta::findSumDelta(itemId,inventDimCriteria,inventDimParm,InventSumFields::All);
+        #    }
+        #    else if (!inventDimParm.ItemIdFlag           &&
+        #             !inventDimParm.anyProductDimensionFlagSet()    &&
+        #              inventDimParm.wmsPalletIdFlag      &&
+        #             !inventDimParm.InventBatchIdFlag    &&
+        #             !inventDimParm.InventSerialIdFlag
+        #            )
+        #    {
+        #        #inventDimSelect(inventDim,inventDimCriteria,inventDimParm,forcePlaceholders tableId from,palletIdIdx)
+        #        join #inventSumFields from inventSumDelta
+        #            index hint TTSDimIdx
+        #            where inventSumDelta.InventDimId    == inventDim.InventDimId     &&
+        #                    inventSumDelta.IsAggregated   == NoYes::No                 &&
+        #                    inventSumDelta.ttsId          == appl.inventUpdateOnhandGlobal().inventUpdateOnhand().ttsId();
+        #    }
+        #    else
+        #    {
+        #        select
+        #            #inventSumFields
+        #            from inventSumDelta
+        #            where (inventSumDelta.ItemId        == itemId || !inventDimParm.ItemIdFlag) &&
+        #                    inventSumDelta.IsAggregated  == NoYes::No                            &&
+        #                    inventSumDelta.ttsId         == appl.inventUpdateOnhandGlobal().inventUpdateOnhand().ttsId()
+        #            #InventDimExistsJoin(InventSumDelta.inventDimId,InventDim,InventDimCriteria,InventDimParm);
+        #    }
+        #    if (inventDimParm.ItemIdFlag)
+        #    {
+        #        inventSumDelta.ItemId = itemId;
+        #    }
+        #
+        #    return inventSumDelta;
+        #}
+      ENDSOURCE
+      SOURCE #postedValue
+        #public CostAmount postedValue()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PostedValue;
+        #}
+      ENDSOURCE
+      SOURCE #postedValueSecCur_RU
+        #public CostAmount postedValueSecCur_RU()
+        #{
+        #    this.setInventSum();
+        #
+        #    return inventSum.PostedValueSecCur_RU;
+        #}
+      ENDSOURCE
+      SOURCE #availReservationDimensions
+        #static server container availReservationDimensions(
+        #    ItemId          _itemId,
+        #    container       _inventDimPacked, // InventDim passed in as container to avoid a call back to client to release reference.
+        #    NoYes           _reserveOnOrdered)
+        #{
+        #    InventDim       inventDimCriteria;
+        #    InventDimParm   inventDimParmPhysicalInvent;
+        #    InventOnhand    inventOnhand;
+        #
+        #    if (!_itemId)
+        #    {
+        #        throw error(Error::wrongUseOfFunction(funcName()));
+        #    }
+        #
+        #    [inventDimCriteria] = _inventDimPacked;
+        #
+        #    //only take the physical dimensions that have been specified into consideration when looking for on-hand
+        #    inventDimParmPhysicalInvent.initPhysicalDimensionsFromInventDim(InventDimGroupSetup::newItemId(_itemId), inventDimCriteria);
+        #
+        #    inventOnhand = InventOnhand::newParameters(_itemId,inventDimCriteria,inventDimParmPhysicalInvent);
+        #
+        #    return [inventOnhand.availReservation(_reserveOnOrdered), inventOnhand.pdsCWAvailReservation(_reserveOnOrdered)];
+        #}
+        #
+        #
+      ENDSOURCE
+      SOURCE #construct
+        #public static InventOnhand construct()
+        #{
+        #    return new InventOnhand();
+        #}
+      ENDSOURCE
+      SOURCE #newBOMReportFinish
+        #static InventOnhand newBOMReportFinish(InventJournalTrans _inventJournalTrans)
+        #{
+        #    InventDim       inventDim;
+        #    InventDimParm   inventDimParm;
+        #
+        #    inventDim = InventDim::find(_inventJournalTrans.InventDimId);
+        #    inventDimParm.initFromInventDim(inventDim);
+        #
+        #    return InventOnhand::newParameters(_inventJournalTrans.ItemId, inventDim, inventDimParm);
+        #}
+      ENDSOURCE
+      SOURCE #newEstimatedUpdate
+        #/// <summary>
+        #///    Retrieves an instance of the <c>InventOnHand</c> class.
+        #/// </summary>
+        #/// <param name="_movement">
+        #///    An instance of the <c>InventMovement</c> class.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #///    An <c>InventDim</c> record that is used by the <c>InventOnHand</c> class.
+        #/// </param>
+        #/// <param name="_inventDimFixed">
+        #///    An <c>InventDimFixed</c> value.
+        #/// </param>
+        #/// <returns>
+        #///    An instance of the <c>InventOnHand</c> class.
+        #/// </returns>
+        #/// <remarks>
+        #///    If the <paramref name="_InventdimFixed" /> parameter is specified then the fixed dimensions will be
+        #///    included by the <c>InventOnHand</c> class.
+        #/// </remarks>
+        #static InventOnhand newEstimatedUpdate(
+        #    InventMovement  _movement,
+        #    InventDim       _inventDim,
+        #    InventDimFixed  _inventDimFixed = 0)
+        #{
+        #    InventDimParm   inventDimParm;
+        #    InventDimParm   inventDimParmFixedDimensions;
+        #
+        #    inventDimParm.initPhysicalDimensionsFromInventDim(_movement.inventDimGroupSetup(),_inventDim);
+        #
+        #    // if fixed dimensions were passed the inventDimParm also needs to include these
+        #    if (_inventDimFixed)
+        #    {
+        #        inventDimParmFixedDimensions.initFromInventDimFixed(_inventDimFixed);
+        #        inventDimParm = InventDimParm::orParms(inventDimParm,inventDimParmFixedDimensions);
+        #    }
+        #
+        #    return InventOnhand::newParameters(_movement.itemId(), _inventDim, inventDimParm);
+        #}
+      ENDSOURCE
+      SOURCE #newFinancialUpdate
+        #static public InventOnhand newFinancialUpdate(
+        #    InventMovement  _movement,
+        #    InventDim       _inventDim)
+        #{
+        #    InventDimParm       inventDimParmActiveFinancialInvent;
+        #    InventDimParm       inventDimParmActive;
+        #    InventOnhand        inventOnhand;
+        #
+        #    _movement.inventDimGroupSetup().inventDimParmActiveFinancialInventory(inventDimParmActiveFinancialInvent);
+        #    inventOnhand = InventOnhand::newParameters(_movement.itemId(), _inventDim, inventDimParmActiveFinancialInvent);
+        #
+        #    if (_inventDim.InventDimId)
+        #    {
+        #        _movement.inventDimGroupSetup().inventDimParmActive(inventDimParmActive);
+        #
+        #        if (InventDimParm::isInventDimParmEqual(inventDimParmActiveFinancialInvent,inventDimParmActive))
+        #        {
+        #            inventOnhand.parmInventDimId(_inventDim.InventDimId);
+        #        }
+        #    }
+        #
+        #    return inventOnhand;
+        #}
+      ENDSOURCE
+      SOURCE #newInventBatch
+        #static public InventOnhand newInventBatch(InventBatch inventBatch)
+        #{
+        #    InventOnhand inventOnhand = InventOnhand::construct();
+        #
+        #    inventOnhand.parmItemId(inventBatch.ItemId);
+        #    inventOnhand.parmBatchId(inventBatch.InventBatchId);
+        #
+        #    return inventOnhand;
+        #}
+      ENDSOURCE
+      SOURCE #newItemDim
+        #static public InventOnhand newItemDim(
+        #    ItemId             _itemId,
+        #    InventDim          _inventDim,
+        #    InventDimParm      _inventDimParm)
+        #{
+        #    return InventOnhand::newParameters(_itemId, _inventDim, _inventDimParm);
+        #}
+      ENDSOURCE
+      SOURCE #newItemId
+        #static public InventOnhand newItemId(ItemId _itemId)
+        #{
+        #    InventOnhand inventOnhand = InventOnhand::construct();
+        #
+        #    inventOnhand.parmItemId(_itemId);
+        #
+        #    return inventOnhand;
+        #}
+      ENDSOURCE
+      SOURCE #newParameters
+        #static public InventOnhand newParameters(
+        #    ItemId             _itemId,
+        #    InventDim          _inventDim,
+        #    InventDimParm      _inventDimParm)
+        #{
+        #    InventOnhand inventOnhand = InventOnhand::construct();
+        #
+        #    inventOnhand.parmInventDim(_inventDim);
+        #    inventOnhand.parmInventDimParm(_inventDimParm);
+        #    //this will set the itemId flag on inventDimParm
+        #    inventOnhand.parmItemId(_itemId);
+        #
+        #    return inventOnhand;
+        #}
+      ENDSOURCE
+      SOURCE #newParametersActive
+        #static public InventOnhand newParametersActive(
+        #    ItemId             _itemId,
+        #    InventDim          _inventDim,
+        #    InventDimParm      _inventDimParm,
+        #    InventDimParm      _inventDimParmActive)
+        #{
+        #    InventOnhand inventOnhand = InventOnhand::newParameters(_itemId,_inventDim,_inventDimParm);
+        #
+        #    if (_inventDim.InventDimId)
+        #    {
+        #        if (InventDimParm::isInventDimParmEqual(_inventDimParm,_inventDimParmActive))
+        #        {
+        #            inventOnhand.parmInventDimId(_inventDim.InventDimId);
+        #        }
+        #    }
+        #
+        #    return inventOnhand;
+        #}
+        #
+        #
+      ENDSOURCE
+      SOURCE #newPhysicalInvent
+        #static InventOnhand newPhysicalInvent(
+        #    InventMovement  _movement,
+        #    InventDim       _inventDim)
+        #{
+        #    return InventOnhand::newPhysicalUpdate(_movement,_inventDim);
+        #}
+      ENDSOURCE
+      SOURCE #newPhysicalUpdate
+        #static public InventOnhand newPhysicalUpdate(
+        #    InventMovement  _movement,
+        #    InventDim       _inventDim)
+        #{
+        #    InventDimParm       inventDimParmActivePhyscicalInvent;
+        #    InventDimParm       inventDimParmActive;
+        #    InventOnhand        inventOnhand;
+        #
+        #    // Fields might not have been selected on the specified buffers, or might have been updated since selection
+        #    _inventDim.checkInvalidFieldAccess(false);
+        #
+        #    _movement.inventDimGroupSetup().inventDimParmActivePhysicalInventory(inventDimParmActivePhyscicalInvent);
+        #
+        #    inventOnhand = InventOnhand::newParameters(_movement.itemId(), _inventDim, inventDimParmActivePhyscicalInvent);
+        #
+        #    if (_inventDim.InventDimId)
+        #    {
+        #        _movement.inventDimGroupSetup().inventDimParmActive(inventDimParmActive);
+        #
+        #        if (InventDimParm::isInventDimParmEqual(inventDimParmActivePhyscicalInvent,inventDimParmActive))
+        #        {
+        #            inventOnhand.parmInventDimId(_inventDim.InventDimId);
+        #        }
+        #    }
+        #
+        #    return inventOnhand;
+        #}
+      ENDSOURCE
+      SOURCE #newWMSPallet
+        #static InventOnhand newWMSPallet(WMSPallet wmsPallet)
+        #{
+        #    InventOnhand inventOnhand = InventOnhand::construct();
+        #
+        #    inventOnhand.pdsParmCWItem(wmsPallet.pdsContainsCWItems());
+        #    inventOnhand.parmPalletId(wmsPallet.wmsPalletId);
+        #    inventOnhand.parmInventLocationId(wmsPallet.InventLocationId);
+        #    inventOnhand.parmLocationId(wmsPallet.wmsLocationId);
+        #
+        #    return inventOnhand;
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: InventOnhandDP unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #InventOnhandDP
+    PROPERTIES
+      Name                #InventOnhandDP
+      Extends             #SRSReportDataProviderBase
+      RunOn               #Server
+      Origin              #{9CD02CF8-F5FC-4940-9130-13ACCA5D5418}
+    ENDPROPERTIES
+    
+    METHODS
+      SOURCE #classDeclaration
+        #/// <summary>
+        #///    The <c>InventOnhandDP</c> class is the report data provider class for the <c>InventOnhand</c>
+        #///    report.
+        #/// </summary>
+        #[
+        #    SRSReportQueryAttribute(queryStr(InventOnhand)),
+        #    SRSReportParameterAttribute(classStr(InventDimViewContract))
+        #]
+        #class InventOnhandDP extends SRSReportDataProviderBase
+        #{
+        #    InventOnhandTmp inventOnhandTmp;
+        #}
+      ENDSOURCE
+      SOURCE #getinventOnhandTmp
+        #/// <summary>
+        #/// Fetches data from the <c>InventOnhandTmp</c> temporary table.
+        #/// </summary>
+        #/// <returns>
+        #/// The data from <c>InventOnhandTmp</c> table.
+        #/// </returns>
+        #[
+        #    SRSReportDataSetAttribute(tableStr(InventOnhandTmp))
+        #]
+        #public InventOnhandTmp getinventOnhandTmp()
+        #{
+        #    select  inventOnhandTmp;
+        #    return  inventOnhandTmp;
+        #}
+      ENDSOURCE
+      SOURCE #insertTmpTable
+        #/// <summary>
+        #/// Inserts data into a temporary table.
+        #/// </summary>
+        #/// <param name="_inventSum">
+        #/// A table buffer of an <c>InventSum</c> table.
+        #/// </param>
+        #/// <param name="_inventDim">
+        #/// A table buffer of the <c>Inventdim</c> table.
+        #/// </param>
+        #private void insertTmpTable(InventSum _inventSum, InventDim _inventDim)
+        #{
+        #    inventOnhandTmp.AvailOrdered        = _inventSum.AvailOrdered;
+        #    inventOnhandTmp.AvailPhysical       = _inventSum.AvailPhysical;
+        #    inventOnhandTmp.Deducted            = _inventSum.Deducted;
+        #    inventOnhandTmp.ItemId              = _inventSum.ItemId;
+        #    inventOnhandTmp.Ordered             = _inventSum.Ordered;
+        #    inventOnhandTmp.PostedQty           = _inventSum.PostedQty;
+        #    inventOnhandTmp.Received            = _inventSum.Received;
+        #    inventOnhandTmp.ReservOrdered       = _inventSum.ReservOrdered;
+        #    inventOnhandTmp.ReservPhysical      = _inventSum.ReservPhysical;
+        #
+        #    // Fields might not have been selected on the specified buffers, or might have been updated since selection
+        #    _inventDim.checkInvalidFieldAccess(false);
+        #
+        #    inventOnhandTmp.InventDimFieldsMap::initAllDimensionsFrom(_inventDim);
+        #    inventOnhandTmp.insert();
+        #}
+      ENDSOURCE
+      SOURCE #processReport
+        #/// <summary>
+        #/// Processes the report business logic.
+        #/// </summary>
+        #/// <remarks>
+        #/// Provides the ability to write the report business logic. This method will be called by  at runtime.
+        #/// The method should compute data and populate the data tables that will be returned to .
+        #/// </remarks>
+        #[SysEntryPointAttribute(false)]
+        #public void processReport()
+        #{
+        #    QueryRun                    queryRun;
+        #    Query                       query;
+        #    InventSum                   inventSum;
+        #    InventDim                   inventDim;
+        #    InventDimParm               inventDimParmCriteria;
+        #    InventDimParm               inventDimParm;
+        #    InventDimViewContract       dimContract;
+        #
+        #    dimContract = this.parmDataContract() as InventDimViewContract;
+        #
+        #    inventDimParm = dimContract.parmInventDimParm();
+        #    inventDimParm.ItemIdFlag            = NoYes::Yes;
+        #
+        #    inventDimParmCriteria.ClosedFlag    = NoYes::Yes;
+        #
+        #    query       = InventSum::newQuery(this.parmQuery(), '', null, inventDimParmCriteria, inventDimParm);
+        #    queryRun    = new QueryRun(query);
+        #
+        #    while (queryRun.next())
+        #    {
+        #        inventSum = queryRun.get(tableNum(InventSum));
+        #
+        #        if (InventTable::find(inventSum.ItemId).inventItemType().mustInventBeControlled())
+        #        {
+        #            inventDim = queryRun.get(tableNum(InventDim));
+        #        }
+        #        if (!InventTable::find(inventSum.ItemId).inventItemType().isServiceItem())
+        #        {
+        #            this.insertTmpTable(inventSum, inventDim);
+        #            inventDim.clear();
+        #        }
+        #    }
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: JOB
+
+; Microsoft Dynamics AX Job: WCS_FindOnHandByDate unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #WCS_FindOnHandByDate
+    #/*
+    #Created for finding inventory on hand at specific location and date.
+    #Setiaji, 23 Okt 2013
+    #*/
+    #static void WCS_FindOnHandByDate(Args _args)
+    #{
+    #
+    #    InventDim           inventDim;
+    #    InventDimParm       inventDimParm;
+    #    Itemid              itemid;
+    #    InventOnhand        inventOnHand = InventOnhand::construct();
+    #    InventSumDateDim    inventSumDateDim;
+    #    TransDate           transDate;
+    #    InventTable         inventtable;
+    #    ;
+    #
+    #    while select itemid from inventtable
+    #    {
+    #    // take a sample item for testing
+    #    //itemid = "A.1.01.B001";
+    #    itemid = inventtable.ItemId;
+    #    transDate = 23\10\2013;
+    #
+    #    // take a combination of dimension , against which you want to find the stock
+    #    inventDim.InventLocationId = "A.4.4.1";
+    #
+    #    //Set the flag for the selected dimensions as active.
+    #    inventDimParm.initFromInventDim(inventDim);
+    #
+    #    //initialize the inventSumDateDim with Date,item,dimension and dim paramter
+    #    inventSumDateDim = InventSumDateDim::newParameters(transDate,
+    #                                                        itemid,
+    #                                                        inventDim,
+    #                                                        inventDimParm);
+    #
+    #    /* // Retrieve the onhand info
+    #    info(strfmt("PostedQty: %1",inventSumDateDim.postedQty()));
+    #    info(strfmt("DeductedQty: %1",inventSumDateDim.deductedQty()));
+    #    info(strfmt("ReceivedQty: %1",inventSumDateDim.receivedQty()));
+    #    */
+    #        print(strfmt("PostedQty: %1",inventSumDateDim.postedQty()));
+    #        print(strfmt("DeductedQty: %1",inventSumDateDim.deductedQty()));
+    #        print(strfmt("ReceivedQty: %1",inventSumDateDim.receivedQty()));
+    #    }
+    #}
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{62B6A871-55A9-425C-91AC-C98D6BC111A5}
+  ENDPROPERTIES
+  
+
+***Element: JOB
+
+; Microsoft Dynamics AX Job: WCS_findingOnHandByDate unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #WCS_findingOnHandByDate
+    #static void WCS_findingOnHandByDate(Args _args)
+    #{
+    #    ItemId              itemId;
+    #    InventDim           inventDimCriteria;
+    #    InventDimParm       inventDimParm;
+    #    InventSumDateDim    inventSumDateDim;
+    #    TransDate           start, finish;
+    #    int                 c;
+    #    int                 onHandTotal;
+    #    ;
+    #
+    #    start = str2date("10/22/2013", 213);
+    #    finish = str2date("10/22/2013", 213);
+    #    onHandTotal = 0;
+    #    while(start != finish)
+    #    {
+    #        c++;
+    #        // Specify the item to get onhand info on
+    #        //itemId = "A.1.01.B001";
+    #
+    #        inventSumDateDim =
+    #        InventSumDateDim::newParameters(start,
+    #        itemId,
+    #        inventDimCriteria,
+    #        inventDimParm);
+    #
+    #        info(strfmt("Date: %1 on hand: %2 itemid : %3",
+    #            start,
+    #            num2str(inventSumDateDim.postedQty() + inventSumDateDim.receivedQty() - inventSumDateDim.deductedQty(), 0, 2, 1, 1)
+    #            ));
+    #        onHandTotal += (inventSumDateDim.postedQty() + inventSumDateDim.receivedQty() - inventSumDateDim.deductedQty());
+    #        start += 1;
+    #    }
+    #    info(strfmt("Avg on hand per year: %1", onHandTotal / 365));
+    #}
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{C7A41F3A-60B9-4592-8A52-DE0F73FD1303}
+  ENDPROPERTIES
+  
+
+***Element: JOB
+
+; Microsoft Dynamics AX Job: WCS_OnHandInventory unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #WCS_OnHandInventory
+    #static void WCS_OnHandInventory(Args _args)
+    #{
+    #    InventDim       inventDim;
+    #    InventDimParm   inventDimparm;
+    #    ItemId          itemId;
+    #    InventOnhand    inventOnHand = InventOnhand::construct();
+    #    InventTable     inventTable;
+    #    ;
+    #
+    #    //while select itemId from inventTable
+    #    //{
+    #        //itemId = inventTable.ItemId;
+    #        itemId = 'A.1.01.B001';
+    #        inventDim.InventLocationId = 'L1KG';
+    #        inventDim.wMSPalletId = ' ';
+    #
+    #        inventDimparm.initFromInventDim(inventDim);
+    #
+    #        inventOnHand.parmInventDimParm(inventDimparm);
+    #        inventOnHand.parmInventDim(inventDim);
+    #        inventOnHand.parmItemId(itemId);
+    #
+    #        warning(int2str(inventOnHand.availPhysical()));
+    #        warning(int2str(inventOnHand.onOrder()));
+    #
+    #    //}
+    #
+    #}
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{4F6FF486-B1A1-4AC9-BA89-7CED36E46AC2}
+  ENDPROPERTIES
+  
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : WCS_InventOnHandWebServices unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #WCS_InventOnHandWebServices
+  PRIVATE
+  PROPERTIES
+    Name                #WCS_InventOnHandWebServices
+    Origin              #{4F5CAF19-9A67-4733-824D-D56E8182816C}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 137
+      UTILOBJECTID 0
+      NODETYPE 1325
+      NAME #FindOnHandWebServicesGroups
+    ENDNODE
+    GROUP #Services
+      PROPERTIES
+        Name                #Services
+        ProjectGroupType    #Services
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 76
+        UTILOBJECTID 0
+        NODETYPE 1321
+        NAME #FindOnHandWebServices
+      ENDNODE
+      ENDGROUP
+      
+    GROUP #Classes
+      PROPERTIES
+        Name                #Classes
+        ProjectGroupType    #Classes
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 45
+        UTILOBJECTID 1024189
+        NODETYPE 329
+        NAME #WCS_pojoOnHand
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 45
+        UTILOBJECTID 1024188
+        NODETYPE 329
+        NAME #WCS_getOnHand
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 45
+        UTILOBJECTID 1015086
+        NODETYPE 329
+        NAME #InventOnHandQty
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 45
+        UTILOBJECTID 213
+        NODETYPE 329
+        NAME #InventOnhand
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 45
+        UTILOBJECTID 1015085
+        NODETYPE 329
+        NAME #InventOnhandDP
+      ENDNODE
+      ENDGROUP
+      
+    GROUP #Jobs
+      PROPERTIES
+        Name                #Jobs
+        ProjectGroupType    #Jobs
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 5
+        UTILOBJECTID 0
+        NODETYPE 215
+        NAME #WCS_FindOnHandByDate
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 5
+        UTILOBJECTID 0
+        NODETYPE 215
+        NAME #WCS_findingOnHandByDate
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 5
+        UTILOBJECTID 0
+        NODETYPE 215
+        NAME #WCS_OnHandInventory
+      ENDNODE
+      ENDGROUP
+      
+  ENDPROJECT
+  
+
+***Element: END

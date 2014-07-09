@@ -1,0 +1,3462 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : Wcs_HcmEmployeeLookupView unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #Wcs_HcmEmployeeLookupView
+    PROPERTIES
+      Name                #Wcs_HcmEmployeeLookupView
+      Origin              #{042FE447-BC58-425E-BE2F-BEC6A326AC15}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #120
+        NextUniqueId        #1021
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #OMOperatingUnit
+          PROPERTIES
+            Name                #OMOperatingUnit
+            Table               #OMOperatingUnit
+            UniqueId            #1004
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+            LINE #OMOperatingUnitType
+            PROPERTIES
+              Name                #OMOperatingUnitType
+              Table               #OMOperatingUnit
+              Field               #OMOperatingUnitType
+              Value               #OMCostCenter
+            ENDPROPERTIES
+            
+          ENDLINES
+          BLOCKS
+            BLOCK #DirPartyTable
+              PROPERTIES
+                Name                #DirPartyTable
+                Table               #DirPartyTable
+                UniqueId            #1006
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+              ENDLINES
+              BLOCKS
+                BLOCK #HcmWorker
+                  PROPERTIES
+                    Name                #HcmWorker_1
+                    Table               #HcmWorker
+                    UniqueId            #1020
+                  ENDPROPERTIES
+                  
+                  FIELDLIST
+                    PROPERTIES
+                    ENDPROPERTIES
+                    
+                  ENDFIELDLIST
+                  LINES
+                  ENDLINES
+                  BLOCKS
+                  ENDBLOCKS
+                  ASSOCIATIONS
+                    ASSOCIATION
+                      JOINDATASOURCE #OMOperatingUnit
+                      MASTERFIELD  #HcmWorker
+                      DETAILSFIELD #RecId
+                  ENDASSOCIATIONS
+                ENDBLOCK
+              ENDBLOCKS
+              ASSOCIATIONS
+                ASSOCIATION
+                  JOINDATASOURCE #OMOperatingUnit
+                  MASTERFIELD  #RecId
+                  DETAILSFIELD #RecId
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #HcmWorker
+        PROPERTIES
+          Type                #Int64
+          Name                #HcmWorker
+          Table               #Wcs_HcmEmployeeLookupView
+          ExtendedDataType    #RefRecId
+          StringSize          #(Memo)
+          DataSource          #OMOperatingUnit
+          DataField           #HcmWorker
+          Origin              #{E6466312-632C-4034-B987-C9A344482033}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #OMOperatingUnitNumber
+        PROPERTIES
+          Name                #OMOperatingUnitNumber
+          Table               #Wcs_HcmEmployeeLookupView
+          ExtendedDataType    #OMOperatingUnitNumber
+          StringSize          #8
+          DataSource          #OMOperatingUnit
+          DataField           #OMOperatingUnitNumber
+          Origin              #{C2A74F7A-93E4-4317-AF7A-A9CC4E3037C0}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #OMOperatingUnitType
+        PROPERTIES
+          Type                #Enum
+          Name                #OMOperatingUnitType
+          Table               #Wcs_HcmEmployeeLookupView
+          EnumType            #OMOperatingUnitType
+          StringSize          #(Memo)
+          DataSource          #OMOperatingUnit
+          DataField           #OMOperatingUnitType
+          Origin              #{ABBA3FE2-1FE7-412C-9040-653DA17D7B3E}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name
+        PROPERTIES
+          Name                #Name
+          Table               #Wcs_HcmEmployeeLookupView
+          ExtendedDataType    #DirPartyName
+          StringSize          #100
+          DataSource          #DirPartyTable
+          DataField           #Name
+          Origin              #{FE9F8E0B-BB7D-4CF3-8844-1EF3BCE145F4}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Person
+        PROPERTIES
+          Type                #Int64
+          Name                #Person
+          Table               #Wcs_HcmEmployeeLookupView
+          ExtendedDataType    #DirPartyRecId
+          StringSize          #(Memo)
+          DataSource          #HcmWorker_1
+          DataField           #Person
+          Origin              #{AB40F1BB-299B-4EEB-8B98-129FB458874B}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PersonnelNumber
+        PROPERTIES
+          Name                #PersonnelNumber
+          Table               #Wcs_HcmEmployeeLookupView
+          ExtendedDataType    #HcmPersonnelNumberId
+          StringSize          #25
+          DataSource          #HcmWorker_1
+          DataField           #PersonnelNumber
+          Origin              #{07276E2B-4FE4-4A96-A1AD-E673C89A7BE0}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: QUE
+
+; Microsoft Dynamics AX Query: WCS_HcmValidFromTo unloaded
+; --------------------------------------------------------------------------------
+VERSION 31
+
+QUERY #WCS_HcmValidFromTo
+  PROPERTIES
+    Name                #WCS_HcmValidFromTo
+    Version             #10
+    NextUniqueId        #1001
+    Origin              #{D540E166-536E-434E-94A4-53C3D113F9F5}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class QueryRun extends ObjectRun
+      #{
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  BLOCKS
+    BLOCK #HcmEmployeeLookupView
+      PROPERTIES
+        Name                #HcmEmployeeLookupView_1
+        Table               #HcmEmployeeLookupView
+        UniqueId            #1000
+      ENDPROPERTIES
+      
+      FIELDLIST
+        PROPERTIES
+        ENDPROPERTIES
+        
+      ENDFIELDLIST
+      SORTING
+      ENDSORTING
+      LINES
+        LINE #ValidFrom
+        PROPERTIES
+          Name                #ValidFrom
+          Table               #HcmEmployeeLookupView
+          Field               #ValidFrom
+        ENDPROPERTIES
+        
+      ENDLINES
+      BLOCKS
+      ENDBLOCKS
+      GROUPBY
+      ENDGROUPBY
+      HAVING
+      ENDHAVING
+      ORDERBY
+      ENDORDERBY
+    ENDBLOCK
+  ENDBLOCKS
+  DEPENDENTS
+  ENDDEPENDENTS
+  COMPOSITEQUERIES
+  ENDCOMPOSITEQUERIES
+ENDQUERY
+
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : WCS_DirPartyPostalAddressView unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #WCS_DirPartyPostalAddressView
+    PROPERTIES
+      Name                #WCS_DirPartyPostalAddressView
+      Origin              #{BA5218F2-7E94-4390-A022-E95B914014CA}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #14
+        NextUniqueId        #1002
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #DirPartyPostalAddressView
+          PROPERTIES
+            Name                #DirPartyPostalAddressView_1
+            Table               #DirPartyPostalAddressView
+            UniqueId            #1000
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+            BLOCK #LogisticsAddressCountryRegionNameView
+              PROPERTIES
+                Name                #LogisticsAddressCountryRegionNameView_1
+                Table               #LogisticsAddressCountryRegionNameView
+                UniqueId            #1001
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+                LINE #LanguageId
+                PROPERTIES
+                  Name                #LanguageId
+                  Table               #LogisticsAddressCountryRegionNameView
+                  Field               #LanguageId
+                  Value               #en-us
+                ENDPROPERTIES
+                
+              ENDLINES
+              BLOCKS
+              ENDBLOCKS
+              ASSOCIATIONS
+                ASSOCIATION
+                  JOINDATASOURCE #DirPartyPostalAddressView_1
+                  MASTERFIELD  #CountryRegionId
+                  DETAILSFIELD #CountryRegionId
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #CountryRegionId
+        PROPERTIES
+          Name                #CountryRegionId
+          Table               #WCS_DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressCountryRegionId
+          StringSize          #10
+          DataSource          #LogisticsAddressCountryRegionNameView_1
+          DataField           #CountryRegionId
+          Origin              #{82864E4F-6040-4F50-8BAA-60A31BACC5D4}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ISOcode
+        PROPERTIES
+          Name                #ISOcode
+          Table               #WCS_DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressCountryRegionISOCode
+          StringSize          #2
+          DataSource          #LogisticsAddressCountryRegionNameView_1
+          DataField           #ISOcode
+          Origin              #{8EA994BB-03B6-400F-A86B-C0D827AD757E}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CurrencyCode
+        PROPERTIES
+          Name                #CurrencyCode
+          Table               #WCS_DirPartyPostalAddressView
+          ExtendedDataType    #CurrencyCode
+          StringSize          #3
+          DataSource          #LogisticsAddressCountryRegionNameView_1
+          DataField           #CurrencyCode
+          Origin              #{AE9A3BE2-9015-4F77-A519-AE25097F16A9}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ShortName
+        PROPERTIES
+          Name                #ShortName
+          Table               #WCS_DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressCountryRegionShortName
+          StringSize          #255
+          DataSource          #LogisticsAddressCountryRegionNameView_1
+          DataField           #ShortName
+          Origin              #{74A1116D-78B8-49DB-99B4-9BC86DD1ABA5}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : FinancialDimension unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #FinancialDimension
+    PROPERTIES
+      Name                #FinancialDimension
+      SaveDataPerCompany  #Yes
+      Origin              #{CC31F827-7130-4281-9005-FB1C7398A545}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+      ENDPROPERTIES
+      
+      BLOCKS
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : DirPartyPostalAddressView unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #DirPartyPostalAddressView
+    PROPERTIES
+      Name                #DirPartyPostalAddressView
+      Label               #@SYS320500
+      TitleField1         #Party
+      TitleField2         #LocationName
+      DeveloperDocumentation  #@SYS317023
+      Origin              #{2C1913D6-0000-1000-CDD0-C6CE276E25C2}
+      LegacyId            #5078
+      Query               #DirPartyPostalAddress
+      ValidTimeStateEnabled #Yes
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Origin              #{437467C9-377B-4A4E-B457-06FD096EAA00}
+      ENDPROPERTIES
+      
+      BLOCKS
+      ENDBLOCKS
+      QUERY #DirPartyPostalAddress
+      ENDQUERY
+      
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #Party
+        PROPERTIES
+          Type                #Int64
+          Name                #Party
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #DirPartyRecId
+          StringSize          #(Memo)
+          DataSource          #DirPartyLocation
+          DataField           #Party
+          Origin              #{23F24AA2-BB9C-43B2-A377-259B7FFDBBB4}
+          LegacyId            #1
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #LocationName
+        PROPERTIES
+          Name                #LocationName
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #Description
+          StringSize          #60
+          DataSource          #LogisticsPostalAddressView
+          DataField           #LocationName
+          Origin              #{1E547C0A-894E-4B76-A49F-246FBD9A5E9D}
+          LegacyId            #2
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Address
+        PROPERTIES
+          Name                #Address
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressing
+          StringSize          #250
+          DataSource          #LogisticsPostalAddressView
+          DataField           #Address
+          Origin              #{B3F27015-4B3E-4598-82EE-5070CB711106}
+          LegacyId            #3
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #StreetNumber
+        PROPERTIES
+          Name                #StreetNumber
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressStreetNumber
+          StringSize          #20
+          DataSource          #LogisticsPostalAddressView
+          DataField           #StreetNumber
+          Origin              #{DB7518A5-1D22-4FE3-AD7D-05123AE3EC9D}
+          LegacyId            #4
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Street
+        PROPERTIES
+          Name                #Street
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressStreet
+          StringSize          #250
+          DataSource          #LogisticsPostalAddressView
+          DataField           #Street
+          Origin              #{B8F4C217-D7B2-441C-BB6F-DA1A7E099FE1}
+          LegacyId            #5
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #City
+        PROPERTIES
+          Name                #City
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressCity
+          StringSize          #60
+          DataSource          #LogisticsPostalAddressView
+          DataField           #City
+          Origin              #{B674ACDD-355E-4011-9F6E-9D847206F383}
+          LegacyId            #6
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ZipCode
+        PROPERTIES
+          Name                #ZipCode
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressZipCodeId
+          StringSize          #10
+          DataSource          #LogisticsPostalAddressView
+          DataField           #ZipCode
+          Origin              #{592C4805-A5B9-45CA-AD8A-41E381A5EE0A}
+          LegacyId            #7
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #State
+        PROPERTIES
+          Name                #State
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressStateId
+          StringSize          #10
+          DataSource          #LogisticsPostalAddressView
+          DataField           #State
+          Origin              #{E7A23AAA-66C7-4D90-9856-D91165BB259D}
+          LegacyId            #8
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #County
+        PROPERTIES
+          Name                #County
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressCountyId
+          StringSize          #10
+          DataSource          #LogisticsPostalAddressView
+          DataField           #County
+          Origin              #{48F1D231-68FC-4D88-ACF9-ABA8015E5CE6}
+          LegacyId            #9
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CountryRegionId
+        PROPERTIES
+          Name                #CountryRegionId
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressCountryRegionId
+          StringSize          #10
+          DataSource          #LogisticsPostalAddressView
+          DataField           #CountryRegionId
+          Origin              #{D886F734-EECB-4575-ABBE-6DAE975A5FC6}
+          LegacyId            #10
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #District
+        PROPERTIES
+          Type                #Int64
+          Name                #District
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressDistrictRecId
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #District
+          Origin              #{FC5582B9-F63E-49E0-B6FB-7EFB830F5CDC}
+          LegacyId            #11
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PostBox
+        PROPERTIES
+          Name                #PostBox
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressPostBox
+          StringSize          #20
+          DataSource          #LogisticsPostalAddressView
+          DataField           #PostBox
+          Origin              #{744179FA-0A7F-4176-804F-3F1452F01603}
+          LegacyId            #12
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #BuildingCompliment
+        PROPERTIES
+          Name                #BuildingCompliment
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressBuildingCompliment
+          StringSize          #60
+          DataSource          #LogisticsPostalAddressView
+          DataField           #BuildingCompliment
+          Origin              #{4AE07565-34CB-425D-8727-9B0A861A88A1}
+          LegacyId            #13
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #TimeZone
+        PROPERTIES
+          Type                #Enum
+          Name                #TimeZone
+          Table               #DirPartyPostalAddressView
+          EnumType            #Timezone
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #TimeZone
+          Origin              #{6F75CC51-28E1-406C-A4B8-CCDDACF67285}
+          LegacyId            #14
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Longitude
+        PROPERTIES
+          Type                #Real
+          Name                #Longitude
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressLongitude
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #Longitude
+          Origin              #{269F4056-C15B-4606-898D-53AADDC05D00}
+          LegacyId            #15
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Latitude
+        PROPERTIES
+          Type                #Real
+          Name                #Latitude
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressLatitude
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #Latitude
+          Origin              #{828564ED-A688-49A4-9DED-1F65D561F852}
+          LegacyId            #16
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PartyLocation
+        PROPERTIES
+          Type                #Int64
+          Name                #PartyLocation
+          Label               #@SYS330518
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #RecId
+          StringSize          #(Memo)
+          DataSource          #DirPartyLocation
+          DataField           #RecId
+          Origin              #{701E54E3-7FB7-46E2-8FC7-E81BB39FA423}
+          LegacyId            #17
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Location
+        PROPERTIES
+          Type                #Int64
+          Name                #Location
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsLocationRecId
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #Location
+          Origin              #{57FB3F69-867E-4F5C-B4F0-DE2FCC7EEB1C}
+          LegacyId            #23
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ValidFrom
+        PROPERTIES
+          Type                #DateTime
+          Name                #ValidFrom
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #EffectiveDateTime
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #ValidFrom
+          Origin              #{66003D78-05EA-4E4D-A2A5-97177A071204}
+          LegacyId            #26
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ValidTo
+        PROPERTIES
+          Type                #DateTime
+          Name                #ValidTo
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #ExpirationDateTime
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #ValidTo
+          Origin              #{655B6A2B-BD09-41AB-B0E8-3BDBC9A5BF4B}
+          LegacyId            #27
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CountryCurrencyCode
+        PROPERTIES
+          Name                #CountryCurrencyCode
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #CurrencyCode
+          StringSize          #3
+          DataSource          #LogisticsPostalAddressView
+          DataField           #CountryCurrencyCode
+          Origin              #{B69DE0C8-F937-413F-8E6F-FD8913791943}
+          LegacyId            #48
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #IsPrimary
+        PROPERTIES
+          Type                #Enum
+          Name                #IsPrimary
+          HelpText            #@SYS344302
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsIsPrimaryAddress
+          EnumType            #NoYes
+          StringSize          #(Memo)
+          DataSource          #DirPartyLocation
+          DataField           #IsPrimary
+          Origin              #{25F8E557-318E-4B82-8529-CE9E629E3A68}
+          LegacyId            #49
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #IsPrivate
+        PROPERTIES
+          Type                #Enum
+          Name                #IsPrivate
+          HelpText            #@SYS344702
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsIsPrivate
+          EnumType            #NoYes
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #IsPrivate
+          Origin              #{45982FA1-55DC-49CC-87B6-43582E7BDE82}
+          LegacyId            #50
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #IsLocationOwner
+        PROPERTIES
+          Type                #Enum
+          Name                #IsLocationOwner
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #DirPartyIsLocationOwner
+          EnumType            #NoYes
+          StringSize          #(Memo)
+          DataSource          #DirPartyLocation
+          DataField           #IsLocationOwner
+          Origin              #{9D3415E1-654F-465C-97A8-B188B762E2C2}
+          LegacyId            #51
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #DistrictName
+        PROPERTIES
+          Name                #DistrictName
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressDistrictName
+          StringSize          #60
+          DataSource          #LogisticsPostalAddressView
+          DataField           #DistrictName
+          Origin              #{BDA83EAA-9E29-4549-A605-EFF9277A6179}
+          LegacyId            #59
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PostalAddress
+        PROPERTIES
+          Type                #Int64
+          Name                #PostalAddress
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #RecId
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #PostalAddress
+          Origin              #{40FB264B-CDAA-4510-AC9E-05C0B7A1C965}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ISOcode
+        PROPERTIES
+          Name                #ISOcode
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressCountryRegionISOCode
+          StringSize          #2
+          DataSource          #LogisticsPostalAddressView
+          DataField           #ISOcode
+          Origin              #{C2F53954-FED8-4D6F-84FA-5513DEF649BE}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #StreetId_RU
+        PROPERTIES
+          Type                #Int64
+          Name                #StreetId_RU
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressStreetID_RU
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #StreetId_RU
+          Origin              #{541FB1FD-EC73-4ED9-80C6-ABE7F6B5CD19}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #HouseId_RU
+        PROPERTIES
+          Type                #Int64
+          Name                #HouseId_RU
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressHouseId_RU
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #HouseId_RU
+          Origin              #{2CC44C50-B394-4130-9898-19438CC4174B}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #FlatId_RU
+        PROPERTIES
+          Type                #Int64
+          Name                #FlatId_RU
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressFlatId_RU
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #FlatId_RU
+          Origin              #{356B97E4-BFF3-46AC-B8E6-1414FB63B044}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #IsPrimaryTaxRegistration
+        PROPERTIES
+          Type                #Enum
+          Name                #IsPrimaryTaxRegistration
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsIsPrimaryTaxRegistrationAddress
+          EnumType            #NoYes
+          StringSize          #(Memo)
+          DataSource          #DirPartyLocation
+          DataField           #IsPrimaryTaxRegistration
+          Origin              #{BD087266-932E-449A-B557-AE4FB4DD8144}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Building_RU
+        PROPERTIES
+          Name                #Building_RU
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressBuilding_RU
+          StringSize          #10
+          DataSource          #LogisticsPostalAddressView
+          DataField           #Building_RU
+          Origin              #{ABE8C405-7CD4-4B1C-84F5-CE967C151B42}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Apartment_RU
+        PROPERTIES
+          Name                #Apartment_RU
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #LogisticsAddressApartment_RU
+          StringSize          #10
+          DataSource          #LogisticsPostalAddressView
+          DataField           #Apartment_RU
+          Origin              #{B1F08676-6037-4993-90C1-28027DCB7846}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PrivateForParty
+        PROPERTIES
+          Type                #Int64
+          Name                #PrivateForParty
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #DirPartyPrivateLocationRecId
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #PrivateForParty
+          Origin              #{130C4B30-2BFA-43F8-9768-5D989AADE660}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #_RecId_LogisticsPostalAddress
+        PROPERTIES
+          Type                #Int64
+          Name                #_RecId_LogisticsPostalAddress
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #RecId
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #_RecId_LogisticsPostalAddress
+          Origin              #{999C9CA2-2B84-4464-942D-7FA355F61F46}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #_recVersion_LogisticsPostalAddress
+        PROPERTIES
+          Type                #Integer
+          Name                #_recVersion_LogisticsPostalAddress
+          Table               #DirPartyPostalAddressView
+          ExtendedDataType    #RecVersion
+          StringSize          #(Memo)
+          DataSource          #LogisticsPostalAddressView
+          DataField           #_recVersion_LogisticsPostalAddress
+          Origin              #{5A6989DB-19C6-42EB-9656-E0AB1E371B7D}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+      GROUP #AutoReport
+        PROPERTIES
+          Name                #AutoReport
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #LocationName
+          #Address
+          #ValidFrom
+          #ValidTo
+        ENDGROUPFIELDS
+      ENDGROUP
+    ENDGROUPS
+    
+    METHODS
+      SOURCE #deactivate
+        #public void deactivate(Common _callerRecord = null, boolean _deleteDefaults = false)
+        #{
+        #    FormDataSource      fds;
+        #    DirPartyLocation    dirPartyLocation;
+        #
+        #    if(this.IsLocationOwner)
+        #    {
+        #        // Find if the location is shared or not
+        #        select firstonly RecId, Location, Party from dirPartyLocation where dirPartyLocation.Location == this.Location && dirPartyLocation.Party != this.Party;
+        #
+        #        if (!dirPartyLocation.RecId || (dirPartyLocation.RecId && Box::yesNo(strFmt("@SYS320464",tableId2pname(tableNum(LogisticsPostalAddress))),DialogButton::No, "@SYS320462") == DialogButton::Yes))
+        #        {
+        #            LogisticsPostalAddress::findByLocation(this.Location).deactivate(_callerRecord, _deleteDefaults);
+        #        }
+        #        else
+        #        {
+        #            return;
+        #        }
+        #    }
+        #    else
+        #    {
+        #        // delete the party association to the location
+        #        dirPartyLocation = DirPartyLocation::findByPartyLocation(this.Party, this.Location, true);
+        #        if(dirPartyLocation.validateDelete())
+        #        {
+        #            dirPartyLocation.delete();
+        #        }
+        #    }
+        #
+        #    // Refresh the addresses grid
+        #    fds = this.dataSource();
+        #    if (fds)
+        #    {
+        #        fds.executeQuery();
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #delete
+        #public void delete()
+        #{
+        #    LogisticsLocation   location;
+        #    DirPartyLocation    dirPartyLocation;
+        #    DirPartyLocation    dirPartyLocationSecondary;
+        #    boolean             confirmDelete = true;
+        #
+        #    location = LogisticsLocation::find(this.Location,true);
+        #
+        #    select firstonly RecId, Location, Party from dirPartyLocationSecondary
+        #    where dirPartyLocationSecondary.Location == this.Location && dirPartyLocationSecondary.Party != this.Party;
+        #
+        #    if(dirPartyLocationSecondary.RecId != 0)
+        #    {
+        #        select dirPartyLocation
+        #        where dirPartyLocation.RecId == this.PartyLocation;
+        #
+        #        if (dirPartyLocation.RecId != 0)
+        #        {
+        #            // Show dialog to update parties that share this address
+        #            confirmDelete = LogisticsEntityLocationMap::showSharedAddressDialog(dirPartyLocation);
+        #        }
+        #    }
+        #
+        #    if (confirmDelete && dirPartyLocation.RecId != 0 && location.validateDelete())
+        #    {
+        #        location.delete();
+        #        this.dataSource().research();
+        #    }
+        #    else if (dirPartyLocation.RecId == 0 &&
+        #            Box::yesNo(strFmt("@SYS302359",tableId2pname(tableNum(LogisticsPostalAddress))),DialogButton::No, "@SYS24848") == DialogButton::Yes &&
+        #            location.validateDelete())
+        #    {
+        #        location.delete();
+        #        this.dataSource().research();
+        #    }
+        #
+        #}
+      ENDSOURCE
+      SOURCE #initFromPostalAddress
+        #public void initFromPostalAddress(LogisticsPostalAddress _postalAddress)
+        #{
+        #    this.Location = _postalAddress.Location;
+        #    this.ZipCode = _postalAddress.ZipCode;
+        #    this.CountryRegionId = _postalAddress.CountryRegionId;
+        #    this.State = _postalAddress.State;
+        #    this.County = _postalAddress.County;
+        #    this.City = _postalAddress.City;
+        #    this.PostBox = _postalAddress.PostBox;
+        #    this.BuildingCompliment = _postalAddress.BuildingCompliment;
+        #    this.Latitude = _postalAddress.Latitude;
+        #    this.Longitude = _postalAddress.Longitude;
+        #    this.Street = _postalAddress.Street;
+        #    this.StreetNumber = _postalAddress.StreetNumber;
+        #    this.TimeZone = _postalAddress.TimeZone;
+        #    this.ValidFrom = _postalAddress.ValidFrom;
+        #    this.ValidTo = _postalAddress.ValidTo;
+        #    this.DistrictName = _postalAddress.DistrictName;
+        #    // <GEERU>
+        #    this.StreetId_RU    = _postalAddress.StreetId_RU;
+        #    this.HouseId_RU     = _postalAddress.HouseId_RU;
+        #    this.FlatId_RU      = _postalAddress.FlatId_RU;
+        #    this.Building_RU    = _postalAddress.Building_RU;
+        #    this.Apartment_RU   = _postalAddress.Apartment_RU;
+        #    // </GEERU>
+        #}
+      ENDSOURCE
+      SOURCE #initFromPostalAddressView
+        #public void initFromPostalAddressView(LogisticsPostalAddressView _postalAddress)
+        #{
+        #    this.Location = _postalAddress.Location;
+        #    this.ZipCode = _postalAddress.ZipCode;
+        #    this.CountryRegionId = _postalAddress.CountryRegionId;
+        #    this.State = _postalAddress.State;
+        #    this.County = _postalAddress.County;
+        #    this.City = _postalAddress.City;
+        #    this.PostBox = _postalAddress.PostBox;
+        #    this.BuildingCompliment = _postalAddress.BuildingCompliment;
+        #    this.Latitude = _postalAddress.Latitude;
+        #    this.Longitude = _postalAddress.Longitude;
+        #    this.Street = _postalAddress.Street;
+        #    this.StreetNumber = _postalAddress.StreetNumber;
+        #    this.TimeZone = _postalAddress.TimeZone;
+        #    this.ValidFrom = _postalAddress.ValidFrom;
+        #    this.ValidTo = _postalAddress.ValidTo;
+        #    this.DistrictName = _postalAddress.DistrictName;
+        #    // <GEERU>
+        #    this.StreetId_RU = _postalAddress.StreetId_RU;
+        #    this.HouseId_RU  = _postalAddress.HouseId_RU;
+        #    this.FlatId_RU   = _postalAddress.FlatId_RU;
+        #    // </GEERU>
+        #}
+      ENDSOURCE
+      SOURCE #locationRoles
+        #//BP Deviation Documented
+        #display DirPartyAddressLocationRoleNames locationRoles()
+        #{
+        #    return DirPartyLocation::selectRecId(this.PartyLocation).locationRoleNames();
+        #}
+      ENDSOURCE
+      SOURCE #mapAddress
+        #public void mapAddress()
+        #{
+        #    smmUtility::mapIt(LogisticsPostalAddress::findByLocation(this.Location));
+        #}
+      ENDSOURCE
+      SOURCE #postLoad
+        #public void postLoad()
+        #{
+        #    super();
+        #
+        #    // Replace country region token in formatted address with the translatad name based on the global language
+        #    DirUtility::replaceAddressToken(this);
+        #}
+      ENDSOURCE
+      SOURCE #showSharedAddressDialog
+        #private boolean showSharedAddressDialog(DirPartyLocation _partyLocation)
+        #{
+        #    Args args = new Args();
+        #    FormRun formRun;
+        #
+        #    args.name(formStr(DirSharedLocationUpdate));
+        #    args.record(_partyLocation);
+        #
+        #    formRun = classfactory.formRunClass(args);
+        #
+        #    formRun.init();
+        #    formRun.run();
+        #    formRun.wait();
+        #
+        #    return !formRun.closedCancel();
+        #}
+      ENDSOURCE
+      SOURCE #updateButtons
+        #public void updateButtons(boolean _mainRecordExist,
+        #                          FormFunctionButtonControl _newBtn,
+        #                          FormFunctionButtonControl _editBtn,
+        #                          FormFunctionButtonControl _advancedBtn,
+        #                          FormButtonControl _deleteBtn,
+        #                          FormButtonControl _deactivateBtn,
+        #                          FormButtonControl _mapBtn,
+        #                          FormFunctionButtonControl _defaultBtn = null,
+        #                          FormFunctionButtonControl _deliveryBtn = null)
+        #{
+        #    boolean exist = (this.RecId != 0);
+        #
+        #    _editBtn.enabled(exist);
+        #    _advancedBtn.enabled(_mainRecordExist);
+        #    _deleteBtn.enabled(hasTableAccess(tableNum(LogisticsLocation), AccessType::Delete) && exist && this.IsPrimary == false);
+        #    _deactivateBtn.enabled(exist && this.IsPrimary == false);
+        #    _mapBtn.enabled(exist);
+        #
+        #    if (_defaultBtn != null)
+        #    {
+        #        _defaultBtn.enabled(exist);
+        #    }
+        #    if (_deliveryBtn != null)
+        #    {
+        #        _deliveryBtn.enabled(exist);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #updateButtonsMenuItem
+        #/// <summary>
+        #/// Updates the buttons for the toolbar next to the address grid.
+        #/// </summary>
+        #/// <param name="_mainRecordExist">
+        #/// A Boolean value that indicates whether there is a valid party record.
+        #/// </param>
+        #/// <param name="_newBtn">
+        #/// The New button on the form.
+        #/// </param>
+        #/// <param name="_editBtn">
+        #/// The Edit button on the form
+        #/// </param>
+        #/// <param name="_advancedBtn">
+        #/// The Advanced button on the form
+        #/// </param>
+        #/// <param name="_deleteBtn">
+        #/// The Delete button on the form
+        #/// </param>
+        #/// <param name="_deactivateBtn">
+        #/// The Deactivate button on the form
+        #/// </param>
+        #/// <param name="_mapBtn">
+        #/// The Map button on the form
+        #/// </param>
+        #/// <param name="_defaultBtn">
+        #/// The Default location button on the form
+        #/// </param>
+        #/// <remarks>
+        #/// The Delete button must be a <c>MenuItemButton</c> object.
+        #/// </remarks>
+        #public void updateButtonsMenuItem(boolean _mainRecordExist,
+        #                          FormFunctionButtonControl _newBtn,
+        #                          FormFunctionButtonControl _editBtn,
+        #                          FormFunctionButtonControl _advancedBtn,
+        #                          FormFunctionButtonControl _deleteBtn,
+        #                          FormFunctionButtonControl _deactivateBtn,
+        #                          FormFunctionButtonControl _mapBtn,
+        #                          FormFunctionButtonControl _defaultBtn = null)
+        #{
+        #    boolean exist = (this.RecId != 0);
+        #
+        #    _editBtn.enabled(exist);
+        #    _advancedBtn.enabled(_mainRecordExist);
+        #    _deleteBtn.enabled(hasTableAccess(tableNum(LogisticsLocation), AccessType::Delete) && exist && this.IsPrimary == false);
+        #    _deactivateBtn.enabled(exist && this.IsPrimary == false);
+        #    _mapBtn.enabled(exist);
+        #
+        #    if (_defaultBtn != null)
+        #    {
+        #        _defaultBtn.enabled(exist);
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #find
+        #public static DirPartyPostalAddressView find(DirPartyRecId _party, LogisticsLocationRecId _location, utcdatetime _validFrom = DateTimeUtil::utcNow(), utcdatetime _validTo = _validFrom)
+        #{
+        #    DirPartyPostalAddressView postalAddressView;
+        #
+        #    select firstonly postalAddressView
+        #        where postalAddressView.Party == _party &&
+        #              postalAddressView.Location == _location &&
+        #              postalAddressView.ValidFrom <= _validFrom &&
+        #              postalAddressView.ValidTo >= _validTo;
+        #
+        #    return postalAddressView;
+        #}
+      ENDSOURCE
+      SOURCE #updateQuery
+        #static void updateQuery(QueryBuildDataSource _qbds, DirPartyRecId _party = 0, boolean _sort = true)
+        #{
+        #    QueryBuildRange         partyRange;
+        #
+        #    partyRange = SysQuery::findOrCreateRange(_qbds,fieldNum(DirPartyPostalAddressView,Party));
+        #    partyRange.status(RangeStatus::Hidden);
+        #    partyRange.value(SysQuery::value(_party));
+        #
+        #    if (_sort)
+        #    {
+        #        // Sorty by primary and location recID
+        #        _qbds.sortClear();
+        #        _qbds.addSortField(fieldNum(DirPartyPostalAddressView,IsPrimary), SortOrder::Descending);
+        #        _qbds.addSortField(fieldNum(DirPartyPostalAddressView,Location), SortOrder::Ascending);
+        #    }
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : CustTableCountryIdCube unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #CustTableCountryIdCube
+    PROPERTIES
+      Name                #CustTableCountryIdCube
+      Label               #Customer country ID
+      Origin              #{4D639363-1BEC-460B-8948-13486D84CF68}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #25
+        NextUniqueId        #1006
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #DirPartyPostalAddressView
+          PROPERTIES
+            Name                #DirPartyPostalAddressView
+            Table               #DirPartyPostalAddressView
+            UniqueId            #1000
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+            BLOCK #DirPartyTable
+              PROPERTIES
+                Name                #DirPartyTable
+                Table               #DirPartyTable
+                UniqueId            #1002
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+              ENDLINES
+              BLOCKS
+                BLOCK #CustTableCube
+                  PROPERTIES
+                    Name                #CustTableCube_1
+                    Table               #CustTableCube
+                    UniqueId            #1005
+                  ENDPROPERTIES
+                  
+                  FIELDLIST
+                    PROPERTIES
+                    ENDPROPERTIES
+                    
+                  ENDFIELDLIST
+                  LINES
+                  ENDLINES
+                  BLOCKS
+                  ENDBLOCKS
+                  ASSOCIATIONS
+                    ASSOCIATION
+                      JOINDATASOURCE #DirPartyTable
+                      MASTERFIELD  #RecId
+                      DETAILSFIELD #Party
+                  ENDASSOCIATIONS
+                ENDBLOCK
+              ENDBLOCKS
+              ASSOCIATIONS
+                ASSOCIATION
+                  JOINDATASOURCE #DirPartyPostalAddressView
+                  MASTERFIELD  #Party
+                  DETAILSFIELD #RecId
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #AccountNum
+        PROPERTIES
+          Name                #AccountNum
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #CustAccount
+          StringSize          #20
+          DataSource          #CustTableCube_1
+          DataField           #AccountNum
+          Origin              #{90924EB6-AF12-44D4-B738-D1DEDD5B40E4}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Blocked
+        PROPERTIES
+          Type                #Enum
+          Name                #Blocked
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #CustBlocked
+          EnumType            #CustVendorBlocked
+          StringSize          #(Memo)
+          DataSource          #CustTableCube_1
+          DataField           #Blocked
+          Origin              #{EB154EC7-BFC0-4BEB-9ACE-D01DDEFBD9E6}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Currency
+        PROPERTIES
+          Name                #Currency
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #CustCurrencyCode
+          StringSize          #3
+          DataSource          #CustTableCube_1
+          DataField           #Currency
+          Origin              #{8500A95E-1010-426C-874F-8D4C4A6B2FC8}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CustGroup
+        PROPERTIES
+          Name                #CustGroup
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #CustGroupId
+          StringSize          #10
+          DataSource          #CustTableCube_1
+          DataField           #CustGroup
+          Origin              #{458746E1-97A7-4A88-8552-8622CA0E4707}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #GroupName
+        PROPERTIES
+          Name                #GroupName
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #Description
+          StringSize          #60
+          DataSource          #CustTableCube_1
+          DataField           #GroupName
+          Origin              #{2B58E85B-A212-4B21-B198-21BFBEC2F7FC}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name
+        PROPERTIES
+          Name                #Name
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #DirPartyName
+          StringSize          #100
+          DataSource          #CustTableCube_1
+          DataField           #Name
+          Origin              #{1053415B-89F1-48F1-AF72-160CED043D63}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Party
+        PROPERTIES
+          Type                #Int64
+          Name                #Party
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #DirPartyRecId
+          StringSize          #(Memo)
+          DataSource          #CustTableCube_1
+          DataField           #Party
+          Origin              #{88AA8366-2325-4BC2-9F97-2A18C0B9A1F9}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Address
+        PROPERTIES
+          Name                #Address
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #LogisticsAddressing
+          StringSize          #250
+          DataSource          #DirPartyPostalAddressView
+          DataField           #Address
+          Origin              #{E1FB2866-2465-4C75-91FD-4C954AC967F8}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #City
+        PROPERTIES
+          Name                #City
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #LogisticsAddressCity
+          StringSize          #60
+          DataSource          #DirPartyPostalAddressView
+          DataField           #City
+          Origin              #{FFAD16FA-D590-4B18-9EAB-E2C2214287FE}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CountryRegionId
+        PROPERTIES
+          Name                #CountryRegionId
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #LogisticsAddressCountryRegionId
+          StringSize          #10
+          DataSource          #DirPartyPostalAddressView
+          DataField           #CountryRegionId
+          Origin              #{3EFDEC44-B72F-4BA7-A4A6-2B266E2603E2}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #District
+        PROPERTIES
+          Type                #Int64
+          Name                #District
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #LogisticsAddressDistrictRecId
+          StringSize          #(Memo)
+          DataSource          #DirPartyPostalAddressView
+          DataField           #District
+          Origin              #{4919C0FC-2505-48AB-A432-640BE54DFF32}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #DistrictName
+        PROPERTIES
+          Name                #DistrictName
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #LogisticsAddressDistrictName
+          StringSize          #60
+          DataSource          #DirPartyPostalAddressView
+          DataField           #DistrictName
+          Origin              #{6FD0A753-15B9-4954-9966-3C6B74AC3775}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Location
+        PROPERTIES
+          Type                #Int64
+          Name                #Location
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #LogisticsLocationRecId
+          StringSize          #(Memo)
+          DataSource          #DirPartyPostalAddressView
+          DataField           #Location
+          Origin              #{01A81763-F431-4184-96A9-2079B32603FA}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #LocationName
+        PROPERTIES
+          Name                #LocationName
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #Description
+          StringSize          #60
+          DataSource          #DirPartyPostalAddressView
+          DataField           #LocationName
+          Origin              #{3484F12D-01EE-47D2-A88A-D2C836BF6BE1}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Street
+        PROPERTIES
+          Name                #Street
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #LogisticsAddressStreet
+          StringSize          #250
+          DataSource          #DirPartyPostalAddressView
+          DataField           #Street
+          Origin              #{6949E5F4-BF94-4BAB-96CF-EAE67BE12F4A}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ValidFrom
+        PROPERTIES
+          Type                #DateTime
+          Name                #ValidFrom
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #EffectiveDateTime
+          StringSize          #(Memo)
+          DataSource          #DirPartyPostalAddressView
+          DataField           #ValidFrom
+          Origin              #{27DDDA8B-902F-4349-8CB8-B1D148A32C66}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ValidTo
+        PROPERTIES
+          Type                #DateTime
+          Name                #ValidTo
+          Table               #CustTableCountryIdCube
+          ExtendedDataType    #ExpirationDateTime
+          StringSize          #(Memo)
+          DataSource          #DirPartyPostalAddressView
+          DataField           #ValidTo
+          Origin              #{08BF30FA-4E65-42FA-9F12-31A13CA51EB0}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : HcmEmployeeLookupView unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #HcmEmployeeLookupView
+    PROPERTIES
+      Name                #HcmEmployeeLookupView
+      Label               #Employee Detail Lokkup
+      Origin              #{031494A6-CCC0-4004-8D28-4321A02A39D0}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #72
+        NextUniqueId        #1015
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #HcmWorker
+          PROPERTIES
+            Name                #HcmWorker_1
+            Table               #HcmWorker
+            UniqueId            #1004
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+            BLOCK #HcmPositionWorkerAssignment
+              PROPERTIES
+                Name                #HcmPositionWorkerAssignment_1
+                Table               #HcmPositionWorkerAssignment
+                UniqueId            #1006
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+              ENDLINES
+              BLOCKS
+                BLOCK #HcmPosition
+                  PROPERTIES
+                    Name                #HcmPosition_1
+                    Table               #HcmPosition
+                    UniqueId            #1007
+                  ENDPROPERTIES
+                  
+                  FIELDLIST
+                    PROPERTIES
+                    ENDPROPERTIES
+                    
+                  ENDFIELDLIST
+                  LINES
+                  ENDLINES
+                  BLOCKS
+                    BLOCK #HcmPositionDetail
+                      PROPERTIES
+                        Name                #HcmPositionDetail_1
+                        Table               #HcmPositionDetail
+                        UniqueId            #1008
+                      ENDPROPERTIES
+                      
+                      FIELDLIST
+                        PROPERTIES
+                        ENDPROPERTIES
+                        
+                      ENDFIELDLIST
+                      LINES
+                      ENDLINES
+                      BLOCKS
+                        BLOCK #OMOperatingUnit
+                          PROPERTIES
+                            Name                #OMOperatingUnit_1
+                            Table               #OMOperatingUnit
+                            UniqueId            #1009
+                          ENDPROPERTIES
+                          
+                          FIELDLIST
+                            PROPERTIES
+                            ENDPROPERTIES
+                            
+                          ENDFIELDLIST
+                          LINES
+                          ENDLINES
+                          BLOCKS
+                            BLOCK #DirPerson
+                              PROPERTIES
+                                Name                #DirPerson_1
+                                Table               #DirPerson
+                                UniqueId            #1010
+                              ENDPROPERTIES
+                              
+                              FIELDLIST
+                                PROPERTIES
+                                ENDPROPERTIES
+                                
+                              ENDFIELDLIST
+                              LINES
+                              ENDLINES
+                              BLOCKS
+                                BLOCK #DirPartyTable
+                                  PROPERTIES
+                                    Name                #DirPartyTable_1
+                                    Table               #DirPartyTable
+                                    UniqueId            #1011
+                                  ENDPROPERTIES
+                                  
+                                  FIELDLIST
+                                    PROPERTIES
+                                    ENDPROPERTIES
+                                    
+                                  ENDFIELDLIST
+                                  LINES
+                                  ENDLINES
+                                  BLOCKS
+                                    BLOCK #HcmJob
+                                      PROPERTIES
+                                        Name                #HcmJob_1
+                                        Table               #HcmJob
+                                        UniqueId            #1012
+                                      ENDPROPERTIES
+                                      
+                                      FIELDLIST
+                                        PROPERTIES
+                                        ENDPROPERTIES
+                                        
+                                      ENDFIELDLIST
+                                      LINES
+                                      ENDLINES
+                                      BLOCKS
+                                        BLOCK #HcmJobDetail
+                                          PROPERTIES
+                                            Name                #HcmJobDetail_1
+                                            Table               #HcmJobDetail
+                                            UniqueId            #1013
+                                          ENDPROPERTIES
+                                          
+                                          FIELDLIST
+                                            PROPERTIES
+                                            ENDPROPERTIES
+                                            
+                                          ENDFIELDLIST
+                                          LINES
+                                          ENDLINES
+                                          BLOCKS
+                                            BLOCK #OMDepartmentView
+                                              PROPERTIES
+                                                Name                #OMDepartmentView_1
+                                                Table               #OMDepartmentView
+                                                UniqueId            #1014
+                                              ENDPROPERTIES
+                                              
+                                              FIELDLIST
+                                                PROPERTIES
+                                                ENDPROPERTIES
+                                                
+                                              ENDFIELDLIST
+                                              LINES
+                                              ENDLINES
+                                              BLOCKS
+                                              ENDBLOCKS
+                                              ASSOCIATIONS
+                                                ASSOCIATION
+                                                  JOINDATASOURCE #OMOperatingUnit_1
+                                                  MASTERFIELD  #RecId
+                                                  DETAILSFIELD #OMOperatingUnitRecId
+                                              ENDASSOCIATIONS
+                                            ENDBLOCK
+                                          ENDBLOCKS
+                                          ASSOCIATIONS
+                                            ASSOCIATION
+                                              JOINDATASOURCE #HcmJob_1
+                                              FOREIGNKEYRELATION #Job
+                                          ENDASSOCIATIONS
+                                        ENDBLOCK
+                                      ENDBLOCKS
+                                      ASSOCIATIONS
+                                        ASSOCIATION
+                                          JOINDATASOURCE #HcmPositionDetail_1
+                                          FOREIGNKEYRELATION #Job
+                                      ENDASSOCIATIONS
+                                    ENDBLOCK
+                                  ENDBLOCKS
+                                  ASSOCIATIONS
+                                    ASSOCIATION
+                                      JOINDATASOURCE #DirPerson_1
+                                      MASTERFIELD  #RecId
+                                      DETAILSFIELD #RecId
+                                  ENDASSOCIATIONS
+                                ENDBLOCK
+                              ENDBLOCKS
+                              ASSOCIATIONS
+                                ASSOCIATION
+                                  JOINDATASOURCE #HcmWorker_1
+                                  MASTERFIELD  #Person
+                                  DETAILSFIELD #RecId
+                              ENDASSOCIATIONS
+                            ENDBLOCK
+                          ENDBLOCKS
+                          ASSOCIATIONS
+                            ASSOCIATION
+                              JOINDATASOURCE #HcmPositionDetail_1
+                              MASTERFIELD  #Department
+                              DETAILSFIELD #RecId
+                          ENDASSOCIATIONS
+                        ENDBLOCK
+                      ENDBLOCKS
+                      ASSOCIATIONS
+                        ASSOCIATION
+                          JOINDATASOURCE #HcmPosition_1
+                          MASTERFIELD  #RecId
+                          DETAILSFIELD #Position
+                      ENDASSOCIATIONS
+                    ENDBLOCK
+                  ENDBLOCKS
+                  ASSOCIATIONS
+                    ASSOCIATION
+                      JOINDATASOURCE #HcmPositionWorkerAssignment_1
+                      MASTERFIELD  #Position
+                      DETAILSFIELD #RecId
+                  ENDASSOCIATIONS
+                ENDBLOCK
+              ENDBLOCKS
+              ASSOCIATIONS
+                ASSOCIATION
+                  JOINDATASOURCE #HcmWorker_1
+                  MASTERFIELD  #RecId
+                  DETAILSFIELD #Worker
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #PersonnelNumber
+        PROPERTIES
+          Name                #PersonnelNumber
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #HcmPersonnelNumberId
+          StringSize          #25
+          DataSource          #HcmWorker_1
+          DataField           #PersonnelNumber
+          Origin              #{63FD53EB-8501-41F7-B0BF-17AF96AED23D}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Description
+        PROPERTIES
+          Name                #Description
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #HrmDescription
+          StringSize          #60
+          DataSource          #HcmPositionDetail_1
+          DataField           #Description
+          Origin              #{5C507A75-701B-4011-A629-07E0A7BA3799}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PositionId
+        PROPERTIES
+          Name                #PositionId
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #HcmPositionId
+          StringSize          #25
+          DataSource          #HcmPosition_1
+          DataField           #PositionId
+          Origin              #{3F09736C-3F47-4A4B-9067-142F34EE9AF1}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #OMOperatingUnitNumber
+        PROPERTIES
+          Name                #OMOperatingUnitNumber
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #OMOperatingUnitNumber
+          StringSize          #8
+          DataSource          #OMOperatingUnit_1
+          DataField           #OMOperatingUnitNumber
+          Origin              #{5C3E7078-7311-4E44-BE40-254627659036}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #OMOperatingUnitType
+        PROPERTIES
+          Type                #Enum
+          Name                #OMOperatingUnitType
+          Table               #HcmEmployeeLookupView
+          EnumType            #OMOperatingUnitType
+          StringSize          #(Memo)
+          DataSource          #OMOperatingUnit_1
+          DataField           #OMOperatingUnitType
+          Origin              #{81CED83F-21D6-4F55-8BAB-D798EA7A1BED}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #RecIdOMOperatingUnit
+        PROPERTIES
+          Type                #Int64
+          Name                #RecIdOMOperatingUnit
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #RecId
+          StringSize          #(Memo)
+          DataSource          #OMOperatingUnit_1
+          DataField           #RecId
+          Origin              #{8607E8B1-1F42-4AB2-821D-833EE21A1C6A}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #RecIdDirPerson
+        PROPERTIES
+          Type                #Int64
+          Name                #RecIdDirPerson
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #RecId
+          StringSize          #(Memo)
+          DataSource          #DirPerson_1
+          DataField           #RecId
+          Origin              #{5B0BC13A-FEAE-4B59-862A-1FE30F6E7361}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name
+        PROPERTIES
+          Name                #Name
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #DirPartyName
+          StringSize          #100
+          DataSource          #DirPartyTable_1
+          DataField           #Name
+          Origin              #{3761F2EC-537C-48F3-8DA0-2868C4C4B2D3}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ValidFrom
+        PROPERTIES
+          Type                #DateTime
+          Name                #ValidFrom
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #HcmPositionWorkerAssignmentStartDate
+          StringSize          #(Memo)
+          DataSource          #HcmPositionWorkerAssignment_1
+          DataField           #ValidFrom
+          Origin              #{9731297B-B52E-4483-B9B0-C29F76E63800}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ValidTo
+        PROPERTIES
+          Type                #DateTime
+          Name                #ValidTo
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #HcmPositionWorkerAssignmentEndDate
+          StringSize          #(Memo)
+          DataSource          #HcmPositionWorkerAssignment_1
+          DataField           #ValidTo
+          Origin              #{097FEFBF-4757-429C-BEA7-020FE297C4EA}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name1
+        PROPERTIES
+          Name                #Name1
+          Label               #Department Name
+          Table               #HcmEmployeeLookupView
+          ExtendedDataType    #DirPartyName
+          StringSize          #100
+          DataSource          #OMDepartmentView_1
+          DataField           #Name
+          Origin              #{93C04620-268A-45C4-A8AD-1E29AAB7D9D8}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+      SOURCE #getOperatingUnitName
+        #public display Name getOperatingUnitName()
+        #{
+        #    return OMOperatingUnit::findbyRecId(this.RecIdOMOperatingUnit).Name;
+        #}
+      ENDSOURCE
+      SOURCE #getPersonName
+        #public display Name getPersonName()
+        #{
+        #    return DirPerson::find(this.RecIdDirPerson).Name;
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : CustTableCube unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #CustTableCube
+    PROPERTIES
+      Name                #CustTableCube
+      Label               #@SYS11307
+      TitleField1         #AccountNum
+      TitleField2         #Currency
+      SaveDataPerCompany  #Yes
+      DeveloperDocumentation  #@sys315900
+      Origin              #{2C0D14C0-0000-1000-EAF3-15B405DE716C}
+      LegacyId            #5312
+      Query               #CustTableCube
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #5
+        NextUniqueId        #1001
+      ENDPROPERTIES
+      
+      BLOCKS
+      ENDBLOCKS
+      QUERY #CustTableCube
+      ENDQUERY
+      
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #AccountNum
+        PROPERTIES
+          Name                #AccountNum
+          Table               #CustTableCube
+          ExtendedDataType    #CustAccount
+          StringSize          #20
+          DataSource          #CustTable_1
+          DataField           #AccountNum
+          Origin              #{B4029BD8-3F7E-49A2-8ABB-AF7E9E5F9AB8}
+          LegacyId            #145
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Blocked
+        PROPERTIES
+          Type                #Enum
+          Name                #Blocked
+          Table               #CustTableCube
+          ExtendedDataType    #CustBlocked
+          EnumType            #CustVendorBlocked
+          StringSize          #(Memo)
+          DataSource          #CustTable_1
+          DataField           #Blocked
+          Origin              #{0BD84D35-31A6-4668-B460-BC74AC5E50C5}
+          LegacyId            #146
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Currency
+        PROPERTIES
+          Name                #Currency
+          Table               #CustTableCube
+          ExtendedDataType    #CustCurrencyCode
+          StringSize          #3
+          DataSource          #CustTable_1
+          DataField           #Currency
+          Origin              #{0B7804A4-A801-47ED-B7B8-DC881823FA24}
+          LegacyId            #148
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CreditMax
+        PROPERTIES
+          Type                #Real
+          Name                #CreditMax
+          Table               #CustTableCube
+          ExtendedDataType    #CustCreditMaxMST
+          StringSize          #(Memo)
+          DataSource          #CustTable_1
+          DataField           #CreditMax
+          Origin              #{B9E81B3E-560C-4F8A-B73D-596324F53A2B}
+          LegacyId            #150
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PaymTermId
+        PROPERTIES
+          Name                #PaymTermId
+          Table               #CustTableCube
+          ExtendedDataType    #CustPaymTermId
+          StringSize          #10
+          DataSource          #CustTable_1
+          DataField           #PaymTermId
+          Origin              #{A2D28E69-9C96-4D57-B352-3FBD6A0AAD49}
+          LegacyId            #151
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CommissionGroupId
+        PROPERTIES
+          Name                #CommissionGroupId
+          Table               #CustTableCube
+          ExtendedDataType    #CommissSalesGroup
+          StringSize          #10
+          DataSource          #CommissionSalesGroup_1
+          DataField           #GroupId
+          Origin              #{AB77689F-0FF9-4CC1-8860-6B054FBF2D3C}
+          LegacyId            #152
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CommissionName
+        PROPERTIES
+          Name                #CommissionName
+          Table               #CustTableCube
+          ExtendedDataType    #Name
+          StringSize          #60
+          DataSource          #CommissionSalesGroup_1
+          DataField           #Name
+          Origin              #{6F106FAA-2A1B-442D-BE71-DD8A58F0CF4E}
+          LegacyId            #153
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CustGroup
+        PROPERTIES
+          Name                #CustGroup
+          Table               #CustTableCube
+          ExtendedDataType    #CustGroupId
+          StringSize          #10
+          DataSource          #CustGroup_1
+          DataField           #CustGroup
+          Origin              #{A7B12B91-96B9-4BBB-A312-0007EADFA975}
+          LegacyId            #154
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #GroupName
+        PROPERTIES
+          Name                #GroupName
+          Table               #CustTableCube
+          ExtendedDataType    #Description
+          StringSize          #60
+          DataSource          #CustGroup_1
+          DataField           #Name
+          Origin              #{1F428BA5-36C0-4C44-8FB0-26608A2DB8FC}
+          LegacyId            #155
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #City
+        PROPERTIES
+          Name                #City
+          Table               #CustTableCube
+          ExtendedDataType    #LogisticsAddressCity
+          StringSize          #60
+          DataSource          #DirPartyPostalAddressView_1
+          DataField           #City
+          Origin              #{95C9D8F9-80FA-49BC-9C1F-E9DD79DD2370}
+          LegacyId            #156
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #County
+        PROPERTIES
+          Name                #County
+          Table               #CustTableCube
+          ExtendedDataType    #LogisticsAddressCountyId
+          StringSize          #10
+          DataSource          #DirPartyPostalAddressView_1
+          DataField           #County
+          Origin              #{F8A7EE7D-4F1F-4CDF-B970-09DD725F3A2D}
+          LegacyId            #157
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name
+        PROPERTIES
+          Name                #Name
+          Table               #CustTableCube
+          ExtendedDataType    #DirPartyName
+          StringSize          #100
+          DataSource          #DirPartyTable_1
+          DataField           #Name
+          Origin              #{D24460F9-F29C-404E-BA81-B25CA0D4E97F}
+          LegacyId            #158
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #State
+        PROPERTIES
+          Name                #State
+          Table               #CustTableCube
+          ExtendedDataType    #LogisticsAddressStateId
+          StringSize          #10
+          DataSource          #DirPartyPostalAddressView_1
+          DataField           #State
+          Origin              #{88BADC92-0BDC-454A-977A-F77590AE4894}
+          LegacyId            #159
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ZipCode
+        PROPERTIES
+          Name                #ZipCode
+          Table               #CustTableCube
+          ExtendedDataType    #LogisticsAddressZipCodeId
+          StringSize          #10
+          DataSource          #DirPartyPostalAddressView_1
+          DataField           #ZipCode
+          Origin              #{48FC980F-D12B-4784-88FF-9AA1AFB6807D}
+          LegacyId            #160
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CountryRegionId
+        PROPERTIES
+          Name                #CountryRegionId
+          Table               #CustTableCube
+          ExtendedDataType    #LogisticsAddressCountryRegionId
+          StringSize          #10
+          DataSource          #DirPartyPostalAddressView_1
+          DataField           #CountryRegionId
+          Origin              #{74927D3D-5256-4B54-93BE-C301E420FB47}
+          LegacyId            #161
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #LocationName
+        PROPERTIES
+          Name                #LocationName
+          Table               #CustTableCube
+          ExtendedDataType    #Description
+          StringSize          #60
+          DataSource          #DirPartyPostalAddressView_1
+          DataField           #LocationName
+          Origin              #{FF3480C7-A8BA-4174-B456-084ABEF0B054}
+          LegacyId            #162
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #InventLocation
+        PROPERTIES
+          Name                #InventLocation
+          Table               #CustTableCube
+          ExtendedDataType    #InventLocationId
+          StringSize          #10
+          DataSource          #CustTable_1
+          DataField           #InventLocation
+          Origin              #{BEDE4BC9-CF1A-4E30-B68C-7D2938610124}
+          LegacyId            #163
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #MainContactWorker
+        PROPERTIES
+          Type                #Int64
+          Name                #MainContactWorker
+          Table               #CustTableCube
+          ExtendedDataType    #smmBusRelAccResponsibleWorker
+          StringSize          #(Memo)
+          DataSource          #CustTable_1
+          DataField           #MainContactWorker
+          Origin              #{B6048E71-EA5F-4047-8C6C-7816E42C6B6F}
+          LegacyId            #165
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Party
+        PROPERTIES
+          Type                #Int64
+          Name                #Party
+          Table               #CustTableCube
+          ExtendedDataType    #DirPartyRecId
+          StringSize          #(Memo)
+          DataSource          #CustTable_1
+          DataField           #Party
+          Origin              #{AAB8D471-30E3-4BE0-A567-203DA966BEAF}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+      GROUP #AutoReport
+        PROPERTIES
+          Name                #AutoReport
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #AccountNum
+          #Currency
+        ENDGROUPFIELDS
+      ENDGROUP
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : CustTransTotalSales unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #CustTransTotalSales
+    PROPERTIES
+      Name                #CustTransTotalSales
+      Label               #@SYS122178
+      TitleField1         #AccountNum
+      TitleField2         #CurrencyCode
+      SaveDataPerCompany  #Yes
+      DeveloperDocumentation  #@sys315902
+      Origin              #{2C1314C1-0000-1000-C808-AE526AB9B067}
+      LegacyId            #5313
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #8
+        NextUniqueId        #1001
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #CustTrans
+          PROPERTIES
+            Name                #CustTrans_1
+            Table               #CustTrans
+            UniqueId            #1000
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+            LINE #Invoice
+            PROPERTIES
+              Name                #Invoice
+              Table               #CustTrans
+              Field               #Invoice
+              Value               #!=""
+            ENDPROPERTIES
+            
+          ENDLINES
+          BLOCKS
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #AccountNum
+        PROPERTIES
+          Name                #AccountNum
+          Table               #CustTransTotalSales
+          ExtendedDataType    #CustAccount
+          StringSize          #20
+          DataSource          #CustTrans_1
+          DataField           #AccountNum
+          Origin              #{2A0A0001-14C1-1000-98C1-1B80756E744E}
+          LegacyId            #1
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #AmountMST
+        PROPERTIES
+          Type                #Real
+          Name                #AmountMST
+          Table               #CustTransTotalSales
+          ExtendedDataType    #AmountMSTDebCred
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #AmountMST
+          Origin              #{2A090004-14C1-1000-1D42-7C756E744D53}
+          LegacyId            #4
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #CurrencyCode
+        PROPERTIES
+          Name                #CurrencyCode
+          Table               #CustTransTotalSales
+          ExtendedDataType    #CustCurrencyCode
+          StringSize          #3
+          DataSource          #CustTrans_1
+          DataField           #CurrencyCode
+          Origin              #{2A0C0005-14C1-1000-5466-FD70E27D6379}
+          LegacyId            #5
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #TransType
+        PROPERTIES
+          Type                #Enum
+          Name                #TransType
+          Table               #CustTransTotalSales
+          EnumType            #LedgerTransType
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #TransType
+          Origin              #{2A090006-14C1-1000-FBDF-706E73547970}
+          LegacyId            #6
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Approved
+        PROPERTIES
+          Type                #Enum
+          Name                #Approved
+          Table               #CustTransTotalSales
+          ExtendedDataType    #Approved
+          EnumType            #NoYes
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #Approved
+          Origin              #{2A080007-14C1-1000-4170-70726F766564}
+          LegacyId            #7
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PaymMode
+        PROPERTIES
+          Name                #PaymMode
+          Table               #CustTransTotalSales
+          ExtendedDataType    #CustPaymMode
+          StringSize          #10
+          DataSource          #CustTrans_1
+          DataField           #PaymMode
+          Origin              #{2A080008-14C1-1000-5061-796D4D6F6465}
+          LegacyId            #8
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #DueDate
+        PROPERTIES
+          Type                #Date
+          Name                #DueDate
+          Table               #CustTransTotalSales
+          ExtendedDataType    #DueDate
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #DueDate
+          Origin              #{2A07000C-14C1-1000-4475-654461746500}
+          LegacyId            #12
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #LastSettleDate
+        PROPERTIES
+          Type                #Date
+          Name                #LastSettleDate
+          Table               #CustTransTotalSales
+          ExtendedDataType    #TransDate
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #LastSettleDate
+          Origin              #{2A0E000D-14C1-1000-B087-1D226BD3F383}
+          LegacyId            #13
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Closed
+        PROPERTIES
+          Type                #Date
+          Name                #Closed
+          Table               #CustTransTotalSales
+          ExtendedDataType    #TransDate
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #Closed
+          Origin              #{2A06000E-14C1-1000-436C-6F7365640000}
+          LegacyId            #14
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #TransDate
+        PROPERTIES
+          Type                #Date
+          Name                #TransDate
+          Table               #CustTransTotalSales
+          ExtendedDataType    #TransDate
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #TransDate
+          Origin              #{2A09000F-14C1-1000-FBDF-706E73446174}
+          LegacyId            #15
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #DocumentDate
+        PROPERTIES
+          Type                #Date
+          Name                #DocumentDate
+          Table               #CustTransTotalSales
+          ExtendedDataType    #DocumentDate
+          StringSize          #(Memo)
+          DataSource          #CustTrans_1
+          DataField           #DocumentDate
+          Origin              #{2A0C0010-14C1-1000-700D-7BE3EC746E74}
+          LegacyId            #16
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+      GROUP #AutoReport
+        PROPERTIES
+          Name                #AutoReport
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #AccountNum
+          #CurrencyCode
+        ENDGROUPFIELDS
+      ENDGROUP
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : RevenueCubeforEP unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #RevenueCubeforEP
+    PROPERTIES
+      Name                #RevenueCubeforEP
+      Origin              #{86D40972-B0E2-4FD6-8724-01BE95000C16}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #160
+        NextUniqueId        #1010
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #GeneralJournalEntry
+          PROPERTIES
+            Name                #GeneralJournalEntry_1
+            Table               #GeneralJournalEntry
+            UniqueId            #1003
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+            BLOCK #GeneralJournalAccountEntry
+              PROPERTIES
+                Name                #GeneralJournalAccountEntry
+                Table               #GeneralJournalAccountEntry
+                UniqueId            #1004
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+              ENDLINES
+              BLOCKS
+                BLOCK #DimensionAttributeValueCombination
+                  PROPERTIES
+                    Name                #DimensionAttributeValueCombination_1
+                    Table               #DimensionAttributeValueCombination
+                    UniqueId            #1005
+                  ENDPROPERTIES
+                  
+                  FIELDLIST
+                    PROPERTIES
+                    ENDPROPERTIES
+                    
+                  ENDFIELDLIST
+                  LINES
+                  ENDLINES
+                  BLOCKS
+                    BLOCK #MainAccount
+                      PROPERTIES
+                        Name                #MainAccount_1
+                        Table               #MainAccount
+                        UniqueId            #1006
+                      ENDPROPERTIES
+                      
+                      FIELDLIST
+                        PROPERTIES
+                        ENDPROPERTIES
+                        
+                      ENDFIELDLIST
+                      LINES
+                        LINE #MainAccountId
+                        PROPERTIES
+                          Name                #SalesRevenueRanges
+                          Table               #MainAccount
+                          Field               #MainAccountId
+                          Value               #41*, 42*, 43*,2104010100,8101010000,8201010000
+                          Label               #Sales_401_402
+                        ENDPROPERTIES
+                        
+                      ENDLINES
+                      BLOCKS
+                        BLOCK #FiscalCalendarYear
+                          PROPERTIES
+                            Name                #FiscalCalendarYear_1
+                            Table               #FiscalCalendarYear
+                            UniqueId            #1008
+                          ENDPROPERTIES
+                          
+                          FIELDLIST
+                            PROPERTIES
+                            ENDPROPERTIES
+                            
+                          ENDFIELDLIST
+                          LINES
+                          ENDLINES
+                          BLOCKS
+                            BLOCK #FiscalCalendarPeriod
+                              PROPERTIES
+                                Name                #FiscalCalendarPeriod_1
+                                Table               #FiscalCalendarPeriod
+                                UniqueId            #1009
+                              ENDPROPERTIES
+                              
+                              FIELDLIST
+                                PROPERTIES
+                                ENDPROPERTIES
+                                
+                              ENDFIELDLIST
+                              LINES
+                              ENDLINES
+                              BLOCKS
+                              ENDBLOCKS
+                              ASSOCIATIONS
+                                ASSOCIATION
+                                  JOINDATASOURCE #GeneralJournalEntry_1
+                                  FOREIGNKEYRELATION #FiscalCalendarPeriod
+                              ENDASSOCIATIONS
+                            ENDBLOCK
+                          ENDBLOCKS
+                          ASSOCIATIONS
+                            ASSOCIATION
+                              JOINDATASOURCE #GeneralJournalEntry_1
+                              FOREIGNKEYRELATION #FiscalCalendarYear
+                          ENDASSOCIATIONS
+                        ENDBLOCK
+                      ENDBLOCKS
+                      ASSOCIATIONS
+                        ASSOCIATION
+                          JOINDATASOURCE #DimensionAttributeValueCombination_1
+                          MASTERFIELD  #MainAccount
+                          DETAILSFIELD #RecId
+                      ENDASSOCIATIONS
+                    ENDBLOCK
+                  ENDBLOCKS
+                  ASSOCIATIONS
+                    ASSOCIATION
+                      JOINDATASOURCE #GeneralJournalAccountEntry
+                      FOREIGNKEYRELATION #LedgerDimension
+                  ENDASSOCIATIONS
+                ENDBLOCK
+              ENDBLOCKS
+              ASSOCIATIONS
+                ASSOCIATION
+                  JOINDATASOURCE #GeneralJournalEntry_1
+                  FOREIGNKEYRELATION #GeneralJournalEntry
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #FiscalCalendarYear
+        PROPERTIES
+          Type                #Int64
+          Name                #FiscalCalendarYear
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #FiscalCalendarYearRecId
+          StringSize          #(Memo)
+          DataSource          #FiscalCalendarPeriod_1
+          DataField           #FiscalCalendarYear
+          Origin              #{672C7D8D-399B-47E7-8954-F06DA86A7859}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #FiscalCalendar
+        PROPERTIES
+          Type                #Int64
+          Name                #FiscalCalendar
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #FiscalCalendarRecId
+          StringSize          #(Memo)
+          DataSource          #FiscalCalendarPeriod_1
+          DataField           #FiscalCalendar
+          Origin              #{9B6C0D6B-CB35-4C21-8D2C-B93B1087C748}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #StartDate
+        PROPERTIES
+          Type                #Date
+          Name                #StartDate
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #FiscalYearStart
+          StringSize          #(Memo)
+          DataSource          #FiscalCalendarYear_1
+          DataField           #StartDate
+          Origin              #{6F7A20F7-45DF-4454-AD31-DC951D9AC33A}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #AccountingDate
+        PROPERTIES
+          Type                #Date
+          Name                #AccountingDate
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #TransDate
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalEntry_1
+          DataField           #AccountingDate
+          Origin              #{6E800E01-E1C6-47F9-8007-2B350BA363B7}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #EndDate
+        PROPERTIES
+          Type                #Date
+          Name                #EndDate
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #FiscalYearEnd
+          StringSize          #(Memo)
+          DataSource          #FiscalCalendarYear_1
+          DataField           #EndDate
+          Origin              #{6A845AD4-7415-4FD3-B2B3-EE5B907C1A8B}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Month
+        PROPERTIES
+          Type                #Enum
+          Name                #Month
+          Table               #RevenueCubeforEP
+          EnumType            #FiscalPeriodMonth
+          StringSize          #(Memo)
+          DataSource          #FiscalCalendarPeriod_1
+          DataField           #Month
+          Origin              #{A56D8BD0-82EE-4C7A-B36D-E7F6181A9D34}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name
+        PROPERTIES
+          Name                #Name
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #PeriodName
+          StringSize          #60
+          DataSource          #FiscalCalendarPeriod_1
+          DataField           #Name
+          Origin              #{F72EB892-33EA-4E7A-B6A8-5E2EF397E724}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Quarter
+        PROPERTIES
+          Type                #Enum
+          Name                #Quarter
+          Table               #RevenueCubeforEP
+          EnumType            #FiscalQuarter
+          StringSize          #(Memo)
+          DataSource          #FiscalCalendarPeriod_1
+          DataField           #Quarter
+          Origin              #{A83655F4-6548-49A8-9C8D-9F4D91F8E955}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #AccountingCurrencyAmount
+        PROPERTIES
+          Type                #Real
+          Name                #AccountingCurrencyAmount
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #AmountMSTDebCred
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #AccountingCurrencyAmount
+          Origin              #{AE8387EA-DF2D-4AC5-9F8C-5232422FC5CD}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Quantity
+        PROPERTIES
+          Type                #Real
+          Name                #Quantity
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #Qty
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #Quantity
+          Origin              #{E6BCF816-20F0-4853-96B6-A8988A77BA4F}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ReportingCurrencyAmount
+        PROPERTIES
+          Type                #Real
+          Name                #ReportingCurrencyAmount
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #AmountMSTSecondary
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #ReportingCurrencyAmount
+          Origin              #{E8F2A5E5-8178-4D5D-94FF-CA61572AF208}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #TransactionCurrencyAmount
+        PROPERTIES
+          Type                #Real
+          Name                #TransactionCurrencyAmount
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #AmountCur
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #TransactionCurrencyAmount
+          Origin              #{0C6AD7CD-CA9D-40BC-9939-353706A8545D}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #TransactionCurrencyCode
+        PROPERTIES
+          Name                #TransactionCurrencyCode
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #CurrencyCode
+          StringSize          #3
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #TransactionCurrencyCode
+          Origin              #{225B5A06-FA10-4454-98D4-8C12CD98C75F}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #MainAccountId
+        PROPERTIES
+          Name                #MainAccountId
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #MainAccountNum
+          StringSize          #20
+          DataSource          #MainAccount_1
+          DataField           #MainAccountId
+          Origin              #{497F0F03-ECCB-4662-B213-32D1E057C3C9}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PostingType
+        PROPERTIES
+          Type                #Enum
+          Name                #PostingType
+          Table               #RevenueCubeforEP
+          EnumType            #LedgerPostingType
+          StringSize          #(Memo)
+          DataSource          #MainAccount_1
+          DataField           #PostingType
+          Origin              #{E393B563-31D5-4B99-890E-70D15111F2DE}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name1
+        PROPERTIES
+          Name                #Name1
+          Table               #RevenueCubeforEP
+          ExtendedDataType    #FiscalYearName
+          StringSize          #10
+          DataSource          #FiscalCalendarYear_1
+          DataField           #Name
+          Origin              #{18AF6982-CCCD-4BD0-A21D-C3B125DF74C9}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+      SOURCE #countRevenue
+        #public static server str countRevenue()
+        #{
+        #    // 401001..401999,402001..402899,403001..403899,411001..411899,500100..519999, 520001..529899,540100..549899,600101..600899,601001..601899,602001..602999, 603001..603899,604001..604899,605001..605899,606001..606899,607001..607899,608001..608899
+        #   /*if (this.MainAccountId == '401001..401999')// && (this.MainAccountId <= '401999'))
+        #   {
+        #     info('ok');
+        #   }*/
+        #
+        #    return '';
+        #    //return SysComputedColumn::sum(SysComputedColumn::returnField(tableStr(RevenueCubeforEP),identifierStr(GeneralJournalAccountEntry),fieldStr(GeneralJournalAccountEntry, AccountingCurrencyAmount)));
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : TaxCubeforEP unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #TaxCubeforEP
+    PROPERTIES
+      Name                #TaxCubeforEP
+      Origin              #{858A253B-F717-4729-B746-5199BD937D33}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #56
+        NextUniqueId        #1009
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #GeneralJournalEntry
+          PROPERTIES
+            Name                #GeneralJournalEntry
+            Table               #GeneralJournalEntry
+            UniqueId            #1003
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+            BLOCK #GeneralJournalAccountEntry
+              PROPERTIES
+                Name                #GeneralJournalAccountEntry
+                Table               #GeneralJournalAccountEntry
+                UniqueId            #1004
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+              ENDLINES
+              BLOCKS
+                BLOCK #DimensionAttributeValueCombination
+                  PROPERTIES
+                    Name                #DimensionAttributeValueCombination
+                    Table               #DimensionAttributeValueCombination
+                    UniqueId            #1005
+                  ENDPROPERTIES
+                  
+                  FIELDLIST
+                    PROPERTIES
+                    ENDPROPERTIES
+                    
+                  ENDFIELDLIST
+                  LINES
+                  ENDLINES
+                  BLOCKS
+                    BLOCK #MainAccount
+                      PROPERTIES
+                        Name                #MainAccount
+                        Table               #MainAccount
+                        UniqueId            #1006
+                      ENDPROPERTIES
+                      
+                      FIELDLIST
+                        PROPERTIES
+                        ENDPROPERTIES
+                        
+                      ENDFIELDLIST
+                      LINES
+                        LINE #MainAccountId
+                        PROPERTIES
+                          Name                #IncomeTaxRanges
+                          Table               #MainAccount
+                          Field               #MainAccountId
+                          Value               #8101010000,8201010000
+                        ENDPROPERTIES
+                        
+                      ENDLINES
+                      BLOCKS
+                        BLOCK #FiscalCalendarYear
+                          PROPERTIES
+                            Name                #FiscalCalendarYear_1
+                            Table               #FiscalCalendarYear
+                            UniqueId            #1007
+                          ENDPROPERTIES
+                          
+                          FIELDLIST
+                            PROPERTIES
+                            ENDPROPERTIES
+                            
+                          ENDFIELDLIST
+                          LINES
+                          ENDLINES
+                          BLOCKS
+                            BLOCK #FiscalCalendarPeriod
+                              PROPERTIES
+                                Name                #FiscalCalendarPeriod_1
+                                Table               #FiscalCalendarPeriod
+                                UniqueId            #1008
+                              ENDPROPERTIES
+                              
+                              FIELDLIST
+                                PROPERTIES
+                                ENDPROPERTIES
+                                
+                              ENDFIELDLIST
+                              LINES
+                              ENDLINES
+                              BLOCKS
+                              ENDBLOCKS
+                              ASSOCIATIONS
+                                ASSOCIATION
+                                  JOINDATASOURCE #GeneralJournalEntry
+                                  FOREIGNKEYRELATION #FiscalCalendarPeriod
+                              ENDASSOCIATIONS
+                            ENDBLOCK
+                          ENDBLOCKS
+                          ASSOCIATIONS
+                            ASSOCIATION
+                              JOINDATASOURCE #GeneralJournalEntry
+                              FOREIGNKEYRELATION #FiscalCalendarYear
+                          ENDASSOCIATIONS
+                        ENDBLOCK
+                      ENDBLOCKS
+                      ASSOCIATIONS
+                        ASSOCIATION
+                          JOINDATASOURCE #DimensionAttributeValueCombination
+                          FOREIGNKEYRELATION #MainAccount
+                      ENDASSOCIATIONS
+                    ENDBLOCK
+                  ENDBLOCKS
+                  ASSOCIATIONS
+                    ASSOCIATION
+                      JOINDATASOURCE #GeneralJournalAccountEntry
+                      FOREIGNKEYRELATION #LedgerDimension
+                  ENDASSOCIATIONS
+                ENDBLOCK
+              ENDBLOCKS
+              ASSOCIATIONS
+                ASSOCIATION
+                  JOINDATASOURCE #GeneralJournalEntry
+                  FOREIGNKEYRELATION #GeneralJournalEntry
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #JournalCategory
+        PROPERTIES
+          Type                #Enum
+          Name                #JournalCategory
+          Table               #TaxCubeforEP
+          EnumType            #LedgerTransType
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalEntry
+          DataField           #JournalCategory
+          Origin              #{0461E9F1-B8F8-4EDE-9959-7457A3E4281E}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #JournalNumber
+        PROPERTIES
+          Name                #JournalNumber
+          Table               #TaxCubeforEP
+          ExtendedDataType    #GeneralJournalEntryJournalNumber
+          StringSize          #20
+          DataSource          #GeneralJournalEntry
+          DataField           #JournalNumber
+          Origin              #{F09F825D-0702-40B7-AD30-92F3A67C67B3}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #AccountingCurrencyAmount
+        PROPERTIES
+          Type                #Real
+          Name                #AccountingCurrencyAmount
+          Table               #TaxCubeforEP
+          ExtendedDataType    #AmountMSTDebCred
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #AccountingCurrencyAmount
+          Origin              #{3E62CD3A-9B75-413E-B297-07095EDC907B}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Quantity
+        PROPERTIES
+          Type                #Real
+          Name                #Quantity
+          Table               #TaxCubeforEP
+          ExtendedDataType    #Qty
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #Quantity
+          Origin              #{96403337-D822-402A-A8C9-E03E2BED1C72}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #TransactionCurrencyAmount
+        PROPERTIES
+          Type                #Real
+          Name                #TransactionCurrencyAmount
+          Table               #TaxCubeforEP
+          ExtendedDataType    #AmountCur
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #TransactionCurrencyAmount
+          Origin              #{DCA72F1A-A493-4D1F-A551-41989D5B608D}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #TransactionCurrencyCode
+        PROPERTIES
+          Name                #TransactionCurrencyCode
+          Table               #TaxCubeforEP
+          ExtendedDataType    #CurrencyCode
+          StringSize          #3
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #TransactionCurrencyCode
+          Origin              #{D9D3672C-2358-423B-AF87-3192ECE9AE73}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #PostingType
+        PROPERTIES
+          Type                #Enum
+          Name                #PostingType
+          Table               #TaxCubeforEP
+          EnumType            #LedgerPostingType
+          StringSize          #(Memo)
+          DataSource          #GeneralJournalAccountEntry
+          DataField           #PostingType
+          Origin              #{052B2FFB-74D7-4022-B413-3B5BCC3953FA}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #MainAccountId
+        PROPERTIES
+          Name                #MainAccountId
+          Table               #TaxCubeforEP
+          ExtendedDataType    #MainAccountNum
+          StringSize          #20
+          DataSource          #MainAccount
+          DataField           #MainAccountId
+          Origin              #{A1E9F53F-E22E-4748-860B-127AACB439B5}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name
+        PROPERTIES
+          Name                #Name
+          Table               #TaxCubeforEP
+          ExtendedDataType    #AccountName
+          StringSize          #60
+          DataSource          #MainAccount
+          DataField           #Name
+          Origin              #{879477E2-0375-4BFD-B539-3219AB069B3B}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Type
+        PROPERTIES
+          Type                #Enum
+          Name                #Type
+          Table               #TaxCubeforEP
+          EnumType            #DimensionLedgerAccountType
+          StringSize          #(Memo)
+          DataSource          #MainAccount
+          DataField           #Type
+          Origin              #{09EC7D90-317E-4E4F-B972-C4A07BBE3FA6}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Name1
+        PROPERTIES
+          Name                #Name1
+          Table               #TaxCubeforEP
+          ExtendedDataType    #FiscalYearName
+          StringSize          #10
+          DataSource          #FiscalCalendarYear_1
+          DataField           #Name
+          Origin              #{30EF479D-3A7A-4F91-B600-B950F9861CA3}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #Month
+        PROPERTIES
+          Type                #Enum
+          Name                #Month
+          Table               #TaxCubeforEP
+          EnumType            #FiscalPeriodMonth
+          StringSize          #(Memo)
+          DataSource          #FiscalCalendarPeriod_1
+          DataField           #Month
+          Origin              #{47508F93-F206-4C17-B567-22DE409D62EF}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+      SOURCE #countRevenue
+        #public static server str countRevenue()
+        #{
+        #    // 401001..401999,402001..402899,403001..403899,411001..411899,500100..519999, 520001..529899,540100..549899,600101..600899,601001..601899,602001..602999, 603001..603899,604001..604899,605001..605899,606001..606899,607001..607899,608001..608899
+        #   /*if (this.MainAccountId == '401001..401999')// && (this.MainAccountId <= '401999'))
+        #   {
+        #     info('ok');
+        #   }*/
+        #
+        #    return '';
+        #    //return SysComputedColumn::sum(SysComputedColumn::returnField(tableStr(OnlyForTesting),identifierStr(SalesLine),fieldStr(SalesLine, LineAmount)));
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : WCS_BiCube unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #WCS_BiCube
+  PRIVATE
+  PROPERTIES
+    Name                #WCS_BiCube
+    Origin              #{7B0B8AB8-5BCB-4758-B108-C1D00E707EC0}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 102257
+      NODETYPE 243
+      NAME #Wcs_HcmEmployeeLookupView
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 20
+      UTILOBJECTID 0
+      NODETYPE 330
+      NAME #WCS_HcmValidFromTo
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 102256
+      NODETYPE 243
+      NAME #WCS_DirPartyPostalAddressView
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 102255
+      NODETYPE 243
+      NAME #FinancialDimension
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 5078
+      NODETYPE 243
+      NAME #DirPartyPostalAddressView
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 102253
+      NODETYPE 243
+      NAME #CustTableCountryIdCube
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 102248
+      NODETYPE 243
+      NAME #HcmEmployeeLookupView
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 5312
+      NODETYPE 243
+      NAME #CustTableCube
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 5313
+      NODETYPE 243
+      NAME #CustTransTotalSales
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 102246
+      NODETYPE 243
+      NAME #RevenueCubeforEP
+    ENDNODE
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 44
+      UTILOBJECTID 102247
+      NODETYPE 243
+      NAME #TaxCubeforEP
+    ENDNODE
+  ENDPROJECT
+  
+
+***Element: END

@@ -1,0 +1,3538 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: UTS
+
+; Microsoft Dynamics AX String: WCS_MapTableId unloaded
+; --------------------------------------------------------------------------------
+  USERTYPEVERSION 6
+  
+  USERTYPE #WCS_MapTableId
+  STRING
+    PROPERTIES
+      Name                #WCS_MapTableId
+      Label               #Table id
+      Origin              #{2887077E-5EC7-45BA-BEB1-F88A6E0CC333}
+      ReferenceTable      #WCS_ItemMappingJournal
+    ENDPROPERTIES
+    
+    TYPEELEMENTS
+    ENDTYPEELEMENTS
+    
+    TYPEREFERENCES
+    ENDTYPEREFERENCES
+    
+    TYPELOOKUPS
+      TYPELOOKUP LOOKUP
+      PROPERTIES
+        Table               #WCS_ItemMappingJournal
+        RelatedField        #MapTableId
+      ENDPROPERTIES
+      
+    ENDTYPELOOKUPS
+    
+  ENDUSERTYPE
+  
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : WCS_ItemBudgetGroup unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #WCS_ItemBudgetGroup
+    EnforceFKRelation 1
+    PROPERTIES
+      Name                #WCS_ItemBudgetGroup
+      CreateRecIdIndex    #Yes
+      PrimaryIndex        #SurrogateKey
+      ClusterIndex        #SurrogateKey
+      Origin              #{620E11B2-63EF-44C3-A38F-27CFC13902A9}
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #Group
+        STRING
+        PROPERTIES
+          Name                #Group
+          Table               #WCS_ItemBudgetGroup
+          Origin              #{5857754C-DA21-42A7-99B2-BF063F7E2901}
+          ExtendedDataType    #Name
+          StringSize          #60
+        ENDPROPERTIES
+        
+      FIELD #GroupCode
+        STRING
+        PROPERTIES
+          Name                #GroupCode
+          Label               #Group Code
+          Table               #WCS_ItemBudgetGroup
+          Origin              #{47AE530B-CB49-43A6-B58B-52A156F709F7}
+          ExtendedDataType    #WCS_ItemBudgetGroupCode
+          StringSize          #50
+        ENDPROPERTIES
+        
+      FIELD #HeaderCode
+        STRING
+        PROPERTIES
+          Name                #HeaderCode
+          Table               #WCS_ItemBudgetGroup
+          Origin              #{2E19FE3B-CBA6-4D16-B6B2-BC7712C21663}
+          ExtendedDataType    #WCS_ItemBudgetHeaderCode
+          StringSize          #50
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+      GROUP #AutoLookup
+        PROPERTIES
+          Name                #AutoLookup
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #GroupCode
+          #Group
+        ENDGROUPFIELDS
+      ENDGROUP
+    ENDGROUPS
+    
+    INDICES
+    ENDINDICES
+    FULLTEXTINDICES
+    ENDFULLTEXTINDICES
+    REFERENCES
+      REFERENCE #WCS_ItemBudgetHeader
+        PROPERTIES
+          Name                #WCS_ItemBudgetHeader
+          Table               #WCS_ItemBudgetHeader
+          UseDefaultRoleNames #Yes
+        ENDPROPERTIES
+        
+        FIELDREFERENCES
+          REFERENCETYPE NORMAL
+          PROPERTIES
+            Field               #HeaderCode
+            RelatedField        #HeaderCode
+          ENDPROPERTIES
+          
+        ENDFIELDREFERENCES
+      ENDREFERENCE
+    ENDREFERENCES
+    
+    DELETEACTIONS
+    ENDDELETEACTIONS
+    
+    METHODS
+      SOURCE #find
+        #public static WCS_ItemBudgetGroup find(WCS_ItemBudgetGroupCode _code, boolean update = false)
+        #{
+        #    WCS_ItemBudgetGroup groupBudget;
+        #
+        #    if(_code) {
+        #
+        #        select * from groupBudget where groupBudget.GroupCode == _code;
+        #
+        #        if(groupBudget)
+        #            groupBudget.selectForUpdate(update);
+        #    }
+        #    return groupBudget;
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : WCS_ItemBudgetHeader unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #WCS_ItemBudgetHeader
+    EnforceFKRelation 1
+    PROPERTIES
+      Name                #WCS_ItemBudgetHeader
+      CreateRecIdIndex    #Yes
+      PrimaryIndex        #SurrogateKey
+      ClusterIndex        #SurrogateKey
+      Origin              #{857D678B-BB25-4577-8CC0-61F50CDAD8FB}
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #HeaderCode
+        STRING
+        PROPERTIES
+          Name                #HeaderCode
+          Mandatory           #Yes
+          AllowEdit           #No
+          Table               #WCS_ItemBudgetHeader
+          Origin              #{7EF5CFAE-F3A2-44FD-861E-BA522CF903B1}
+          StringSize          #20
+        ENDPROPERTIES
+        
+      FIELD #Name
+        STRING
+        PROPERTIES
+          Name                #Name
+          Table               #WCS_ItemBudgetHeader
+          Origin              #{66A148A8-9AD5-48B9-8ED0-43882D9697B9}
+          ExtendedDataType    #Name
+          StringSize          #60
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+      GROUP #AutoLookup
+        PROPERTIES
+          Name                #AutoLookup
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #HeaderCode
+          #Name
+        ENDGROUPFIELDS
+      ENDGROUP
+      GROUP #Group
+        PROPERTIES
+          Name                #Group
+        ENDPROPERTIES
+        
+        GROUPFIELDS
+          #HeaderCode
+          #Name
+        ENDGROUPFIELDS
+      ENDGROUP
+    ENDGROUPS
+    
+    INDICES
+      #Idx
+      PROPERTIES
+        Name                #Idx
+        AllowDuplicates     #No
+        Origin              #{88929ED9-3A6D-49B2-A531-BA2CDD1574ED}
+      ENDPROPERTIES
+      
+      INDEXFIELDS
+        #HeaderCode
+      ENDINDEXFIELDS
+      
+    ENDINDICES
+    FULLTEXTINDICES
+    ENDFULLTEXTINDICES
+    REFERENCES
+    ENDREFERENCES
+    
+    DELETEACTIONS
+    ENDDELETEACTIONS
+    
+    METHODS
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : WCS_ItemMappingJournalLine unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #WCS_ItemMappingJournalLine
+    EnforceFKRelation 1
+    PROPERTIES
+      Name                #WCS_ItemMappingJournalLine
+      CreateRecIdIndex    #Yes
+      PrimaryIndex        #SurrogateKey
+      ClusterIndex        #SurrogateKey
+      Origin              #{2A284C19-0FC2-4E3A-A556-72E847267F9B}
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #WCS_MapTableId
+        STRING
+        PROPERTIES
+          Name                #WCS_MapTableId
+          Table               #WCS_ItemMappingJournalLine
+          Origin              #{0832C698-1276-4B31-A7C7-FBFDAD9D4ADA}
+          ExtendedDataType    #WCS_MapTableId
+        ENDPROPERTIES
+        
+      FIELD #MapLineDesc
+        STRING
+        PROPERTIES
+          Name                #MapLineDesc
+          Label               #Line desc
+          Table               #WCS_ItemMappingJournal
+          Origin              #{6295CBB3-18D1-4276-B78E-6C38E2940BFA}
+        ENDPROPERTIES
+        
+      FIELD #MapLineId
+        STRING
+        PROPERTIES
+          Name                #MapLineId
+          Label               #Line id
+          Table               #WCS_ItemMappingJournal
+          Origin              #{9144A593-0F4A-49C3-9ED1-B14936E02B82}
+        ENDPROPERTIES
+        
+      FIELD #MapTableId
+        STRING
+        PROPERTIES
+          Name                #MapTableId
+          Label               #Table Id
+          Table               #WCS_ItemMappingJournal
+          Origin              #{9E1CEC02-31CE-43E0-A423-1742F38A3725}
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    INDICES
+    ENDINDICES
+    FULLTEXTINDICES
+    ENDFULLTEXTINDICES
+    REFERENCES
+    ENDREFERENCES
+    
+    DELETEACTIONS
+    ENDDELETEACTIONS
+    
+    METHODS
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: DBT
+
+; Microsoft Dynamics AX Table : WCS_ItemMappingJournal unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  TABLE #WCS_ItemMappingJournal
+    EnforceFKRelation 1
+    PROPERTIES
+      Name                #WCS_ItemMappingJournal
+      CreateRecIdIndex    #Yes
+      PrimaryIndex        #SurrogateKey
+      ClusterIndex        #SurrogateKey
+      Origin              #{1C6D9EEE-C428-40B2-8B94-8E6061BAF75B}
+    ENDPROPERTIES
+    
+    FIELDS
+      FIELD #WCS_MapTableId
+        STRING
+        PROPERTIES
+          Name                #WCS_MapTableId
+          Label               #Table id
+          Table               #WCS_ItemMappingJournal
+          Origin              #{5E777FCF-DD69-4386-ACFC-AA10D52946DD}
+          ExtendedDataType    #WCS_MapTableId
+        ENDPROPERTIES
+        
+      FIELD #MapTableId
+        STRING
+        PROPERTIES
+          Name                #MapTableId
+          Label               #Table Id
+          Table               #WCS_ItemMappingJournal
+          Origin              #{C90300C3-878E-4D6D-BC94-A547ACB00D7E}
+        ENDPROPERTIES
+        
+      FIELD #MapTableDesc
+        STRING
+        PROPERTIES
+          Name                #MapTableDesc
+          Label               #Table desc
+          Table               #WCS_ItemMappingJournal
+          Origin              #{905C3C45-45BB-4AAE-9E73-EE076A67456E}
+        ENDPROPERTIES
+        
+      FIELD #MapLineId
+        STRING
+        PROPERTIES
+          Name                #MapLineId
+          Label               #Line id
+          Table               #WCS_ItemMappingJournal
+          Origin              #{A3718959-7537-4349-85FF-7150AE66CCD4}
+        ENDPROPERTIES
+        
+      FIELD #MapLineDesc
+        STRING
+        PROPERTIES
+          Name                #MapLineDesc
+          Label               #Line desc
+          Table               #WCS_ItemMappingJournal
+          Origin              #{A64F5916-08EA-4974-A45F-E1E08A9A5240}
+        ENDPROPERTIES
+        
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    INDICES
+    ENDINDICES
+    FULLTEXTINDICES
+    ENDFULLTEXTINDICES
+    REFERENCES
+    ENDREFERENCES
+    
+    DELETEACTIONS
+    ENDDELETEACTIONS
+    
+    METHODS
+    ENDMETHODS
+  ENDTABLE
+  
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #WCS_ItemBudgetGroupMapping
+  PROPERTIES
+    Name                #WCS_ItemBudgetGroupMapping
+    Origin              #{66D13692-7511-4CCF-ACE9-B6C6B7C51ED6}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class FormRun extends ObjectRun
+      #{
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventTable
+          Table               #InventTable
+          AllowCreate         #No
+          AllowDelete         #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      Caption             #Budget Items Group Mapping
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          HierarchyParent     #Group
+          VisibleCols         #3
+          DataSource          #InventTable
+          DataGroup           #WCS_BudgetItemsGroup
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Group
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1073741823
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #Grid_ItemId
+          AllowEdit           #No
+          ElementPosition     #858993458
+          HierarchyParent     #Grid
+          DataSource          #InventTable
+          DataField           #ItemId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+      ENDFORM
+      
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #WCS_ItemBudgetGroup
+  PROPERTIES
+    Name                #WCS_ItemBudgetGroup
+    Origin              #{9E9B1D7D-AEA8-4FCB-A20F-BAAB88601D27}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class FormRun extends ObjectRun
+      #{
+      #    SysFormSplitter_X                           formSplitter;
+      #}
+    ENDSOURCE
+    SOURCE #run
+      #public void run()
+      #{
+      #    super();
+      #    formSplitter = new SysFormSplitter_X(vSplitter, gridHeader, element);
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #ItemBudgetHeader
+          Table               #WCS_ItemBudgetHeader
+          Index               #Idx
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #ItemBudgetGroup
+          Table               #WCS_ItemBudgetGroup
+          JoinSource          #ItemBudgetHeader
+          LinkType            #Active
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+    ItemBudgetGroup ItemBudgetHeader
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      Caption             #Budget Items Group
+      Style               #SimpleListDetails
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane
+          ElementPosition     #715827882
+          Style               #Strip
+          DataSource          #ItemBudgetHeader
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane1
+          ElementPosition     #1073741822
+          HierarchyParent     #Line
+          Style               #Strip
+          DataSource          #ItemBudgetGroup
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab1
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane1
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup1
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab1
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          AutoDeclaration     #Yes
+          AllowEdit           #No
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          HierarchyParent     #GridHeader
+          MultiSelect         #No
+          ShowRowLabels       #No
+          DataSource          #ItemBudgetHeader
+          DataGroup           #Group
+          GridLinesStyle      #Vertical
+          AlternateRowShading #No
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #ItemGroup
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1610612733
+          HierarchyParent     #Line
+          DataSource          #ItemBudgetGroup
+          DataGroup           #AutoLookup
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Body
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          Style               #MarginlessContainer
+          Columns             #3
+          Columnspace         #0
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+              #0
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #DetailHeader
+          ElementPosition     #1073741822
+          HierarchyParent     #GridLine
+          FrameType           #None
+          DataSource          #ItemBudgetHeader
+          DataGroup           #Group
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridHeader
+          AutoDeclaration     #Yes
+          Width               #200
+          ElementPosition     #858993458
+          HierarchyParent     #Body
+          Style               #BorderlessGridContainer
+          RightMargin         #0
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridLine
+          ElementPosition     #1717986916
+          HierarchyParent     #Body
+          Style               #MarginlessContainer
+          TopMargin           #5
+          RightMargin         #5
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Line
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1610612734
+          HierarchyParent     #GridLine
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #VSplitter
+          AutoDeclaration     #Yes
+          ElementPosition     #1288490187
+          HierarchyParent     #Body
+          Style               #SplitterVerticalContainer
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #mouseDown
+            #public int mouseDown(int _x, int _y, int _button, boolean _ctrl, boolean _shift)
+            #{
+            #    int ret;
+            #
+            #    ret = formSplitter.mouseDown(_x, _y, _button, _ctrl, _shift);
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+          SOURCE #mouseMove
+            #public int mouseMove(int _x, int _y, int _button, boolean _ctrl, boolean _shift)
+            #{
+            #    int ret;
+            #
+            #    ret = formSplitter.mouseMove(_x, _y, _button, _ctrl, _shift);
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+          SOURCE #mouseUp
+            #public int mouseUp(int _x, int _y, int _button, boolean _ctrl, boolean _shift)
+            #{
+            #    int ret;
+            #
+            #    ret = formSplitter.mouseUp(_x, _y, _button, _ctrl, _shift);
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #AddButton
+          ElementPosition     #1073741822
+          HierarchyParent     #ButtonGroup1
+          Text                #Add
+          ButtonDisplay       #Text & Image right
+          NormalImage         #11421
+          ImageLocation       #EmbeddedResource
+          MultiSelect         #No
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #DeleteButton
+          ElementPosition     #1610612733
+          HierarchyParent     #ButtonGroup
+          Text                #Delete
+          ButtonDisplay       #Text & Image left
+          NormalImage         #10121
+          ImageLocation       #EmbeddedResource
+          SaveRecord          #No
+          Primary             #Yes
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #NewButton
+          ElementPosition     #1073741822
+          HierarchyParent     #ButtonGroup
+          ButtonDisplay       #Text & Image left
+          NormalImage         #11045
+          ImageLocation       #EmbeddedResource
+          Big                 #Yes
+          Primary             #Yes
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #RemoveButton
+          ElementPosition     #1610612733
+          HierarchyParent     #ButtonGroup1
+          Text                #Remove
+          ButtonDisplay       #Text & Image right
+          NormalImage         #11438
+          ImageLocation       #EmbeddedResource
+          MultiSelect         #No
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+      ENDFORM
+      
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #WCS_InventJournalMapping03
+  PROPERTIES
+    Name                #WCS_InventJournalMapping03
+    Origin              #{1989F75C-F74A-4DB5-B479-0D652D93E79B}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class FormRun extends ObjectRun
+      #{
+      #    SysFormSplitter_X verticalSplitter;
+      #}
+    ENDSOURCE
+    SOURCE #init
+      #public void init()
+      #{
+      #    super();
+      #    //Initialize splitter
+      #    verticalSplitter = new SysFormSplitter_X(VSplitter, GridContainer, element, 300);
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      Style               #SimpleListDetails
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane
+          ElementPosition     #429496729
+          Style               #Strip
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #RecordBasics
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          AllowEdit           #No
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          HierarchyParent     #GridContainer
+          MultiSelect         #No
+          ShowRowLabels       #No
+          GridLinesStyle      #Vertical
+          AlternateRowShading #No
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Body
+          ElementPosition     #1717986916
+          Style               #MarginlessContainer
+          Columns             #3
+          Columnspace         #0
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+              #0
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #CustomFilterGroup
+          Visible             #No
+          ElementPosition     #1288490187
+          Style               #DetailTitleContainer
+          AlignChild          #No
+          ViewEditMode        #Edit
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #DetailsContainer
+          ElementPosition     #1717986916
+          HierarchyParent     #Body
+          Style               #MarginlessContainer
+          TopMargin           #5
+          RightMargin         #5
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #DetailsHeader
+          ElementPosition     #1073741822
+          HierarchyParent     #DetailsContainer
+          FrameType           #None
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridContainer
+          AutoDeclaration     #Yes
+          Width               #300
+          ElementPosition     #858993458
+          HierarchyParent     #Body
+          Style               #BorderlessGridContainer
+          RightMargin         #0
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #PageTitleGroup
+          Visible             #No
+          ElementPosition     #858993458
+          Style               #DetailTitleContainer
+          AlignChild          #No
+          ViewEditMode        #View
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #VSplitter
+          AutoDeclaration     #Yes
+          ElementPosition     #1288490187
+          HierarchyParent     #Body
+          Style               #SplitterVerticalContainer
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TAB
+        PROPERTIES
+          Name                #DetailsTab
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1610612733
+          HierarchyParent     #DetailsContainer
+          Style               #FastTabs
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #TabPage
+          ElementPosition     #1431655764
+          HierarchyParent     #DetailsTab
+          Columns             #2
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #DeleteButton
+          ElementPosition     #1610612733
+          HierarchyParent     #RecordBasics
+          Text                #@SYS14425
+          ButtonDisplay       #Text & Image left
+          NormalImage         #10121
+          ImageLocation       #EmbeddedResource
+          SaveRecord          #No
+          Primary             #Yes
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #NewButton
+          ElementPosition     #1073741822
+          HierarchyParent     #RecordBasics
+          ButtonDisplay       #Text & Image left
+          NormalImage         #11045
+          ImageLocation       #EmbeddedResource
+          Primary             #Yes
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+      ENDFORM
+      
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #WCS_InventJournalMapping02
+  PROPERTIES
+    Name                #WCS_InventJournalMapping02
+    Origin              #{715B53B5-B4C8-48AD-AEB3-0CB5E18AF8B1}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class FormRun extends ObjectRun
+      #{
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal
+          Table               #WCS_ItemMappingJournal
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      Style               #SimpleListDetails
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane
+          ElementPosition     #715827882
+          Style               #Strip
+          DataSource          #WCS_ItemMappingJournal
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane1
+          ElementPosition     #1431655764
+          HierarchyParent     #Line
+          Style               #Strip
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab1
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane1
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup1
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab1
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          AutoDeclaration     #Yes
+          AllowEdit           #No
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          HierarchyParent     #GridHeader
+          DataSource          #WCS_ItemMappingJournal
+          GridLinesStyle      #Vertical
+          AlternateRowShading #No
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Body
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          Style               #MarginlessContainer
+          Columns             #3
+          Columnspace         #0
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+              #0
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #DetailHeader
+          ElementPosition     #1073741822
+          HierarchyParent     #GridLine
+          FrameType           #None
+          DataSource          #WCS_ItemMappingJournal
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridHeader
+          AutoDeclaration     #Yes
+          Width               #200
+          ElementPosition     #858993458
+          HierarchyParent     #Body
+          Style               #BorderlessGridContainer
+          RightMargin         #0
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridLine
+          ElementPosition     #1717986916
+          HierarchyParent     #Body
+          Style               #MarginlessContainer
+          TopMargin           #5
+          RightMargin         #5
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Line
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1610612733
+          HierarchyParent     #GridLine
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #VSplitter
+          AutoDeclaration     #Yes
+          ElementPosition     #1288490187
+          HierarchyParent     #Body
+          Style               #SplitterVerticalContainer
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #DeleteButton
+          ElementPosition     #1610612733
+          HierarchyParent     #ButtonGroup
+          Text                #Delete
+          ButtonDisplay       #Text & Image left
+          NormalImage         #10121
+          ImageLocation       #EmbeddedResource
+          SaveRecord          #No
+          Primary             #Yes
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #NewButton
+          ElementPosition     #1073741822
+          HierarchyParent     #ButtonGroup
+          Text                #New
+          ButtonDisplay       #Text & Image left
+          NormalImage         #11045
+          ImageLocation       #EmbeddedResource
+          Big                 #Yes
+          Primary             #Yes
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableDesc
+          ElementPosition     #1610612733
+          HierarchyParent     #Grid
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableDesc
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableDesc1
+          ElementPosition     #1610612733
+          HierarchyParent     #DetailHeader
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableDesc
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableId
+          ElementPosition     #1073741822
+          HierarchyParent     #Grid
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal_MapTableId1
+          ElementPosition     #1073741822
+          HierarchyParent     #DetailHeader
+          DataSource          #WCS_ItemMappingJournal
+          DataField           #MapTableId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+      ENDFORM
+      
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #InventItemGroup
+  PROPERTIES
+    Name                #InventItemGroup
+    Origin              #{D3F3E6CC-68B3-41D0-8340-78DA15DDAC74}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #class FormRun extends ObjectRun
+      #{
+      #    SysFormSplitter_X m_vSplitter;
+      #
+      #    LedgerDimensionDefaultAccountController    ledgerDimensionAccountControllerProd;
+      #    LedgerDimensionDefaultAccountController    ledgerDimensionAccountControllerSales;
+      #    LedgerDimensionDefaultAccountController    ledgerDimensionAccountControllerInvent;
+      #    LedgerDimensionDefaultAccountController    ledgerDimensionAccountControllerPurch;
+      #
+      #    LedgerDimensionDefaultAccountController    ledgerDimensionAccountControllerDebet;
+      #}
+    ENDSOURCE
+    SOURCE #init
+      #public void init()
+      #{
+      #    this.setLookupRecordFromArgs();
+      #
+      #    super();
+      #
+      #    m_vSplitter = new SysFormSplitter_X(vSplitter, gridContainer, element);
+      #
+      #    ledgerDimensionAccountControllerProd = LedgerDimensionDefaultAccountController::construct(
+      #        inventItemGroupFormProd_ds,
+      #        fieldStr(InventItemGroupForm, LedgerDimension));
+      #    ledgerDimensionAccountControllerSales = LedgerDimensionDefaultAccountController::construct(
+      #        inventItemGroupFormSales_ds,
+      #        fieldStr(InventItemGroupForm, LedgerDimension));
+      #    ledgerDimensionAccountControllerInvent = LedgerDimensionDefaultAccountController::construct(
+      #        inventItemGroupFormInvent_ds,
+      #        fieldStr(InventItemGroupForm, LedgerDimension));
+      #    ledgerDimensionAccountControllerPurch = LedgerDimensionDefaultAccountController::construct(
+      #        inventItemGroupFormPurch_ds,
+      #        fieldStr(InventItemGroupForm, LedgerDimension));
+      #    // <GIN>
+      #    if (AssetParameters::isDepreciationCompaniesActEnable_IN())
+      #    {
+      #        inventItemGroup_ds.object(fieldnum(InventItemGroup, AssetGroup_IN)).visible(true);
+      #    }
+      #    // </GIN>
+      #
+      #    ledgerDimensionAccountControllerDebet = LedgerDimensionDefaultAccountController::construct(
+      #        inventItemGroup_ds, fieldStr(InventItemGroup, SCC_LedgerDimensionDebet));
+      #}
+    ENDSOURCE
+    SOURCE #jumpRefPosting
+      #public void jumpRefPosting(InventAccountType inventAccountType)
+      #{
+      #    Args                            args;
+      #    FormRun                         formRun;
+      #    LedgerDimensionDefaultAccount   ledgerAccount   = InventPosting::itemLedgerDimension(inventAccountType, '', inventItemGroup.ItemGroupId);
+      #
+      #    args = new Args(formStr(MainAccount));
+      #    if (ledgerAccount)
+      #    {
+      #        args.lookupField(fieldNum(MainAccount, MainAccountId));
+      #        args.lookupValue(DimensionStorage::getMainAccountFromLedgerDimension(ledgerAccount).MainAccountId);
+      #    }
+      #    args.caller(element);
+      #    formRun = classfactory.formRunClass(args);
+      #    formRun.init();
+      #    formRun.run();
+      #    formRun.detach();
+      #}
+    ENDSOURCE
+    SOURCE #setLookupRecordFromArgs
+      #protected void setLookupRecordFromArgs()
+      #{
+      #    InventItemGroupItem    inventItemGroupItem;
+      #
+      #    if (this.args().record() is InventItemGroupItem)
+      #    {
+      #        inventItemGroupItem = this.args().record() as InventItemGroupItem;
+      #
+      #        this.args().record(null);
+      #        this.args().lookupTable(tableNum(InventItemGroup));
+      #        this.args().lookupField(fieldNum(InventItemGroup, ItemGroupId));
+      #        this.args().lookupValue(inventItemGroupItem.ItemGroupId);
+      #    }
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventItemGroup
+          Table               #InventItemGroup
+          Index               #ItemGroupIdx
+        ENDPROPERTIES
+        
+        FIELDLIST
+          DATAFIELD AssetGroup_IN
+            PROPERTIES
+              Visible             #No
+            ENDPROPERTIES
+            
+            METHODS
+            ENDMETHODS
+          ENDDATAFIELD
+          
+          REFERENCEFIELD SCC_ledgerDimensionDebet
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #resolveReference
+                #public Common resolveReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    return ledgerDimensionAccountControllerDebet.resolveReference();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #init
+          #public void init()
+          #{
+          #    super();
+          #    this.queryBuildDataSource().clearDynalinks();
+          #}
+        ENDSOURCE
+        SOURCE #selectionChanged
+          #public void selectionChanged()
+          #{
+          #    super();
+          #
+          #    // Sync corresponding records in table InventItemGroupForm
+          #    if (inventItemGroup.ItemGroupId)
+          #    {
+          #        InventItemGroupForm::syncDataForItemGroupId(inventItemGroup.ItemGroupId);
+          #    }
+          #
+          #    inventItemGroupFormSales_ds.executeQuery();
+          #    inventItemGroupFormInvent_ds.executeQuery();
+          #    inventItemGroupFormPurch_ds.executeQuery();
+          #    inventItemGroupFormProd_ds.executeQuery();
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventItemGroupFormProd
+          Table               #InventItemGroupForm
+          AllowCreate         #No
+          AllowDelete         #No
+          InsertIfEmpty       #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          REFERENCEFIELD LedgerDimension
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #resolveReference
+                #public Common resolveReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    return ledgerDimensionAccountControllerProd.resolveReference();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #executeQuery
+          #public void executeQuery()
+          #{
+          #    QueryBuildRange qbr;
+          #
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, LedgerDimensionGroup));
+          #    qbr.value(queryValue(ItemGroupLedgerDimensionGroup::Production));
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, ItemGroupId));
+          #    qbr.value(queryValue(inventItemGroup.ItemGroupId));
+          #
+          #    super();
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventItemGroupFormSales
+          Table               #InventItemGroupForm
+          AllowCreate         #No
+          AllowDelete         #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          REFERENCEFIELD LedgerDimension
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #resolveReference
+                #public Common resolveReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    return ledgerDimensionAccountControllerSales.resolveReference();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #executeQuery
+          #public void executeQuery()
+          #{
+          #    QueryBuildRange qbr;
+          #
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, LedgerDimensionGroup));
+          #    qbr.value(queryValue(ItemGroupLedgerDimensionGroup::Sales));
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, ItemGroupId));
+          #    qbr.value(queryValue(inventItemGroup.ItemGroupId));
+          #
+          #    super();
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventItemGroupFormInvent
+          Table               #InventItemGroupForm
+          AllowCreate         #No
+          AllowDelete         #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          REFERENCEFIELD LedgerDimension
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #resolveReference
+                #public Common resolveReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    return ledgerDimensionAccountControllerInvent.resolveReference();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #executeQuery
+          #public void executeQuery()
+          #{
+          #    QueryBuildRange qbr;
+          #
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, LedgerDimensionGroup));
+          #    qbr.value(queryValue(ItemGroupLedgerDimensionGroup::Inventory));
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, ItemGroupId));
+          #    qbr.value(queryValue(inventItemGroup.ItemGroupId));
+          #
+          #    super();
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventItemGroupFormPurch
+          Table               #InventItemGroupForm
+          AllowCreate         #No
+          AllowDelete         #No
+        ENDPROPERTIES
+        
+        FIELDLIST
+          REFERENCEFIELD LedgerDimension
+            PROPERTIES
+            ENDPROPERTIES
+            
+            METHODS
+              SOURCE #resolveReference
+                #public Common resolveReference(FormReferenceControl _formReferenceControl)
+                #{
+                #    return ledgerDimensionAccountControllerPurch.resolveReference();
+                #}
+              ENDSOURCE
+            ENDMETHODS
+          ENDREFERENCEFIELD
+          
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+        SOURCE #executeQuery
+          #public void executeQuery()
+          #{
+          #    QueryBuildRange qbr;
+          #
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, LedgerDimensionGroup));
+          #    qbr.value(queryValue(ItemGroupLedgerDimensionGroup::Purchase));
+          #    qbr = SysQuery::findOrCreateRange(
+          #            this.query().dataSourceNo(1),
+          #            fieldNum(InventItemGroupForm, ItemGroupId));
+          #    qbr.value(queryValue(inventItemGroup.ItemGroupId));
+          #
+          #    super();
+          #}
+        ENDSOURCE
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      Caption             #@SYS3970
+      DataSource          #InventItemGroup
+      HideIfEmpty         #No
+      Style               #SimpleListDetails
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane
+          ElementPosition     #715827882
+          Style               #Strip
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab
+          Width               #Column width
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup
+          ElementPosition     #1073741823
+          HierarchyParent     #ActionPaneTab
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #NewDeleteGroup
+          ElementPosition     #715827882
+          HierarchyParent     #ActionPaneTab
+          DataSource          #InventItemGroup
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          AutoDeclaration     #Yes
+          AllowEdit           #No
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          HierarchyParent     #GridContainer
+          MultiSelect         #No
+          ShowRowLabels       #No
+          DataSource          #InventItemGroup
+          GridLinesStyle      #Vertical
+          AlternateRowShading #No
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #InventLedgerDimensionGrid
+          AutoDeclaration     #Yes
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1073741823
+          HierarchyParent     #InventLedgerDimension
+          MultiSelect         #No
+          VisibleCols         #2
+          ShowRowLabels       #No
+          DataSource          #InventItemGroupFormInvent
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #ProdLedgerDimensionGrid
+          AutoDeclaration     #Yes
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1073741823
+          HierarchyParent     #ProdLedgerDimension
+          MultiSelect         #No
+          VisibleCols         #2
+          ShowRowLabels       #No
+          HighlightActive     #No
+          DataSource          #InventItemGroupFormProd
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #PurchLedgerDimensionGrid
+          AutoDeclaration     #Yes
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1073741823
+          HierarchyParent     #PurchLedgerDimension
+          MultiSelect         #No
+          VisibleCols         #2
+          ShowRowLabels       #No
+          DataSource          #InventItemGroupFormPurch
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #SalesLedgerDimensionGrid
+          AutoDeclaration     #Yes
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1073741823
+          HierarchyParent     #SalesLedgerDimension
+          MultiSelect         #No
+          VisibleCols         #2
+          ShowRowLabels       #No
+          DataSource          #InventItemGroupFormSales
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Body
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1431655764
+          Style               #MarginlessContainer
+          Columns             #3
+          Columnspace         #0
+          ArrangeGuide        
+            ARRAY INDEX Columns 
+              #0
+              #0
+              #0
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #DetailsContainer
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1717986916
+          HierarchyParent     #Body
+          Style               #MarginlessContainer
+          TopMargin           #5
+          RightMargin         #5
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #DetailsHeader
+          ElementPosition     #1073741822
+          HierarchyParent     #DetailsContainer
+          FrameType           #None
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Forecast
+          ElementPosition     #1073741823
+          HierarchyParent     #Setup
+          DataSource          #InventItemGroup
+          DataGroup           #Forecast
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GridContainer
+          AutoDeclaration     #Yes
+          Width               #300
+          Height              #Column height
+          ElementPosition     #858993458
+          HierarchyParent     #Body
+          Style               #BorderlessGridContainer
+          RightMargin         #0
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #GroupItemArrivalQuarantine
+          ElementPosition     #1610612734
+          HierarchyParent     #InventLedgerDimension
+          FrameType           #Bold caption
+          Caption             #Item Arrival Quarantine
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Payment
+          ElementPosition     #2013265918
+          DataSource          #InventItemGroup
+          DataGroup           #Payment
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #PurchaseTax
+          ElementPosition     #1610612734
+          HierarchyParent     #Setup
+          DataSource          #InventItemGroup
+          DataGroup           #PurchaseTax
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #SalesTax
+          ElementPosition     #1879048190
+          HierarchyParent     #Setup
+          DataSource          #InventItemGroup
+          DataGroup           #SalesTax
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #VSplitter
+          AutoDeclaration     #Yes
+          ElementPosition     #1288490187
+          HierarchyParent     #Body
+          Style               #SplitterVerticalContainer
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUBUTTON
+        PROPERTIES
+          Name                #Forecasting
+          HelpText            #@SYS69655
+          ElementPosition     #1610612734
+          HierarchyParent     #ButtonGroup
+          Text                #@SYS26551
+          SaveRecord          #No
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TAB
+        PROPERTIES
+          Name                #Tab
+          Width               #Column width
+          Height              #Column height
+          ElementPosition     #1610612733
+          HierarchyParent     #DetailsContainer
+          Tabs                #10
+          Style               #FastTabs
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #InventLedgerDimension
+          ElementPosition     #1879048190
+          HierarchyParent     #Tab
+          BackgroundColor     #Window background
+          Caption             #@SYS981
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #ProdLedgerDimension
+          ElementPosition     #2013265918
+          HierarchyParent     #Tab
+          BackgroundColor     #Window background
+          Caption             #@SYS4398
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #PurchLedgerDimension
+          ElementPosition     #1610612734
+          HierarchyParent     #Tab
+          BackgroundColor     #Window background
+          Caption             #@SYS15812
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #SalesLedgerDimension
+          ElementPosition     #1073741823
+          HierarchyParent     #Tab
+          BackgroundColor     #Window background
+          Caption             #@SYS9694
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL TABPAGE
+        PROPERTIES
+          Name                #Setup
+          ElementPosition     #2080374782
+          HierarchyParent     #Tab
+          BackgroundColor     #Window background
+          Caption             #@SYS2186
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL CHECKBOX
+        PROPERTIES
+          Name                #DetailsHeader_InventItemGroup_AssetGroup_IN
+          ElementPosition     #1717986916
+          HierarchyParent     #DetailsHeader
+          DataSource          #InventItemGroup
+          DataField           #AssetGroup_IN
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL CHECKBOX
+        PROPERTIES
+          Name                #InventItemGroup_AssetGroup_IN
+          ElementPosition     #715827882
+          HierarchyParent     #Grid
+          BackgroundColor     #Window background
+          DataSource          #InventItemGroup
+          DataField           #AssetGroup_IN
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #DeleteButton
+          ElementPosition     #1610612733
+          HierarchyParent     #NewDeleteGroup
+          Text                #@sys14425
+          ButtonDisplay       #Text & Image left
+          NormalImage         #10121
+          ImageLocation       #EmbeddedResource
+          SaveRecord          #No
+          Primary             #Yes
+          Command             #2832
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #NewButton
+          ElementPosition     #1073741822
+          HierarchyParent     #NewDeleteGroup
+          ButtonDisplay       #Text & Image left
+          NormalImage         #11045
+          ImageLocation       #EmbeddedResource
+          Primary             #Yes
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventForecasting
+          AllowEdit           #No
+          ElementPosition     #1879048190
+          HierarchyParent     #Forecasting
+          SaveRecord          #No
+          MenuItemName        #ForecastInvent
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #InventPosting
+          ElementPosition     #1073741823
+          HierarchyParent     #ButtonGroup
+          SaveRecord          #No
+          MenuItemName        #InventPosting
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #PurchForecasting
+          AllowEdit           #No
+          ElementPosition     #1073741823
+          HierarchyParent     #Forecasting
+          SaveRecord          #No
+          MenuItemName        #ForecastSales
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL MENUITEMBUTTON
+        PROPERTIES
+          Name                #SalesForecasting
+          AllowEdit           #No
+          ElementPosition     #1610612734
+          HierarchyParent     #Forecasting
+          SaveRecord          #No
+          MenuItemName        #ForecastPurch
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEGMENTEDENTRY
+        PROPERTIES
+          Name                #InventSegmentedEntry
+          ElementPosition     #1610612734
+          HierarchyParent     #InventLedgerDimensionGrid
+          DataSource          #InventItemGroupFormInvent
+          ReferenceField      #LedgerDimension
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #jumpRef
+            #public void jumpRef()
+            #{
+            #    ledgerDimensionAccountControllerInvent.jumpRef();
+            #}
+          ENDSOURCE
+          SOURCE #loadAutoCompleteData
+            #public void loadAutoCompleteData(LoadAutoCompleteDataEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerInvent.loadAutoCompleteData(_e);
+            #}
+          ENDSOURCE
+          SOURCE #loadSegments
+            #public void loadSegments()
+            #{
+            #    super();
+            #    ledgerDimensionAccountControllerInvent.parmControl(this);
+            #    ledgerDimensionAccountControllerInvent.loadSegments();
+            #}
+          ENDSOURCE
+          SOURCE #segmentValueChanged
+            #public void segmentValueChanged(SegmentValueChangedEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerInvent.segmentValueChanged(_e);
+            #}
+          ENDSOURCE
+          SOURCE #validate
+            #public boolean validate()
+            #{
+            #    boolean isValid;
+            #
+            #    isValid = super();
+            #    isValid = ledgerDimensionAccountControllerInvent.validate() && isValid;
+            #
+            #    return isValid;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEGMENTEDENTRY
+        PROPERTIES
+          Name                #ProdSegmentedEntry
+          ElementPosition     #1610612734
+          HierarchyParent     #ProdLedgerDimensionGrid
+          DataSource          #InventItemGroupFormProd
+          ReferenceField      #LedgerDimension
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #jumpRef
+            #public void jumpRef()
+            #{
+            #    ledgerDimensionAccountControllerProd.jumpRef();
+            #}
+          ENDSOURCE
+          SOURCE #loadAutoCompleteData
+            #public void loadAutoCompleteData(LoadAutoCompleteDataEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerProd.loadAutoCompleteData(_e);
+            #}
+          ENDSOURCE
+          SOURCE #loadSegments
+            #public void loadSegments()
+            #{
+            #    super();
+            #    ledgerDimensionAccountControllerProd.parmControl(this);
+            #    ledgerDimensionAccountControllerProd.loadSegments();
+            #}
+          ENDSOURCE
+          SOURCE #segmentValueChanged
+            #public void segmentValueChanged(SegmentValueChangedEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerProd.segmentValueChanged(_e);
+            #}
+          ENDSOURCE
+          SOURCE #validate
+            #public boolean validate()
+            #{
+            #    boolean isValid;
+            #
+            #    isValid = super();
+            #    isValid = ledgerDimensionAccountControllerProd.validate() && isValid;
+            #
+            #    return isValid;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEGMENTEDENTRY
+        PROPERTIES
+          Name                #PurchSegmentedEntry
+          ElementPosition     #1610612734
+          HierarchyParent     #PurchLedgerDimensionGrid
+          DataSource          #InventItemGroupFormPurch
+          ReferenceField      #LedgerDimension
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #jumpRef
+            #public void jumpRef()
+            #{
+            #    ledgerDimensionAccountControllerPurch.jumpRef();
+            #}
+          ENDSOURCE
+          SOURCE #loadAutoCompleteData
+            #public void loadAutoCompleteData(LoadAutoCompleteDataEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerPurch.loadAutoCompleteData(_e);
+            #}
+          ENDSOURCE
+          SOURCE #loadSegments
+            #public void loadSegments()
+            #{
+            #    super();
+            #    ledgerDimensionAccountControllerPurch.parmControl(this);
+            #    ledgerDimensionAccountControllerPurch.loadSegments();
+            #}
+          ENDSOURCE
+          SOURCE #segmentValueChanged
+            #public void segmentValueChanged(SegmentValueChangedEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerPurch.segmentValueChanged(_e);
+            #}
+          ENDSOURCE
+          SOURCE #validate
+            #public boolean validate()
+            #{
+            #    boolean isValid;
+            #
+            #    isValid = super();
+            #    isValid = ledgerDimensionAccountControllerPurch.validate() && isValid;
+            #
+            #    return isValid;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEGMENTEDENTRY
+        PROPERTIES
+          Name                #SalesSegmentedEntry
+          ElementPosition     #1610612734
+          HierarchyParent     #SalesLedgerDimensionGrid
+          DataSource          #InventItemGroupFormSales
+          ReferenceField      #LedgerDimension
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #jumpRef
+            #public void jumpRef()
+            #{
+            #    ledgerDimensionAccountControllerSales.jumpRef();
+            #}
+          ENDSOURCE
+          SOURCE #loadAutoCompleteData
+            #public void loadAutoCompleteData(LoadAutoCompleteDataEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerSales.loadAutoCompleteData(_e);
+            #}
+          ENDSOURCE
+          SOURCE #loadSegments
+            #public void loadSegments()
+            #{
+            #    super();
+            #    ledgerDimensionAccountControllerSales.parmControl(this);
+            #    ledgerDimensionAccountControllerSales.loadSegments();
+            #}
+          ENDSOURCE
+          SOURCE #segmentValueChanged
+            #public void segmentValueChanged(SegmentValueChangedEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerSales.segmentValueChanged(_e);
+            #}
+          ENDSOURCE
+          SOURCE #validate
+            #public boolean validate()
+            #{
+            #    boolean isValid;
+            #
+            #    isValid = super();
+            #    isValid = ledgerDimensionAccountControllerSales.validate() && isValid;
+            #
+            #    return isValid;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL SEGMENTEDENTRY
+        PROPERTIES
+          Name                #SegmentedEntryItemArrival
+          ElementPosition     #1431655764
+          HierarchyParent     #GroupItemArrivalQuarantine
+          DataSource          #InventItemGroup
+          ReferenceField      #SCC_ledgerDimensionDebet
+        ENDPROPERTIES
+        
+        METHODS
+          SOURCE #jumpRef
+            #public void jumpRef()
+            #{
+            #    ledgerDimensionAccountControllerDebet.jumpRef();
+            #    super();
+            #}
+          ENDSOURCE
+          SOURCE #loadAutoCompleteData
+            #public void loadAutoCompleteData(LoadAutoCompleteDataEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerDebet.loadAutoCompleteData(_e);
+            #}
+          ENDSOURCE
+          SOURCE #loadSegments
+            #public void loadSegments()
+            #{
+            #    super();
+            #    ledgerDimensionAccountControllerDebet.parmControl(this);
+            #    ledgerDimensionAccountControllerDebet.loadSegments();
+            #}
+          ENDSOURCE
+          SOURCE #segmentValueChanged
+            #public void segmentValueChanged(SegmentValueChangedEventArgs _e)
+            #{
+            #    super(_e);
+            #    ledgerDimensionAccountControllerDebet.segmentValueChanged(_e);
+            #}
+          ENDSOURCE
+          SOURCE #validate
+            #public boolean validate()
+            #{
+            #    //SCC_InventItemGroupArrivalVoucher   _inventItemGroupArrivalVoucher;
+            #
+            #    boolean ret;
+            #
+            #    ret = super();
+            #    ret = ledgerDimensionAccountControllerDebet.validate() && ret;
+            #
+            #    /*
+            #    if (ret)
+            #    {
+            #        ttsBegin;
+            #
+            #        select RecId from _inventItemGroupArrivalVoucher
+            #        where _inventItemGroupArrivalVoucher.ItemGroupId == InventItemGroup_ItemGroup.valueStr();
+            #
+            #        if(_inventItemGroupArrivalVoucher.RecId)
+            #        {
+            #            update_recordSet _inventItemGroupArrivalVoucher
+            #            setting SCC_LedgerDimensionDebet = str2int64(this.getSegment(1).value());
+            #        }
+            #        else
+            #        {
+            #            _inventItemGroupArrivalVoucher.ItemGroupId = InventItemGroup_ItemGroup.valueStr();
+            #            _inventItemGroupArrivalVoucher.SCC_LedgerDimensionDebet = str2int64(this.getSegment(1).value());
+            #
+            #            _inventItemGroupArrivalVoucher.insert();
+            #        }
+            #
+            #        ttsCommit;
+            #    }
+            #    */
+            #
+            #    return ret;
+            #}
+          ENDSOURCE
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventItemGroup_GroupName
+          ElementPosition     #1288490187
+          HierarchyParent     #DetailsHeader
+          DataSource          #InventItemGroup
+          DataField           #Name
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventItemGroup_ItemGroup
+          ElementPosition     #858993458
+          HierarchyParent     #DetailsHeader
+          DataSource          #InventItemGroup
+          DataField           #ItemGroupId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventLedgerDimensionDescription
+          ElementPosition     #1073741823
+          HierarchyParent     #InventLedgerDimensionGrid
+          DataSource          #InventItemGroupFormInvent
+          DataMethod          #ledgerDimensionDescription
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #ProdLedgerDimensionDescription
+          ElementPosition     #1073741823
+          HierarchyParent     #ProdLedgerDimensionGrid
+          DataSource          #InventItemGroupFormProd
+          DataMethod          #ledgerDimensionDescription
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #PurchLedgerDimensionDescription
+          ElementPosition     #1073741823
+          HierarchyParent     #PurchLedgerDimensionGrid
+          DataSource          #InventItemGroupFormPurch
+          DataMethod          #ledgerDimensionDescription
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #ReadOnly_GroupName
+          ElementPosition     #1610612733
+          HierarchyParent     #Grid
+          DataSource          #InventItemGroup
+          DataField           #Name
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #ReadOnly_ItemGroup
+          ElementPosition     #1073741822
+          HierarchyParent     #Grid
+          DataSource          #InventItemGroup
+          DataField           #ItemGroupId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #SalesLedgerDimensionDescription
+          ElementPosition     #1073741823
+          HierarchyParent     #SalesLedgerDimensionGrid
+          DataSource          #InventItemGroupFormSales
+          DataMethod          #ledgerDimensionDescription
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+      ENDFORM
+      
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: FRM
+
+; Microsoft Dynamics AX Forms unloaded
+; --------------------------------------------------------------------------------
+FRMVERSION 12
+
+FORM #WCS_InventJournalMapping
+  PROPERTIES
+    Name                #WCS_InventJournalMapping
+    Origin              #{D46B101C-DFD3-4938-B7EE-1887D80D489B}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class FormRun extends ObjectRun
+      #{
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  OBJECTBANK
+    PROPERTIES
+    ENDPROPERTIES
+    
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventJournalName
+          Table               #InventJournalName
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #InventItemGroup
+          Table               #InventItemGroup
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+    DATASOURCE
+      OBJECTPOOL
+        PROPERTIES
+          Name                #WCS_ItemMappingJournal
+          Table               #WCS_ItemMappingJournal
+        ENDPROPERTIES
+        
+        FIELDLIST
+        ENDFIELDLIST
+      ENDOBJECTPOOL
+      METHODS
+      ENDMETHODS
+    ENDDATASOURCE
+  ENDOBJECTBANK
+  
+  REFERENCEDATASOURCES
+  ENDREFERENCEDATASOURCES
+  
+  JOINS
+  ENDJOINS
+  
+  PARTREFERENCES
+  ENDPARTREFERENCES
+  
+  DESIGN
+    PROPERTIES
+      Style               #SimpleListDetails
+    ENDPROPERTIES
+    
+    CONTAINER
+      CONTROL ACTIONPANE
+        PROPERTIES
+          Name                #ActionPane
+          ElementPosition     #715827882
+          Style               #Strip
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL ACTIONPANETAB
+        PROPERTIES
+          Name                #ActionPaneTab
+          Width               #Column width
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPane
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL BUTTONGROUP
+        PROPERTIES
+          Name                #ButtonGroup
+          ElementPosition     #1431655764
+          HierarchyParent     #ActionPaneTab
+          DataSource          #WCS_ItemMappingJournal
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GRID
+        PROPERTIES
+          Name                #Grid
+          ElementPosition     #1789569705
+          HierarchyParent     #Group
+          DataSource          #InventJournalName
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL GROUP
+        PROPERTIES
+          Name                #Group
+          ElementPosition     #1431655764
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL COMMANDBUTTON
+        PROPERTIES
+          Name                #CommandButton
+          ElementPosition     #1431655764
+          HierarchyParent     #ButtonGroup
+          Command             #260
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventItemGroup_ItemGroupId
+          ElementPosition     #1073741822
+          HierarchyParent     #Grid
+          DataSource          #InventItemGroup
+          DataField           #ItemGroupId
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #InventItemGroup_Name
+          ElementPosition     #1610612733
+          HierarchyParent     #Grid
+          DataSource          #InventItemGroup
+          DataField           #Name
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_IdDescription
+          ElementPosition     #1073741823
+          HierarchyParent     #Group
+          Text                #no spasi, please..
+          Label               #Description
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_IdJournalMapping
+          ElementPosition     #715827882
+          HierarchyParent     #Group
+          Text                #no spasi, please..
+          Label               #Id
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+      CONTROL STRINGEDIT
+        PROPERTIES
+          Name                #WCS_InventJournalName
+          ElementPosition     #1431655764
+          HierarchyParent     #Group
+          Text                #Journal name
+          ExtendedDataType    
+            ARRAY 
+              #InventJournalNameId
+              #
+            ENDARRAY
+        ENDPROPERTIES
+        
+        METHODS
+        ENDMETHODS
+      ENDCONTROL 
+      
+    ENDCONTAINER
+    
+  ENDDESIGN
+  
+  PERMISSIONS #Permissions
+    PROPERTIES
+    ENDPROPERTIES
+    
+    PERMISSIONSET #Read
+      PROPERTIES
+      ENDPROPERTIES
+      
+      FORM #Controls
+      ENDFORM
+      
+    TABLES #Tables
+    ENDTABLES
+    
+  SERVERMETHODS #Server Methods
+  ENDSERVERMETHODS
+  
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Update
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Create
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+PERMISSIONSET #Delete
+  PROPERTIES
+  ENDPROPERTIES
+  
+  FORM #Controls
+  ENDFORM
+  
+TABLES #Tables
+ENDTABLES
+
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+ASSOCIATEDFORMS #Associated Forms
+ENDASSOCIATEDFORMS
+
+ENDPERMISSIONSET
+
+ENDPERMISSIONS
+
+ENDFORM
+
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : WCS_ItemMappingJournal unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #WCS_ItemMappingJournal
+  PRIVATE
+  PROPERTIES
+    Name                #WCS_ItemMappingJournal
+    Origin              #{9E13DC43-D3DA-471F-AEFC-0A87B9CDB489}
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    GROUP #ExtendedDataTypes
+      PROPERTIES
+        Name                #ExtendedDataTypes
+        ProjectGroupType    #ExtendedDataTypes
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 41
+        UTILOBJECTID 102475
+        NODETYPE 234
+        NAME #WCS_MapTableId
+      ENDNODE
+      ENDGROUP
+      
+    GROUP #Tables
+      PROPERTIES
+        Name                #Tables
+        ProjectGroupType    #Tables
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 44
+        UTILOBJECTID 102263
+        NODETYPE 204
+        NAME #WCS_ItemBudgetGroup
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 44
+        UTILOBJECTID 102264
+        NODETYPE 204
+        NAME #WCS_ItemBudgetHeader
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 44
+        UTILOBJECTID 102300
+        NODETYPE 204
+        NAME #WCS_ItemMappingJournalLine
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 44
+        UTILOBJECTID 102298
+        NODETYPE 204
+        NAME #WCS_ItemMappingJournal
+      ENDNODE
+      ENDGROUP
+      
+    GROUP #Forms
+      PROPERTIES
+        Name                #Forms
+        ProjectGroupType    #Forms
+        GroupMask           #
+        PreventEditProperties #No
+      ENDPROPERTIES
+      
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #WCS_ItemBudgetGroupMapping
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #WCS_ItemBudgetGroup
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #WCS_InventJournalMapping03
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #WCS_InventJournalMapping02
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #InventItemGroup
+      ENDNODE
+      BEGINNODE
+        FILETYPE 0
+        UTILTYPE 11
+        UTILOBJECTID 0
+        NODETYPE 201
+        NAME #WCS_InventJournalMapping
+      ENDNODE
+      ENDGROUP
+      
+  ENDPROJECT
+  
+
+***Element: END
